@@ -1,3 +1,3 @@
 # Dockerfiles
 
-A small collection of dockerfiles.
+A small collection of Dockerfiles.
