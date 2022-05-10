@@ -4,13 +4,12 @@ FROM gentoo/stage3:latest as gentoo-ebuild-ci
 LABEL maintainer="APN-Pucky"
 COPY --from=portage /var/db/repos/gentoo /var/db/repos/gentoo
 RUN emerge -qv dev-vcs/git app-portage/repoman dev-util/pkgdev && rm -rf /var/cache/distfiles/*
-RUN mkdir -p /etc/portage/repos.conf/
+RUN mkdir -p /etc/portage/repos.conf/ && cp /usr/share/portage/config/repos.conf /etc/portage/repos.conf/gentoo.conf
 
 # gentoo-dev
 FROM apnpucky/gentoo-ebuild-ci as gentoo-dev
 RUN emerge -qv sys-devel/gcc virtual/fortran dev-util/cmake && rm -rf /var/cache/distfiles/*
 RUN emerge -qv dev-libs/boost && rm -rf /var/cache/distfiles/*
-RUN mkdir -p /etc/portage/repos.conf/
 
 # gentoo-hep-forge
 FROM apnpucky/gentoo-dev as gentoo-hep-forge
