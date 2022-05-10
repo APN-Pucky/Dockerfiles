@@ -23,10 +23,6 @@ RUN for n in NNPDF40_nlo_as_01180 NNPDF40_lo_as_01180 PDF4LHC15_nlo_mc PDF4LHC21
 FROM apnpucky/docker-debian-lhapdf as lhapdf-looptools
 RUN apt-get update -y -qq && apt-get install -y -qq looptools libooptools-dev && apt-get clean
 
-FROM apnpucky/docker-debian-lhapdf as lhapdf-pip
-RUN apt-get update -y -qq && apt-get install -y -qq  libopenblas-dev liblapack-dev libffi-dev pandoc python3-venv python3-pip && apt-get clean
-RUN python3 -m  pip install --no-cache-dir --upgrade setuptools wheel pytest  pytest-cov sympy numpy scipy tqdm  ipython pandas build uncertainties matplotlib  sphinx-math-dollar jupyterlab numpydoc sphinx nbsphinx sphinx-rtd-theme ipywidgets jupyter_sphinx  sphinx-autoapi
-
 FROM apnpucky/docker-debian-cmake-boost-gfortran as looptools
 RUN apt-get update -y -qq && apt-get install -y -qq looptools && apt-get clean
 

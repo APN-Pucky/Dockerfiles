@@ -34,3 +34,4 @@ ENV LIBRARY_PATH=$LIBRARY_PATH:$LHAPDF/lib
 ENV LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$LHAPDF/lib
 ENV PYTHONPATH=$PYTHONPATH:$LHAPDF/lib/python3.9/site-packages/LHAPDF-$LHAPDF_VERSION-py3.9-linux-x86_64.egg/
 RUN for n in cteq6l1 CT14lo CT14nlo MSTW2008lo68cl MSTW2008nlo68cl NNPDF23_nlo_as_0119; do wget http://lhapdfsets.web.cern.ch/lhapdfsets/current/$n.tar.gz && tar xvfz "$n.tar.gz" --directory $LHAPDF/share/LHAPDF/ ; done
+RUN python -c "import lhapdf;print(lhapdf.__version__)"
