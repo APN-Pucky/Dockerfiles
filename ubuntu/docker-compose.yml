@@ -1,0 +1,45 @@
+version: '3.4'
+services:
+  base:
+    build:
+      context: .
+      target: base
+    image: apnpucky/ubuntu-base
+
+  dev:
+    build:
+      context: .
+      target: dev
+    image: apnpucky/ubuntu-dev
+
+  apt:
+    build:
+      context: .
+      target: apt
+    image: apnpucky/ubuntu-apt
+
+  i686-libxt:
+    build:
+      context: .
+      target: i686-libxt
+    image: apnpucky/ubuntu-i686-libxt
+
+  pip:
+    build:
+      context: .
+      target: pip
+    image: apnpucky/ubuntu-pip
+
+  pip-lhapdf-6.4.0:
+    build:
+      context: .
+      target: pip-lhapdf
+      args:
+        - LHAPDF_VERSION=6.4.0
+    image: "apnpucky/ubuntu-pip-lhapdf:6.4.0"
+
+  pip-lhapdf:
+    build:
+      context: .
+      target: pip-lhapdf
+    image: "apnpucky/ubuntu-pip-lhapdf"
