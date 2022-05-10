@@ -1,4 +1,4 @@
-name  = apnpucky/gentoo
+name  = apnpucky/gentoo-dev
 build:
 	docker build -t $(name) .
 push: build

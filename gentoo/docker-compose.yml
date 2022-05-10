@@ -1,0 +1,19 @@
+version: '3.4'
+services:
+  ebuild-ci:
+    build:
+      context: .
+      target: gentoo-ebuild-ci
+    image: apnpucky/gentoo-ebuild-ci
+
+  dev:
+    build:
+      context: .
+      target: gentoo-dev
+    image: apnpucky/gentoo-dev
+
+  hep-forge:
+    build:
+      context: .
+      target: gentoo-hep-forge
+    image: apnpucky/gentoo-hep-forge

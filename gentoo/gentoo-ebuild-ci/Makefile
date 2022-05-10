@@ -1,4 +1,4 @@
-name  = apnpucky/gentoo-hep-forge
+name  = apnpucky/gentoo-ebuild-ci
 build:
 	docker build -t $(name) .
 push: build
