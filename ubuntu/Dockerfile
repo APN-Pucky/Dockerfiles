@@ -22,7 +22,7 @@ RUN python3 -m pip install --no-cache-dir --upgrade nbconvert notebook sphinx-ma
 
 
 FROM apnpucky/ubuntu-dev as pip
-RUN apt-get update -y -qq && apt-get install -y -qq sudo git rsync pandoc curl python3 python3-pip python3-venv  && apt-get clean
+RUN apt-get update -y -qq && apt-get install -y -qq sudo git rsync pandoc curl python3 python3-pip python3-venv python3-tk && apt-get clean
 RUN python3 -m  pip install --no-cache-dir --upgrade setuptools wheel pytest  pytest-cov sympy  scipy numpy tqdm  ipython  uncertainties  pandas build matplotlib sphinx-math-dollar jupyterlab numpydoc sphinx nbsphinx sphinx-rtd-theme ipywidgets jupyter_sphinx sphinx-autoapi sphinxcontrib-napoleon
 
 FROM apnpucky/ubuntu-pip as pip-lhapdf
