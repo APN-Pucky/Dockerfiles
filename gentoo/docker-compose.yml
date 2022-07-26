@@ -1,19 +1,31 @@
 version: '3.4'
 services:
+  base:
+    build:
+      context: .
+      target: gentoo-base
+    image: apnpucky/gentoo-base:${TAG:-latest}
+
   ebuild-ci:
     build:
       context: .
       target: gentoo-ebuild-ci
-    image: apnpucky/gentoo-ebuild-ci
+    image: apnpucky/gentoo-ebuild-ci:${TAG:-latest}
 
   dev:
     build:
       context: .
       target: gentoo-dev
-    image: apnpucky/gentoo-dev
+    image: apnpucky/gentoo-dev:${TAG:-latest}
 
   hep-forge:
     build:
       context: .
       target: gentoo-hep-forge
-    image: apnpucky/gentoo-hep-forge
+    image: apnpucky/gentoo-hep-forge:${TAG:-latest}
+
+  #latex:
+  #  build:
+  #    context: .
+  #    target: gentoo-latex
+  #  image: apnpucky/gentoo-latex:${TAG:-latest}

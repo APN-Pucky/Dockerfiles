@@ -4,31 +4,31 @@ services:
     build:
       context: .
       target: base
-    image: apnpucky/ubuntu-base
+    image: apnpucky/ubuntu-base:${TAG:-latest}
 
   dev:
     build:
       context: .
       target: dev
-    image: apnpucky/ubuntu-dev
+    image: apnpucky/ubuntu-dev:${TAG:-latest}
 
   apt:
     build:
       context: .
       target: apt
-    image: apnpucky/ubuntu-apt
+    image: apnpucky/ubuntu-apt:${TAG:-latest}
 
   i686-libxt:
     build:
       context: .
       target: i686-libxt
-    image: apnpucky/ubuntu-i686-libxt
+    image: apnpucky/ubuntu-i686-libxt:${TAG:-latest}
 
   pip:
     build:
       context: .
       target: pip
-    image: apnpucky/ubuntu-pip
+    image: apnpucky/ubuntu-pip:${TAG:-latest}
 
   pip-lhapdf-6.4.0:
     build:
@@ -36,10 +36,10 @@ services:
       target: pip-lhapdf
       args:
         - LHAPDF_VERSION=6.4.0
-    image: "apnpucky/ubuntu-pip-lhapdf:6.4.0"
+    image: apnpucky/ubuntu-pip-lhapdf:6.4.0-${TAG:-latest}
 
   pip-lhapdf:
     build:
       context: .
       target: pip-lhapdf
-    image: "apnpucky/ubuntu-pip-lhapdf"
+    image: apnpucky/ubuntu-pip-lhapdf:${TAG:-latest}

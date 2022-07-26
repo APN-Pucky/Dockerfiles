@@ -1,40 +1,34 @@
 version: '3.4'
 services:
-  latexmk:
-    build:
-      context: .
-      target: latexmk
-    image: apnpucky/docker-debian-latexmk
-
   base:
     build:
       context: .
       target: base
-    image: apnpucky/debian-base
+    image: apnpucky/debian-base:${TAG:-latest}
 
   cmake-boost-gfortran:
     build:
       context: .
       target: cmake-boost-gfortran
-    image: apnpucky/docker-debian-cmake-boost-gfortran
+    image: apnpucky/docker-debian-cmake-boost-gfortran:${TAG:-latest}
 
   lhapdf:
     build:
       context: .
       target: lhapdf
-    image: apnpucky/docker-debian-lhapdf
+    image: apnpucky/docker-debian-lhapdf:${TAG:-latest}
 
   lhapdf-looptools:
     build:
       context: .
       target: lhapdf-looptools
-    image: apnpucky/docker-debian-lhapdf-looptools
+    image: apnpucky/docker-debian-lhapdf-looptools:${TAG:-latest}
 
   looptools:
     build:
       context: .
       target: looptools
-    image: apnpucky/docker-debian-looptools
+    image: apnpucky/docker-debian-looptools:${TAG:-latest}
 
   resummino-3.1.0:
     build:
@@ -42,7 +36,7 @@ services:
       target: resummino
       args:
         - RESUMMINO_VERSION=3.1.0
-    image: apnpucky/resummino:3.1.0
+    image: apnpucky/resummino:3.1.0-${TAG:-latest}
 
   resummino-3.1.1:
     build:
@@ -50,10 +44,16 @@ services:
       target: resummino
       args:
         - RESUMMINO_VERSION=3.1.1
-    image: apnpucky/resummino:3.1.1
+    image: apnpucky/resummino:3.1.1-${TAG:-latest}
 
   resummino:
     build:
       context: .
       target: resummino
-    image: "apnpucky/resummino"
+    image: apnpucky/resummino:${TAG:-latest}
+
+  latexmk:
+    build:
+      context: .
+      target: latexmk
+    image: apnpucky/docker-debian-latexmk:${TAG:-latest}
