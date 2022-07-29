@@ -1,0 +1,13 @@
+version: '3.4'
+services:
+  base:
+    build:
+      context: .
+      target: fdroidserver-base
+    image: apnpucky/fdroidserver-base:${TAG:-latest}
+
+  ndk25:
+    build:
+      context: .
+      target: fdroidserver-ndk25
+    image: apnpucky/fdroidserver-ndk25:${TAG:-latest}

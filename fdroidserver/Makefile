@@ -4,6 +4,6 @@ build:
 	docker-compose build
 	TAG=$(TAG) docker-compose build
 	docker-compose build
-push: build
-	TAG=$(TAG) docker-compose push
-	docker-compose push
+#push: build
+#	TAG=$(TAG) docker-compose push
+#	docker-compose push
