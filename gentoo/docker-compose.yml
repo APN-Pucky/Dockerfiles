@@ -24,8 +24,8 @@ services:
       target: gentoo-hep-forge
     image: apnpucky/gentoo-hep-forge:${TAG:-latest}
 
-  #latex:
-  #  build:
-  #    context: .
-  #    target: gentoo-latex
-  #  image: apnpucky/gentoo-latex:${TAG:-latest}
+  latex:
+    build:
+      context: .
+      target: gentoo-latex
+    image: apnpucky/gentoo-latex:${TAG:-latest}

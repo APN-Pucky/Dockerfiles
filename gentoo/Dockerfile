@@ -40,7 +40,6 @@ RUN mkdir /var/db/repos/hep-forge && printf "[hep-forge]\nlocation = /var/db/rep
 # gentoo-latex
 FROM apnpucky/gentoo-base as gentoo-latex
 LABEL maintainer="APN-Pucky"
-COPY --from=portage /var/db/repos/gentoo /var/db/repos/gentoo
-RUN echo '>=media-libs/harfbuzz-4.3.0 icu' > /etc/portage/package.use/harfbuzz
+RUN echo '>=media-libs/harfbuzz-4.3.0 icu -introspection' > /etc/portage/package.use/harfbuzz
 RUN emerge -q latexmk biber app-text/texlive dev-texlive/texlive-latex dev-python/pygments && rm -rf /var/cache/distfiles/*
 
