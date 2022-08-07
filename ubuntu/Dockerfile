@@ -10,7 +10,7 @@ ENV TZ=Europe/Berlin
 RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 
 FROM apnpucky/ubuntu-base as dev
-RUN apt-get update -y -qq && apt-get install -y -qq libboost-all-dev libgsl-dev lcov wget build-essential sudo git rsync pandoc curl python3 python3-pip python3-venv cmake python3-tk && apt-get clean
+RUN apt-get update -y -qq && apt-get install -y -qq libboost-all-dev libgsl-dev lcov wget build-essential sudo git rsync pandoc curl python3 python3-pip python3-venv cmake python3-tk graphviz && apt-get clean
 RUN update-alternatives --install /usr/bin/python python /usr/bin/python3 1
 
 FROM apnpucky/ubuntu-base as apt
@@ -18,7 +18,7 @@ RUN apt-get update -y -qq && apt-get install -y -qq python3-tqdm  python3-uncert
 RUN python3 -m pip install --no-cache-dir --upgrade nbconvert notebook sphinx-math-dollar numpydoc sphinx nbsphinx sphinx-rtd-theme matplotlib pandas build
 
 FROM apnpucky/ubuntu-dev as pip
-RUN python3 -m  pip install --no-cache-dir --upgrade setuptools wheel pytest  pytest-cov sympy  scipy numpy tqdm  ipython  uncertainties  pandas build matplotlib sphinx-math-dollar jupyterlab numpydoc sphinx nbsphinx sphinx-rtd-theme ipywidgets jupyter_sphinx sphinx-autoapi sphinxcontrib-napoleon
+RUN python3 -m  pip install --no-cache-dir --upgrade setuptools wheel pytest pytest-cov pytest-profiling sympy  scipy numpy tqdm  ipython  uncertainties  pandas build matplotlib sphinx-math-dollar jupyterlab numpydoc sphinx nbsphinx sphinx-rtd-theme ipywidgets jupyter_sphinx sphinx-autoapi sphinxcontrib-napoleon
 
 FROM apnpucky/ubuntu-pip as pip-lhapdf
 ARG LHAPDF_VERSION=6.4.0
