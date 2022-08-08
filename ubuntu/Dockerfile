@@ -4,7 +4,7 @@ ENV TZ=Europe/Berlin
 RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 RUN apt-get update -y -qq && apt-get install -y -qq libXt-dev  libXext-dev && apt-get clean
 
-FROM ubuntu:20.04 as base
+FROM ubuntu:20.10 as base
 LABEL maintainer="APN-Pucky"
 ENV TZ=Europe/Berlin
 RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
