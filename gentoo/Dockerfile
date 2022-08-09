@@ -13,8 +13,9 @@ RUN mkdir -p /etc/portage/repos.conf/ && cp /usr/share/portage/config/repos.conf
 
 # gentoo-dev
 FROM apnpucky/gentoo-ebuild-ci as gentoo-dev
+ARG NICENESS=15
 RUN echo 'USE="-qt5 -X"' >> /etc/portage/make.conf
-RUN echo 'PORTAGE_NICENESS="20"' >> /etc/portage/make.conf 
+RUN echo "PORTAGE_NICENESS=\"${NICENESS}\"" >> /etc/portage/make.conf 
 RUN echo 'PYTHON_TARGETS="python3_8 python3_9 python3_10 python3_11"' >> /etc/portage/make.conf
 RUN emerge -q sys-devel/gcc sys-devel/llvm dev-util/ccache virtual/fortran dev-util/cmake dev-libs/boost app-portage/pkg-testing-tools dev-lang/perl dev-lang/python:3.8 dev-lang/python:3.9 dev-lang/python:3.10 && rm -rf /var/cache/distfiles/*
 # FROM here on unstable
