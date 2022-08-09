@@ -4,6 +4,7 @@ FROM gentoo/stage3:latest as gentoo-base
 LABEL maintainer="APN-Pucky"
 COPY --from=portage-base /var/db/repos/gentoo /var/db/repos/gentoo
 RUN mkdir -p /etc/portage/repos.conf/ && cp /usr/share/portage/config/repos.conf /etc/portage/repos.conf/gentoo.conf
+RUN emerge --sync
 
 # gentoo-ebuild-ci
 FROM apnpucky/gentoo-base as gentoo-ebuild-ci
@@ -12,9 +13,12 @@ RUN mkdir -p /etc/portage/repos.conf/ && cp /usr/share/portage/config/repos.conf
 
 # gentoo-dev
 FROM apnpucky/gentoo-ebuild-ci as gentoo-dev
+ARG NICENESS=15
 RUN echo 'USE="-qt5 -X"' >> /etc/portage/make.conf
+RUN echo "PORTAGE_NICENESS=\"${NICENESS}\"" >> /etc/portage/make.conf 
 RUN echo 'PYTHON_TARGETS="python3_8 python3_9 python3_10 python3_11"' >> /etc/portage/make.conf
-RUN emerge -q sys-devel/gcc sys-devel/llvm dev-util/ccache virtual/fortran dev-util/cmake dev-libs/boost app-portage/pkg-testing-tools dev-lang/python:3.8 dev-lang/python:3.9 dev-lang/python:3.10 && rm -rf /var/cache/distfiles/*
+RUN emerge -q sys-devel/gcc sys-devel/llvm dev-util/ccache virtual/fortran dev-util/cmake dev-libs/boost app-portage/pkg-testing-tools dev-lang/perl dev-lang/python:3.8 dev-lang/python:3.9 dev-lang/python:3.10 && rm -rf /var/cache/distfiles/*
+# FROM here on unstable
 RUN echo 'ACCEPT_KEYWORDS="~amd64"' >> /etc/portage/make.conf
 RUN emerge -q dev-lang/python:3.11 && rm -rf /var/cache/distfiles/*
 RUN emerge -q dev-lang/perl && rm -rf /var/cache/distfiles/*
