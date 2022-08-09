@@ -17,6 +17,7 @@ RUN echo 'PYTHON_TARGETS="python3_8 python3_9 python3_10 python3_11"' >> /etc/po
 RUN emerge -q sys-devel/gcc sys-devel/llvm dev-util/ccache virtual/fortran dev-util/cmake dev-libs/boost app-portage/pkg-testing-tools dev-lang/python:3.8 dev-lang/python:3.9 dev-lang/python:3.10 && rm -rf /var/cache/distfiles/*
 RUN echo 'ACCEPT_KEYWORDS="~amd64"' >> /etc/portage/make.conf
 RUN emerge -q dev-lang/python:3.11 && rm -rf /var/cache/distfiles/*
+RUN emerge -q dev-lang/perl && rm -rf /var/cache/distfiles/*
 ENV PKGDIR="/var/cache/binpkgs"
 ENV CCACHE_DIR="/var/cache/ccache"
 ENV CCACHE_SIZE="1G"
