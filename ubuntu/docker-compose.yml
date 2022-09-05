@@ -43,3 +43,9 @@ services:
       context: .
       target: pip-lhapdf
     image: apnpucky/ubuntu-pip-lhapdf:${TAG:-latest}
+
+  pip-lhapdf-looptools:
+    build:
+      context: .
+      target: pip-lhapdf-looptools
+    image: apnpucky/ubuntu-pip-lhapdf-looptools:${TAG:-latest}
