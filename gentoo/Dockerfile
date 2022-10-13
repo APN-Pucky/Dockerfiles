@@ -73,18 +73,19 @@ RUN USE="python" emerge -q =sci-physics/lhapdf-${LHAPDF_VERSION} sci-physics/loo
 
 
 # gentoo-lhapdf-looptools
-FROM apnpucky/gentoo-hep-forge as gentoo-rivet3-pythia8-hepmc3
+FROM apnpucky/gentoo-lhapdf-looptools as gentoo-rivet3-pythia8-hepmc3
 LABEL maintainer="APN-Pucky"
 ARG RIVET_VERSION=3.1.6-r1
 ARG PYTHIA_VERSION=8.3.07-r1
 ARG HEPMC_VERSION=3.2.5
+ARG LHAPDF_VERSION=6.3.0
 RUN emaint -r hep-forge sync
 #RUN echo 'sci-physics/lhapdf ~amd64' >> /etc/portage/package.accept_keywords/zz-autoaccept
 #RUN echo 'sci-physics/looptools ~amd64' >> /etc/portage/package.accept_keywords/zz-autoaccept
-RUN USE="hepmc3 -hepmc2" emerge -q =sci-physics/rivet-${RIVET_VERSION} =sci-physics/pythia-${PYTHIA_VERSION} =sci-physics/hepmc-${HEPMC_VERSION} && rm -rf /var/cache/distfiles/*
+RUN USE="hepmc3 -hepmc2 python" emerge -q =sci-physics/rivet-${RIVET_VERSION} =sci-physics/pythia-${PYTHIA_VERSION} =sci-physics/hepmc-${HEPMC_VERSION} && rm -rf /var/cache/distfiles/*
 
 # gentoo-lhapdf-looptools
-FROM apnpucky/gentoo-hep-forge as gentoo-rivet3-pythia8-hepmc2
+FROM apnpucky/gentoo-lhapdf-looptools as gentoo-rivet3-pythia8-hepmc2
 LABEL maintainer="APN-Pucky"
 ARG RIVET_VERSION=3.1.6-r1
 ARG PYTHIA_VERSION=8.3.07-r1
@@ -92,4 +93,4 @@ ARG HEPMC_VERSION=2.06.11
 RUN emaint -r hep-forge sync
 #RUN echo 'sci-physics/lhapdf ~amd64' >> /etc/portage/package.accept_keywords/zz-autoaccept
 #RUN echo 'sci-physics/looptools ~amd64' >> /etc/portage/package.accept_keywords/zz-autoaccept
-RUN USE="-hepmc3 hepmc2" emerge -q =sci-physics/rivet-${RIVET_VERSION} =sci-physics/pythia-${PYTHIA_VERSION} =sci-physics/hepmc-${HEPMC_VERSION} && rm -rf /var/cache/distfiles/*
+RUN USE="-hepmc3 hepmc2 python" emerge -q =sci-physics/rivet-${RIVET_VERSION} =sci-physics/pythia-${PYTHIA_VERSION} =sci-physics/hepmc-${HEPMC_VERSION} && rm -rf /var/cache/distfiles/*
