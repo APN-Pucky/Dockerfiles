@@ -2,19 +2,37 @@
 FROM gentoo/portage:latest as portage-base
 FROM gentoo/stage3:latest as gentoo-base
 LABEL maintainer="APN-Pucky"
+ARG NICENESS=15
 COPY --from=portage-base /var/db/repos/gentoo /var/db/repos/gentoo
 RUN mkdir -p /etc/portage/repos.conf/ && cp /usr/share/portage/config/repos.conf /etc/portage/repos.conf/gentoo.conf
+RUN echo "PORTAGE_NICENESS=\"${NICENESS}\"" >> /etc/portage/make.conf
+
+FROM apnpucky/gentoo-base as gentoo-repo
+RUN emerge -q eix dev-vcs/git && rm -rf /var/cache/distfiles/*
+RUN eix-update
+
+
+# gentoo-easybuild
+FROM apnpucky/gentoo-base as gentoo-easybuild
+RUN echo 'sys-cluster/lmod ~amd64' >> /etc/portage/package.accept_keywords/zz-autoaccept
+RUN emerge -q dev-python/pip && rm -rf /var/cache/distfiles/*
+#RUN emerge -q dev-python/cryptography && rm -rf /var/cache/distfiles/*
+RUN pip install easybuild --user
+RUN emerge -q lmod && rm -rf /var/cache/distfiles/*
+RUN ln -s /usr/share/Lmod/libexec/lmod /usr/bin/lmod
+ENV PATH="${PATH}:/root/.local/bin"
+RUN eb --allow-use-as-root-and-accept-consequences --prefix=/easybuild_prefix/ CGAL-5.2-gompi-2020b.eb --ignore-osdeps --robot --installpath=/easybuild_install/
 
 # gentoo-ebuild-ci
-FROM apnpucky/gentoo-base as gentoo-ebuild-ci
-RUN emerge -q dev-vcs/git dev-util/pkgdev && rm -rf /var/cache/distfiles/*
-RUN mkdir -p /etc/portage/repos.conf/ && cp /usr/share/portage/config/repos.conf /etc/portage/repos.conf/gentoo.conf
+FROM apnpucky/gentoo-repo as gentoo-ebuild-ci
+RUN emerge -q dev-util/pkgdev && rm -rf /var/cache/distfiles/*
+
+
 
 # gentoo-dev
 FROM apnpucky/gentoo-ebuild-ci as gentoo-dev
 ARG NICENESS=15
 RUN echo 'USE="-qt5 -X"' >> /etc/portage/make.conf
-RUN echo "PORTAGE_NICENESS=\"${NICENESS}\"" >> /etc/portage/make.conf 
 RUN echo 'PYTHON_TARGETS="python3_8 python3_9 python3_10 python3_11"' >> /etc/portage/make.conf
 RUN emerge -q sys-devel/gcc sys-devel/llvm dev-util/ccache virtual/fortran dev-util/cmake dev-libs/boost app-portage/pkg-testing-tools dev-lang/perl dev-lang/python:3.8 dev-lang/python:3.9 dev-lang/python:3.10 && rm -rf /var/cache/distfiles/*
 # Documentation
@@ -94,3 +112,4 @@ RUN emaint -r hep-forge sync
 #RUN echo 'sci-physics/lhapdf ~amd64' >> /etc/portage/package.accept_keywords/zz-autoaccept
 #RUN echo 'sci-physics/looptools ~amd64' >> /etc/portage/package.accept_keywords/zz-autoaccept
 RUN USE="-hepmc3 hepmc2 python lhapdf" emerge -q =sci-physics/rivet-${RIVET_VERSION} =sci-physics/pythia-${PYTHIA_VERSION} =sci-physics/hepmc-${HEPMC_VERSION} && rm -rf /var/cache/distfiles/*
+
