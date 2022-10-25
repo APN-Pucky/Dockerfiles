@@ -5,20 +5,6 @@ services:
   # CENTOS BUILDS                                        #
   ########################################################
 
-  #  centos-foss-2020a:
-  #    build:
-  #      context: .
-  #      target: centos-easybuild-foss-2020a
-  #    image: apnpucky/centos7-easybuild-foss-2020a:${TAG:-latest}
-  #
-  #  centos-foss-2020a-Boost-1.72.0:
-  #    build:
-  #      context: .
-  #      target: centos-easybuild-foss-2020a-x
-  #      args:
-  #        - EASYINSTALL=Boost-1.72.0-gompi-2020a.eb
-  #    image: apnpucky/centos7-easybuild-foss-2020a:Boost-1.72.0-${TAG:-latest}
-
   centos:
     build:
       context: .
@@ -30,7 +16,7 @@ services:
       context: .
       target: centos-easybuild
       args:
-        - EASYINSTALL1=GCC-8.2.0.eb
+        - EASYINSTALL1=GCCcore-8.2.0.eb
     image: apnpucky/centos7-easybuild:GCC-8.2.0-${TAG:-latest}
 
   centos-GCC-9.3.0:
@@ -38,7 +24,7 @@ services:
       context: .
       target: centos-easybuild
       args:
-        - EASYINSTALL1=GCC-9.3.0.eb
+        - EASYINSTALL1=GCCcore-9.3.0.eb
     image: apnpucky/centos7-easybuild:GCC-9.3.0-${TAG:-latest}
 
   centos-GCC-10.3.0:
@@ -46,7 +32,7 @@ services:
       context: .
       target: centos-easybuild
       args:
-        - EASYINSTALL1=GCC-10.3.0.eb
+        - EASYINSTALL1=GCCcore-10.3.0.eb
     image: apnpucky/centos7-easybuild:GCC-10.3.0-${TAG:-latest}
 
   centos-GCC-11.3.0:
@@ -54,7 +40,7 @@ services:
       context: .
       target: centos-easybuild
       args:
-        - EASYINSTALL1=GCC-11.3.0.eb
+        - EASYINSTALL1=GCCcore-11.3.0.eb
     image: apnpucky/centos7-easybuild:GCC-11.3.0-${TAG:-latest}
 
   centos-gompi-2019a:
@@ -62,7 +48,7 @@ services:
       context: .
       target: centos-easybuild
       args:
-        - EASYINSTALL1=GCC-8.2.0.eb
+        - EASYINSTALL1=GCCcore-8.2.0.eb
         - EASYINSTALL2=gompi-2019a.eb
     image: apnpucky/centos7-easybuild:gompi-2019a-${TAG:-latest}
 
@@ -71,7 +57,7 @@ services:
       context: .
       target: centos-easybuild
       args:
-        - EASYINSTALL1=GCC-9.3.0.eb
+        - EASYINSTALL1=GCCcore-9.3.0.eb
         - EASYINSTALL2=gompi-2020a.eb
     image: apnpucky/centos7-easybuild:gompi-2020a-${TAG:-latest}
 
@@ -80,7 +66,7 @@ services:
       context: .
       target: centos-easybuild
       args:
-        - EASYINSTALL1=GCC-10.3.0.eb
+        - EASYINSTALL1=GCCcore-10.3.0.eb
         - EASYINSTALL2=gompi-2021a.eb
     image: apnpucky/centos7-easybuild:gompi-2021a-${TAG:-latest}
 
@@ -89,7 +75,7 @@ services:
       context: .
       target: centos-easybuild
       args:
-        - EASYINSTALL1=GCC-11.3.0.eb
+        - EASYINSTALL1=GCCcore-11.3.0.eb
         - EASYINSTALL2=gompi-2022a.eb
     image: apnpucky/centos7-easybuild:gompi-2022a-${TAG:-latest}
 
@@ -98,7 +84,7 @@ services:
       context: .
       target: centos-easybuild
       args:
-        - EASYINSTALL1=GCC-8.2.0.eb
+        - EASYINSTALL1=GCCcore-8.2.0.eb
         - EASYINSTALL2=gompi-2019a.eb
         - EASYINSTALL3=foss-2019a.eb
     image: apnpucky/centos7-easybuild:foss-2019a-${TAG:-latest}
@@ -108,7 +94,7 @@ services:
       context: .
       target: centos-easybuild
       args:
-        - EASYINSTALL1=GCC-9.3.0.eb
+        - EASYINSTALL1=GCCcore-9.3.0.eb
         - EASYINSTALL2=gompi-2020a.eb
         - EASYINSTALL3=foss-2020a.eb
     image: apnpucky/centos7-easybuild:foss-2020a-${TAG:-latest}
@@ -118,7 +104,7 @@ services:
       context: .
       target: centos-easybuild
       args:
-        - EASYINSTALL1=GCC-10.3.0.eb
+        - EASYINSTALL1=GCCcore-10.3.0.eb
         - EASYINSTALL2=gompi-2021a.eb
         - EASYINSTALL3=foss-2021a.eb
     image: apnpucky/centos7-easybuild:foss-2021a-${TAG:-latest}
@@ -128,7 +114,7 @@ services:
       context: .
       target: centos-easybuild
       args:
-        - EASYINSTALL1=GCC-11.3.0.eb
+        - EASYINSTALL1=GCCcore-11.3.0.eb
         - EASYINSTALL2=gompi-2022a.eb
         - EASYINSTALL3=foss-2022a.eb
     image: apnpucky/centos7-easybuild:foss-2022a-${TAG:-latest}
