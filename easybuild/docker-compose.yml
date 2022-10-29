@@ -1,0 +1,369 @@
+version: '3.4'
+services:
+
+  ########################################################
+  # CENTOS BUILDS                                        #
+  ########################################################
+
+  centos7-easybuild:
+    build:
+      context: .
+      target: centos7-easybuild
+    image: apnpucky/centos7-easybuild:${TAG:-latest}
+
+  centos7-easybuild-GCCcore-8.2.0:
+    build:
+      context: .
+      target: centos7-easybuild
+      args:
+        - EASYINSTALL1=GCCcore-8.2.0.eb
+    image: apnpucky/centos7-easybuild:GCCcore-8.2.0-${TAG:-latest}
+
+  centos7-easybuild-GCCcore-9.3.0:
+    build:
+      context: .
+      target: centos7-easybuild
+      args:
+        - EASYINSTALL1=GCCcore-9.3.0.eb
+    image: apnpucky/centos7-easybuild:GCCcore-9.3.0-${TAG:-latest}
+
+  centos7-easybuild-GCCcore-10.3.0:
+    build:
+      context: .
+      target: centos7-easybuild
+      args:
+        - EASYINSTALL1=GCCcore-10.3.0.eb
+    image: apnpucky/centos7-easybuild:GCCcore-10.3.0-${TAG:-latest}
+
+  centos7-easybuild-GCCcore-11.3.0:
+    build:
+      context: .
+      target: centos7-easybuild
+      args:
+        - EASYINSTALL1=GCCcore-11.3.0.eb
+    image: apnpucky/centos7-easybuild:GCCcore-11.3.0-${TAG:-latest}
+
+  centos7-easybuild-GCC-8.2.0:
+    build:
+      context: .
+      target: centos7-easybuild
+      args:
+        - EASYINSTALL1=GCCcore-8.2.0.eb
+        - EASYINSTALL2=GCC-8.2.0.eb
+    image: apnpucky/centos7-easybuild:GCC-8.2.0-${TAG:-latest}
+
+  centos7-easybuild-GCC-9.3.0:
+    build:
+      context: .
+      target: centos7-easybuild
+      args:
+        - EASYINSTALL1=GCCcore-9.3.0.eb
+        - EASYINSTALL2=GCC-9.3.0.eb
+    image: apnpucky/centos7-easybuild:GCC-9.3.0-${TAG:-latest}
+
+  centos7-easybuild-GCC-10.3.0:
+    build:
+      context: .
+      target: centos7-easybuild
+      args:
+        - EASYINSTALL1=GCCcore-10.3.0.eb
+        - EASYINSTALL2=GCC-10.3.0.eb
+    image: apnpucky/centos7-easybuild:GCC-10.3.0-${TAG:-latest}
+
+  centos7-easybuild-GCC-11.3.0:
+    build:
+      context: .
+      target: centos7-easybuild
+      args:
+        - EASYINSTALL1=GCCcore-11.3.0.eb
+        - EASYINSTALL2=GCC-11.3.0.eb
+    image: apnpucky/centos7-easybuild:GCC-11.3.0-${TAG:-latest}
+
+  centos7-easybuild-gompi-2019a:
+    build:
+      context: .
+      target: centos7-easybuild
+      args:
+        - EASYINSTALL1=GCCcore-8.2.0.eb
+    image: apnpucky/centos7-easybuild:gompi-2019a-${TAG:-latest}
+
+  centos7-easybuild-gompi-2020a:
+    build:
+      context: .
+      target: centos7-easybuild
+      args:
+        - EASYINSTALL1=GCCcore-9.3.0.eb
+        - EASYINSTALL2=gompi-2020a.eb
+    image: apnpucky/centos7-easybuild:gompi-2020a-${TAG:-latest}
+
+  centos7-easybuild-gompi-2021a:
+    build:
+      context: .
+      target: centos7-easybuild
+      args:
+        - EASYINSTALL1=GCCcore-10.3.0.eb
+        - EASYINSTALL2=gompi-2021a.eb
+    image: apnpucky/centos7-easybuild:gompi-2021a-${TAG:-latest}
+
+  centos7-easybuild-gompi-2022a:
+    build:
+      context: .
+      target: centos7-easybuild
+      args:
+        - EASYINSTALL1=GCCcore-11.3.0.eb
+        - EASYINSTALL2=gompi-2022a.eb
+    image: apnpucky/centos7-easybuild:gompi-2022a-${TAG:-latest}
+
+  centos7-easybuild-foss-2019a:
+    build:
+      context: .
+      target: centos7-easybuild
+      args:
+        - EASYINSTALL1=GCCcore-8.2.0.eb
+        - EASYINSTALL2=gompi-2019a.eb
+        - EASYINSTALL3=foss-2019a.eb
+    image: apnpucky/centos7-easybuild:foss-2019a-${TAG:-latest}
+
+  centos7-easybuild-foss-2020a:
+    build:
+      context: .
+      target: centos7-easybuild
+      args:
+        - EASYINSTALL1=GCCcore-9.3.0.eb
+        - EASYINSTALL2=gompi-2020a.eb
+        - EASYINSTALL3=foss-2020a.eb
+    image: apnpucky/centos7-easybuild:foss-2020a-${TAG:-latest}
+
+  centos7-easybuild-foss-2021a:
+    build:
+      context: .
+      target: centos7-easybuild
+      args:
+        - EASYINSTALL1=GCCcore-10.3.0.eb
+        - EASYINSTALL2=gompi-2021a.eb
+        - EASYINSTALL3=foss-2021a.eb
+    image: apnpucky/centos7-easybuild:foss-2021a-${TAG:-latest}
+
+  centos7-easybuild-foss-2022a:
+    build:
+      context: .
+      target: centos7-easybuild
+      args:
+        - EASYINSTALL1=GCCcore-11.3.0.eb
+        - EASYINSTALL2=gompi-2022a.eb
+        - EASYINSTALL3=foss-2022a.eb
+    image: apnpucky/centos7-easybuild:foss-2022a-${TAG:-latest}
+
+  centos7-easybuild-foss-2019a-Python-3.7.2:
+    build:
+      context: .
+      target: centos7-easybuild
+      args:
+        - EASYINSTALL1=GCCcore-8.2.0.eb
+        - EASYINSTALL2=gompi-2019a.eb
+        - EASYINSTALL3=foss-2019a.eb
+        - EASYINSTALL4=Python-3.7.2-GCCcore-8.2.0.eb
+    image: apnpucky/centos7-easybuild:foss-2019a-Python-3.7.2-${TAG:-latest}
+
+  centos7-easybuild-foss-2020a-Python-3.8.2:
+    build:
+      context: .
+      target: centos7-easybuild
+      args:
+        - EASYINSTALL1=GCCcore-9.3.0.eb
+        - EASYINSTALL2=gompi-2020a.eb
+        - EASYINSTALL3=foss-2020a.eb
+        - EASYINSTALL4=Python-3.8.2-GCCcore-9.3.0.eb
+    image: apnpucky/centos7-easybuild:foss-2020a-Python-3.8.2-${TAG:-latest}
+
+  centos7-easybuild-foss-2021a-Python-3.9.5:
+    build:
+      context: .
+      target: centos7-easybuild
+      args:
+        - EASYINSTALL1=GCCcore-10.3.0.eb
+        - EASYINSTALL2=gompi-2021a.eb
+        - EASYINSTALL3=foss-2021a.eb
+        - EASYINSTALL4=Python-3.9.5-GCCcore-10.3.0.eb
+    image: apnpucky/centos7-easybuild:foss-2021a-Python-3.9.5-${TAG:-latest}
+
+  centos7-easybuild-foss-2022a-Python-3.10.4:
+    build:
+      context: .
+      target: centos7-easybuild
+      args:
+        - EASYINSTALL1=GCCcore-11.3.0.eb
+        - EASYINSTALL2=gompi-2022a.eb
+        - EASYINSTALL3=foss-2022a.eb
+        - EASYINSTALL4=Python-3.10.4-GCCcore-11.3.0.eb
+    image: apnpucky/centos7-easybuild:foss-2022a-Python-3.10.4-${TAG:-latest}
+
+  centos7-easybuild-gompi-2019a-Python-3.7.2:
+    build:
+      context: .
+      target: centos7-easybuild
+      args:
+        - EASYINSTALL1=GCCcore-8.2.0.eb
+        - EASYINSTALL2=gompi-2019a.eb
+        - EASYINSTALL3=Python-3.7.2-GCCcore-8.2.0.eb
+    image: apnpucky/centos7-easybuild:gompi-2019a-Python-3.7.2-${TAG:-latest}
+
+  centos7-easybuild-gompi-2020a-Python-3.8.2:
+    build:
+      context: .
+      target: centos7-easybuild
+      args:
+        - EASYINSTALL1=GCCcore-9.3.0.eb
+        - EASYINSTALL2=gompi-2020a.eb
+        - EASYINSTALL3=Python-3.8.2-GCCcore-9.3.0.eb
+    image: apnpucky/centos7-easybuild:gompi-2020a-Python-3.8.2-${TAG:-latest}
+
+  centos7-easybuild-gompi-2021a-Python-3.9.5:
+    build:
+      context: .
+      target: centos7-easybuild
+      args:
+        - EASYINSTALL1=GCCcore-10.3.0.eb
+        - EASYINSTALL2=gompi-2021a.eb
+        - EASYINSTALL3=Python-3.9.5-GCCcore-10.3.0.eb
+    image: apnpucky/centos7-easybuild:gompi-2021a-Python-3.9.5-${TAG:-latest}
+
+  centos7-easybuild-gompi-2022a-Python-3.10.4:
+    build:
+      context: .
+      target: centos7-easybuild
+      args:
+        - EASYINSTALL1=GCCcore-11.3.0.eb
+        - EASYINSTALL2=gompi-2022a.eb
+        - EASYINSTALL3=Python-3.10.4-GCCcore-11.3.0.eb
+    image: apnpucky/centos7-easybuild:gompi-2022a-Python-3.10.4-${TAG:-latest}
+
+  centos7-easybuild-GCCcore-8.2.0-Python-3.7.2:
+    build:
+      context: .
+      target: centos7-easybuild
+      args:
+        - EASYINSTALL1=GCCcore-8.2.0.eb
+        - EASYINSTALL2=Python-3.7.2-GCCcore-8.2.0.eb
+    image: apnpucky/centos7-easybuild:GCCcore-8.2.0-Python-3.7.2-${TAG:-latest}
+
+  centos7-easybuild-GCCcore-9.3.0-Python-3.8.2:
+    build:
+      context: .
+      target: centos7-easybuild
+      args:
+        - EASYINSTALL1=GCCcore-9.3.0.eb
+        - EASYINSTALL2=Python-3.8.2-GCCcore-9.3.0.eb
+    image: apnpucky/centos7-easybuild:GCCcore-9.3.0-Python-3.8.2-${TAG:-latest}
+
+  centos7-easybuild-GCCcore-10.3.0-Python-3.9.5:
+    build:
+      context: .
+      target: centos7-easybuild
+      args:
+        - EASYINSTALL1=GCCcore-10.3.0.eb
+        - EASYINSTALL2=Python-3.9.5-GCCcore-10.3.0.eb
+    image: apnpucky/centos7-easybuild:GCCcore-10.3.0-Python-3.9.5-${TAG:-latest}
+
+  centos7-easybuild-GCCcore-11.3.0-Python-3.10.4:
+    build:
+      context: .
+      target: centos7-easybuild
+      args:
+        - EASYINSTALL1=GCCcore-11.3.0.eb
+        - EASYINSTALL2=Python-3.10.4-GCCcore-11.3.0.eb
+    image: apnpucky/centos7-easybuild:GCCcore-11.3.0-Python-3.10.4-${TAG:-latest}
+
+  centos7-easybuild-GCC-8.2.0-Python-3.7.2:
+    build:
+      context: .
+      target: centos7-easybuild
+      args:
+        - EASYINSTALL1=GCCcore-8.2.0.eb
+        - EASYINSTALL2=Python-3.7.2-GCCcore-8.2.0.eb
+        - EASYINSTALL3=GCC-8.2.0.eb
+    image: apnpucky/centos7-easybuild:GCC-8.2.0-Python-3.7.2-${TAG:-latest}
+
+  centos7-easybuild-GCC-9.3.0-Python-3.8.2:
+    build:
+      context: .
+      target: centos7-easybuild
+      args:
+        - EASYINSTALL1=GCCcore-9.3.0.eb
+        - EASYINSTALL2=Python-3.8.2-GCCcore-9.3.0.eb
+        - EASYINSTALL3=GCC-9.3.0.eb
+    image: apnpucky/centos7-easybuild:GCC-9.3.0-Python-3.8.2-${TAG:-latest}
+
+  centos7-easybuild-GCC-10.3.0-Python-3.9.5:
+    build:
+      context: .
+      target: centos7-easybuild
+      args:
+        - EASYINSTALL1=GCCcore-10.3.0.eb
+        - EASYINSTALL2=Python-3.9.5-GCCcore-10.3.0.eb
+        - EASYINSTALL3=GCC-10.3.0.eb
+    image: apnpucky/centos7-easybuild:GCC-10.3.0-Python-3.9.5-${TAG:-latest}
+
+  centos7-easybuild-GCC-11.3.0-Python-3.10.4:
+    build:
+      context: .
+      target: centos7-easybuild
+      args:
+        - EASYINSTALL1=GCCcore-11.3.0.eb
+        - EASYINSTALL2=Python-3.10.4-GCCcore-11.3.0.eb
+        - EASYINSTALL3=GCC-10.3.0.eb
+    image: apnpucky/centos7-easybuild:GCC-11.3.0-Python-3.10.4-${TAG:-latest}
+  #  centos7-foss-all:
+  #    build:
+  #      context: .
+  #      target: centos7-easybuild-foss-all
+  #    image: apnpucky/centos7-easybuild:foss-all-${TAG:-latest}
+  #
+  #  centos7-foss-Python-all:
+  #    build:
+  #      context: .
+  #      target: centos7-easybuild-foss-Python-all
+  #    image: apnpucky/centos7-easybuild:foss-Python-all-${TAG:-latest}
+  ########################################################
+  # GENTOO BUILDS                                        #
+  ########################################################
+
+  #  easybuild-GCC-11.2.0:
+  #    build:
+  #      context: .
+  #      target: gentoo-easybuild
+  #      args:
+  #        - EASYCONFIG=GCC-11.2.0.eb
+  #    image: apnpucky/gentoo-easybuild:GCC-11.2.0-${TAG:-latest}
+  #
+  #  easybuild-foss-2019a:
+  #    build:
+  #      context: .
+  #      target: gentoo-easybuild
+  #      args:
+  #        - EASYCONFIG=foss-2019a.eb
+  #    image: apnpucky/gentoo-easybuild:foss-2019a-${TAG:-latest}
+  #
+  #  easybuild-foss-2020a:
+  #    build:
+  #      context: .
+  #      target: gentoo-easybuild
+  #      args:
+  #        - EASYCONFIG=foss-2020a.eb
+  #    image: apnpucky/gentoo-easybuild:foss-2020a-${TAG:-latest}
+  #
+  #  easybuild-foss-2022a:
+  #    build:
+  #      context: .
+  #      target: gentoo-easybuild
+  #      args:
+  #        - EASYCONFIG=foss-2022a.eb
+  #    image: apnpucky/gentoo-easybuild:foss-2022a-${TAG:-latest}
+  #
+  ##  easybuild-gompi-2022a:
+  ##    build:
+  ##      context: .
+  ##      target: gentoo-easybuild
+  ##      args:
+  ##        - EASYCONFIG=gompi-20202.eb
+  ##    image: apnpucky/gentoo-easybuild:gompi-2022a-${TAG:-latest}

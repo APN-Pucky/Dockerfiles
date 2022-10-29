@@ -1,0 +1,99 @@
+ARG IMG_REGISTRY=docker.io
+ARG IMG_ORG=library
+ARG IMG_NAME=centos
+ARG IMG_TAG=7
+# allow CI/CD to change all of the above
+FROM ${IMG_REGISTRY}/${IMG_ORG}/${IMG_NAME}:${IMG_TAG} as centos7-easybuild
+# set default easybuild version
+ARG EB_VER=4.6.2
+LABEL easybuild_version=${EB_VER}
+# install required packages (EPEL is required for Lmod)
+RUN yum install -y epel-release \
+ && yum install -y bzip2 file gcc-c++ git Lmod make openssl openssl-devel patch python3-pip unzip vim which rdma-core-devel
+# install EasBuild & archspec
+RUN pip3 install easybuild==${EB_VER} archspec
+# add 'easybuild' user
+RUN useradd -ms /bin/bash easybuild
+# create /scratch & /easybuild directories
+RUN mkdir /scratch && chown easybuild:easybuild /scratch \
+  && mkdir /easybuild && chown easybuild:easybuild /easybuild
+# disable output buffering in Python, so we see EasyBuild output as it progresses
+ENV PYTHONUNBUFFERED=TRUE
+# Define the ENTRYPOINT for subsequent commands (CMD)
+ENTRYPOINT ["/bin/bash", "-l", "-c"]
+# SHELL defines which login shell will be used within RUN steps
+SHELL ["/bin/bash", "-l", "-c"]
+# By default the container will start a bash shell
+CMD ["bash"]
+# switch to 'easybuild' user
+USER easybuild
+# install EasyBuild as a module (& clean up /scratch);
+# need to specify EB_PYTHON to ensure python3 is used,
+# since pip3 was used for installation and  /usr/bin/python also exists
+RUN EB_PYTHON=/usr/bin/python3 eb --install-latest-eb-release --prefix /scratch --installpath /easybuild \
+  && rm -rf /scratch/* \
+  # load EasyBuild module through .bashrc startup script
+  && echo 'ml use /easybuild/modules/all && ml EasyBuild' >> ~/.bashrc
+# remove globally installed EasyBuild, we can use the module going forward
+USER root
+RUN pip3 uninstall -y easybuild easybuild-framework easybuild-easyblocks easybuild-easyconfigs
+# switch to 'easybuild' user
+USER easybuild
+# print info on Lmod & EasyBuild
+RUN ml --version \
+  && which -a eb \
+  && eb --version \
+  && eb --show-system-info
+# make sure we start in /home/easybuild rather than / when shell in started in container
+WORKDIR /home/easybuild
+ARG EASYINSTALL0=--install-latest-eb-release
+RUN if [ "$EASYINSTALL0" != "none" ]; then  eb --prefix /scratch --installpath /easybuild ${EASYINSTALL0} --robot --trace   && rm -rf /scratch/* ; fi
+ARG EASYINSTALL1=none
+RUN if [ "$EASYINSTALL1" != "none" ]; then  eb --prefix /scratch --installpath /easybuild ${EASYINSTALL1} --robot --trace   && rm -rf /scratch/* ; fi
+ARG EASYINSTALL2=none
+RUN if [ "$EASYINSTALL2" != "none" ]; then  eb --prefix /scratch --installpath /easybuild ${EASYINSTALL2} --robot --trace   && rm -rf /scratch/* ; fi
+ARG EASYINSTALL3=none
+RUN if [ "$EASYINSTALL3" != "none" ]; then  eb --prefix /scratch --installpath /easybuild ${EASYINSTALL3} --robot --trace   && rm -rf /scratch/* ; fi
+ARG EASYINSTALL4=none
+RUN if [ "$EASYINSTALL4" != "none" ]; then  eb --prefix /scratch --installpath /easybuild ${EASYINSTALL4} --robot --trace   && rm -rf /scratch/* ; fi
+ARG EASYINSTALL5=none
+RUN if [ "$EASYINSTALL5" != "none" ]; then  eb --prefix /scratch --installpath /easybuild ${EASYINSTALL5} --robot --trace   && rm -rf /scratch/* ; fi
+
+
+
+#FROM easybuilders/base:centos7-eb4.2.1 as centos7-easybuild-foss-all
+#ARG CPU_ARCH=x86_64-pc-linux-gnu
+#COPY --from=apnpucky/centos7-easybuild:foss-2019a-latest /easybuild /easybuild
+#COPY --from=apnpucky/centos7-easybuild:foss-2020a-latest /easybuild /easybuild
+#COPY --from=apnpucky/centos7-easybuild:foss-2021a-latest /easybuild /easybuild
+#COPY --from=apnpucky/centos7-easybuild:foss-2022a-latest /easybuild /easybuild
+#
+#FROM easybuilders/base:centos7-eb4.2.1 as centos7-easybuild-foss-Python-all
+#ARG CPU_ARCH=x86_64-pc-linux-gnu
+#COPY --from=apnpucky/centos7-easybuild:foss-2020a-Python-3.8.2-latest /easybuild /easybuild
+#COPY --from=apnpucky/centos7-easybuild:foss-2021a-Python-3.9.5-latest /easybuild /easybuild
+#COPY --from=apnpucky/centos7-easybuild:foss-2022a-Python-3.10.4-latest /easybuild /easybuild
+##COPY --from=apnpucky/centos7-easybuild:foss-2019a-Python-3.7.2-latest /easybuild /easybuild
+
+#####################
+# Gentoo
+#####################
+
+
+## gentoo-easybuild
+#FROM apnpucky/gentoo-repo as gentoo-easybuild
+#ARG EASYCONFIG=foss-2022a.eb
+#RUN echo 'sys-cluster/lmod ~amd64' >> /etc/portage/package.accept_keywords/zz-autoaccept
+#RUN emerge -q lmod dev-python/pip && rm -rf /var/cache/distfiles/*
+#RUN pip install easybuild --user
+#RUN emerge -q sys-cluster/rdma-core && rm -rf /var/cache/distfiles/*
+#ENV PATH="${PATH}:/root/.local/bin"
+#RUN ln -s /usr/share/Lmod/init/profile /etc/bash/bashrc.d/z00_lmod.sh 	
+#RUN ln -s /usr/share/Lmod/init/profile /etc/profile.d/z00_lmod.sh 	
+#RUN ln -s /usr/share/Lmod/init/cshrc /etc/profile.d/z00_lmod.csh 	
+##RUN ln -s /usr/share/Lmod/init/profile.fish /etc/fish/conf.d/z00_lmod.fish
+#RUN source /usr/share/Lmod/init/profile && \
+#	eb --allow-use-as-root-and-accept-consequences --ignore-osdeps --install-latest-eb-release --prefix /scratch --installpath /easybuild   && rm -rf /scratch/*   && echo 'ml use /easybuild/modules/all && ml EasyBuild' >> ~/.bashrc
+#RUN source /usr/share/Lmod/init/profile && \
+#	eb --allow-use-as-root-and-accept-consequences --ignore-osdeps --prefix /scratch --installpath /easybuild ${EASYCONFIG} --robot --trace   && rm -rf /scratch/*
+##RUN eb --allow-use-as-root-and-accept-consequences --prefix=/easybuild_prefix/ GCCcore-11.3.0.eb --ignore-osdeps --robot --installpath=/easybuild_install/

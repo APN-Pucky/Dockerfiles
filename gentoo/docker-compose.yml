@@ -6,6 +6,12 @@ services:
       target: gentoo-base
     image: apnpucky/gentoo-base:${TAG:-latest}
 
+  repo:
+    build:
+      context: .
+      target: gentoo-repo
+    image: apnpucky/gentoo-repo:${TAG:-latest}
+
   ebuild-ci:
     build:
       context: .
@@ -49,8 +55,9 @@ services:
       target: gentoo-rivet3-pythia8-hepmc2
     image: apnpucky/gentoo-rivet3-pythia8-hepmc2:${TAG:-latest}
 
-  latex:
-    build:
-      context: .
-      target: gentoo-latex
-    image: apnpucky/gentoo-latex:${TAG:-latest}
+
+#  latex:
+#    build:
+#      context: .
+#      target: gentoo-latex
+#    image: apnpucky/gentoo-latex:${TAG:-latest}
