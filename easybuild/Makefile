@@ -1,4 +1,4 @@
-TAG:="$(shell date +%Y%m%d%H%M%S)"
+#TAG:="$(shell date +%Y%m%d%H%M%S)"
 build:
 	# We run this twice so that latest is slightly older, but also existent for dependent builds
 	docker-compose build
