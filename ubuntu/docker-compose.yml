@@ -38,6 +38,14 @@ services:
         - LHAPDF_VERSION=6.4.0
     image: apnpucky/ubuntu-pip-lhapdf:6.4.0-${TAG:-latest}
 
+  pip-lhapdf-6.5.3:
+    build:
+      context: .
+      target: pip-lhapdf
+      args:
+        - LHAPDF_VERSION=6.5.3
+    image: apnpucky/ubuntu-pip-lhapdf:6.5.3-${TAG:-latest}
+
   pip-lhapdf:
     build:
       context: .

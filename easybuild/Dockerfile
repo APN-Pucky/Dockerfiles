@@ -3,7 +3,7 @@ ARG IMG_ORG=library
 ARG IMG_NAME=centos
 ARG IMG_TAG=7
 # allow CI/CD to change all of the above
-FROM ${IMG_REGISTRY}/${IMG_ORG}/${IMG_NAME}:${IMG_TAG} as apnpucky/centos7-easybuild
+FROM ${IMG_REGISTRY}/${IMG_ORG}/${IMG_NAME}:${IMG_TAG} as centos7-easybuild
 # set default easybuild version
 ARG EB_VER=4.6.2
 LABEL easybuild_version=${EB_VER}
@@ -46,25 +46,6 @@ RUN ml --version \
   && eb --show-system-info
 # make sure we start in /home/easybuild rather than / when shell in started in container
 WORKDIR /home/easybuild
-
-
-#FROM easybuilders/test:centos7-foss-2020a as centos7-easybuild-foss-2020a
-#ARG CPU_ARCH=x86_64-pc-linux-gnu
-##ARG EASYCONFIG=--install-latest-eb-release
-#RUN eb --prefix /scratch --installpath /easybuild --install-latest-eb-release --robot --trace   && rm -rf /scratch/*
-##RUN eb --prefix /scratch --installpath /easybuild ${EASYCONFIG} --robot --trace   && rm -rf /scratch/*
-#
-#FROM apnpucky/centos7-easybuild-foss-2020a:latest as centos7-easybuild-foss-2020a-x
-#ARG EASYINSTALL=--install-latest-eb-release
-##RUN eb --prefix /scratch --installpath /easybuild --install-latest-eb-release --robot --trace   && rm -rf /scratch/*
-#RUN ml use /easybuild/modules/all && ml load EasyBuild &&  eb --allow-use-as-root-and-accept-consequences --prefix=/scratch  --ignore-osdeps --robot --trace --installpath=/easybuild ${EASYINSTALL}
-##RUN ml use /easybuild/modules/all && ml load EasyBuild && eb --prefix /scratch --installpath /easybuild ${EASYCONFIG} --robot --trace   && rm -rf /scratch/*
-
-
-
-# install EasyBuild and make sure it's available
-FROM easybuilders/base:centos7-eb4.2.1 as centos7-easybuild
-ARG CPU_ARCH=x86_64-pc-linux-gnu
 ARG EASYINSTALL0=--install-latest-eb-release
 RUN if [ "$EASYINSTALL0" != "none" ]; then  eb --prefix /scratch --installpath /easybuild ${EASYINSTALL0} --robot --trace   && rm -rf /scratch/* ; fi
 ARG EASYINSTALL1=none
