@@ -34,8 +34,80 @@ jobs:
           file: ubuntu/Dockerfile
           platforms: linux/amd64,linux/arm64
           push: true
+          target: base
+          tags: |
+            apnpucky/ubuntu-base:latest
+            apnpucky/ubuntu-base:${{ github.sha }}-latest
+            apnpucky/ubuntu-base:${{ steps.current-time.outputs.formattedTime }}-latest
+      -
+        name: Build and push
+        uses: docker/build-push-action@v3
+        with:
+          file: ubuntu/Dockerfile
+          platforms: linux/amd64,linux/arm64
+          push: true
           target: apt
           tags: |
             apnpucky/ubuntu-apt:latest
             apnpucky/ubuntu-apt:${{ github.sha }}-latest
             apnpucky/ubuntu-apt:${{ steps.current-time.outputs.formattedTime }}-latest
+      -
+        name: Build and push
+        uses: docker/build-push-action@v3
+        with:
+          file: ubuntu/Dockerfile
+          platforms: linux/amd64,linux/arm64
+          push: true
+          target: dev
+          tags: |
+            apnpucky/ubuntu-dev:latest
+            apnpucky/ubuntu-dev:${{ github.sha }}-latest
+            apnpucky/ubuntu-dev:${{ steps.current-time.outputs.formattedTime }}-latest
+      -
+        name: Build and push
+        uses: docker/build-push-action@v3
+        with:
+          file: ubuntu/Dockerfile
+          platforms: linux/amd64,linux/arm64
+          push: true
+          target: apt
+          tags: |
+            apnpucky/ubuntu-apt:latest
+            apnpucky/ubuntu-apt:${{ github.sha }}-latest
+            apnpucky/ubuntu-apt:${{ steps.current-time.outputs.formattedTime }}-latest
+      -
+        name: Build and push
+        uses: docker/build-push-action@v3
+        with:
+          file: ubuntu/Dockerfile
+          platforms: linux/amd64,linux/arm64
+          push: true
+          target: pip
+          tags: |
+            apnpucky/ubuntu-pip:latest
+            apnpucky/ubuntu-pip:${{ github.sha }}-latest
+            apnpucky/ubuntu-pip:${{ steps.current-time.outputs.formattedTime }}-latest
+      -
+        name: Build and push
+        uses: docker/build-push-action@v3
+        with:
+          file: ubuntu/Dockerfile
+          platforms: linux/amd64,linux/arm64
+          push: true
+          target: pip-lhapdf
+          tags: |
+            apnpucky/ubuntu-pip-lhapdf:latest
+            apnpucky/ubuntu-pip-lhapdf:${{ github.sha }}-latest
+            apnpucky/ubuntu-pip-lhapdf:${{ steps.current-time.outputs.formattedTime }}-latest
+      -
+        name: Build and push
+        uses: docker/build-push-action@v3
+        with:
+          file: ubuntu/Dockerfile
+          platforms: linux/amd64,linux/arm64
+          push: true
+          target: pip-lhapdf-looptools
+          tags: |
+            apnpucky/ubuntu-pip-lhapdf-looptools:latest
+            apnpucky/ubuntu-pip-lhapdf-looptools:${{ github.sha }}-latest
+            apnpucky/ubuntu-pip-lhapdf-looptools:${{ steps.current-time.outputs.formattedTime }}-latest
