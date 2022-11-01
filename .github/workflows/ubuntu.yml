@@ -106,6 +106,34 @@ jobs:
           file: ubuntu/Dockerfile
           platforms: linux/amd64,linux/arm64
           push: true
+          target: pip-lhapdf
+          build-args: |
+            LHAPDF_VERSION=6.4.0
+          tags: |
+            apnpucky/ubuntu-pip-lhapdf:6.4.0-latest
+            apnpucky/ubuntu-pip-lhapdf:6.4.0-${{ github.sha }}-latest
+            apnpucky/ubuntu-pip-lhapdf:6.4.0-${{ steps.current-time.outputs.formattedTime }}-latest
+      -
+        name: Build and push
+        uses: docker/build-push-action@v3
+        with:
+          file: ubuntu/Dockerfile
+          platforms: linux/amd64,linux/arm64
+          push: true
+          target: pip-lhapdf
+          build-args: |
+            LHAPDF_VERSION=6.5.3
+          tags: |
+            apnpucky/ubuntu-pip-lhapdf:6.5.3-latest
+            apnpucky/ubuntu-pip-lhapdf:6.5.3-${{ github.sha }}-latest
+            apnpucky/ubuntu-pip-lhapdf:6.5.3-${{ steps.current-time.outputs.formattedTime }}-latest
+      -
+        name: Build and push
+        uses: docker/build-push-action@v3
+        with:
+          file: ubuntu/Dockerfile
+          platforms: linux/amd64,linux/arm64
+          push: true
           target: pip-lhapdf-looptools
           tags: |
             apnpucky/ubuntu-pip-lhapdf-looptools:latest
