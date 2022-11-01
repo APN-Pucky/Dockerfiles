@@ -10,6 +10,11 @@ jobs:
   docker:
     runs-on: ubuntu-latest
     steps:
+      - name: Get current time
+        uses: josStorer/get-current-time@v2.0.2
+        id: current-time
+        with:
+          format: YYYYMMDDHHSS
       -
         name: Set up QEMU
         uses: docker/setup-qemu-action@v2
@@ -30,4 +35,7 @@ jobs:
           platforms: linux/amd64,linux/arm64
           push: true
           target: apt
-          tags: apnpucky/test:latest
+          tags: |
+            apnpucky/ubuntu-apt:latest
+            apnpucky/ubuntu-apt:${{ github.sha }}-latest
+            apnpucky/ubuntu-apt:${{ steps.current-time.outputs.formattedTime }}-latest
