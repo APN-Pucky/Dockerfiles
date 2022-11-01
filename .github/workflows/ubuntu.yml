@@ -1,8 +1,10 @@
-name: Docker Image CI
+name: Ubuntu Docker Image CI
 
 on:
   push:
     branches: [ "master" ]
+    paths:
+      - ubuntu/Dockerfile
 
 jobs:
   docker:
