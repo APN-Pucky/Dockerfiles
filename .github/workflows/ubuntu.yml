@@ -32,7 +32,7 @@ jobs:
         uses: docker/build-push-action@v3
         with:
           file: ubuntu/Dockerfile
-          platforms: linux/amd64,linux/arm64
+          platforms: linux/amd64,linux/arm/v7,linux/arm64/v8,linux/ppc64le,linux/riscv64,linux/s390x
           push: true
           target: base
           tags: |
@@ -44,7 +44,7 @@ jobs:
         uses: docker/build-push-action@v3
         with:
           file: ubuntu/Dockerfile
-          platforms: linux/amd64,linux/arm64
+          platforms: linux/amd64,linux/arm/v7,linux/arm64/v8,linux/ppc64le,linux/riscv64,linux/s390x
           push: true
           target: apt
           tags: |
@@ -56,7 +56,7 @@ jobs:
         uses: docker/build-push-action@v3
         with:
           file: ubuntu/Dockerfile
-          platforms: linux/amd64,linux/arm64
+          platforms: linux/amd64,linux/arm/v7,linux/arm64/v8,linux/ppc64le,linux/riscv64,linux/s390x
           push: true
           target: dev
           tags: |
@@ -68,7 +68,7 @@ jobs:
         uses: docker/build-push-action@v3
         with:
           file: ubuntu/Dockerfile
-          platforms: linux/amd64,linux/arm64
+          platforms: linux/amd64,linux/arm/v7,linux/arm64/v8,linux/ppc64le,linux/riscv64,linux/s390x
           push: true
           target: apt
           tags: |
@@ -80,7 +80,7 @@ jobs:
         uses: docker/build-push-action@v3
         with:
           file: ubuntu/Dockerfile
-          platforms: linux/amd64,linux/arm64
+          platforms: linux/amd64,linux/arm/v7,linux/arm64/v8,linux/ppc64le,linux/riscv64,linux/s390x
           push: true
           target: pip
           tags: |
@@ -92,7 +92,7 @@ jobs:
         uses: docker/build-push-action@v3
         with:
           file: ubuntu/Dockerfile
-          platforms: linux/amd64,linux/arm64
+          platforms: linux/amd64,linux/arm/v7,linux/arm64/v8,linux/ppc64le,linux/riscv64,linux/s390x
           push: true
           target: pip-lhapdf
           tags: |
@@ -104,7 +104,7 @@ jobs:
         uses: docker/build-push-action@v3
         with:
           file: ubuntu/Dockerfile
-          platforms: linux/amd64,linux/arm64
+          platforms: linux/amd64,linux/arm/v7,linux/arm64/v8,linux/ppc64le,linux/riscv64,linux/s390x
           push: true
           target: pip-lhapdf
           build-args: |
@@ -118,7 +118,7 @@ jobs:
         uses: docker/build-push-action@v3
         with:
           file: ubuntu/Dockerfile
-          platforms: linux/amd64,linux/arm64
+          platforms: linux/amd64,linux/arm/v7,linux/arm64/v8,linux/ppc64le,linux/riscv64,linux/s390x
           push: true
           target: pip-lhapdf
           build-args: |
@@ -132,7 +132,7 @@ jobs:
         uses: docker/build-push-action@v3
         with:
           file: ubuntu/Dockerfile
-          platforms: linux/amd64,linux/arm64
+          platforms: linux/amd64,linux/arm/v7,linux/arm64/v8,linux/ppc64le,linux/riscv64,linux/s390x
           push: true
           target: pip-lhapdf-looptools
           tags: |
