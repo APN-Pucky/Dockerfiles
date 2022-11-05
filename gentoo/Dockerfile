@@ -17,6 +17,7 @@ RUN emerge -q dev-util/pkgdev && rm -rf /var/cache/distfiles/*
 
 # gentoo-dev
 FROM apnpucky/gentoo-ebuild-ci as gentoo-dev
+RUN emerge -q rust && rm -rf /var/cache/distfiles/*
 RUN echo 'USE="-qt5 -X"' >> /etc/portage/make.conf
 RUN echo 'PYTHON_TARGETS="python3_8 python3_9 python3_10 python3_11"' >> /etc/portage/make.conf
 RUN emerge -q sys-devel/gcc sys-devel/llvm dev-util/ccache virtual/fortran dev-util/cmake dev-libs/boost app-portage/pkg-testing-tools dev-lang/perl dev-lang/python:3.8 dev-lang/python:3.9 dev-lang/python:3.10 && rm -rf /var/cache/distfiles/*
@@ -28,8 +29,6 @@ RUN emerge -q imagemagick ghostscript-gpl && rm -rf /var/cache/distfiles/*
 RUN ACCEPT_KEYWORDS="~amd64" emerge -q dev-lang/python:3.11 && rm -rf /var/cache/distfiles/*
 RUN emerge -q --changed-use --deep --keep-going @world && rm -rf /var/cache/distfiles/*
 RUN emerge -q --autounmask=y --autounmask-write --autounmask-continue --autounmask-use=y dev-python/matplotlib && rm -rf /var/cache/distfiles/*
-# rust
-#RUN emerge -q dev-lang/rust && rm -rf /var/cache/distfiles/*
 #config
 ENV PKGDIR="/var/cache/binpkgs"
 ENV CCACHE_DIR="/var/cache/ccache"
