@@ -18,12 +18,6 @@ services:
       target: apt
     image: apnpucky/ubuntu-apt:${TAG:-latest}
 
-  i686-libxt:
-    build:
-      context: .
-      target: i686-libxt
-    image: apnpucky/ubuntu-i686-libxt:${TAG:-latest}
-
   pip:
     build:
       context: .

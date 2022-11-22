@@ -1,16 +1,10 @@
-FROM i686/ubuntu as i686-libxt
-LABEL maintainer="APN-Pucky"
-ENV TZ=Europe/Berlin
-RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
-RUN apt-get update -y -qq && apt-get install -y -qq libXt-dev  libXext-dev && apt-get clean
-
 FROM ubuntu:20.04 as base
 LABEL maintainer="APN-Pucky"
 ENV TZ=Europe/Berlin
 RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 
 FROM apnpucky/ubuntu-base as dev
-RUN apt-get update -y -qq && apt-get install -y -qq libboost-all-dev libgsl-dev lcov wget build-essential sudo git rsync pandoc curl python3 python3-pip python3-venv cmake python3-tk graphviz && apt-get clean
+RUN apt-get update -y -qq && apt-get install -y -qq libffi-dev libboost-all-dev libgsl-dev lcov wget build-essential sudo git rsync pandoc curl python3 python3-pip python3-venv cmake python3-tk graphviz && apt-get clean
 RUN update-alternatives --install /usr/bin/python python /usr/bin/python3 1
 
 FROM apnpucky/ubuntu-base as apt

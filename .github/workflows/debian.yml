@@ -1,0 +1,104 @@
+name: Debian Docker Image CI
+
+
+
+on:
+  push:
+    branches: [ "master" ]
+    paths:
+      - debian/Dockerfile
+
+jobs:
+  docker:
+    runs-on: self-hosted
+    steps:
+      - name: Get current time
+        uses: josStorer/get-current-time@v2.0.2
+        id: current-time
+        with:
+          format: YYYYMMDDHHSS
+      -
+        name: Set up QEMU
+        uses: docker/setup-qemu-action@v2
+      -
+        name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v2
+      -
+        name: Login to Docker Hub
+        uses: docker/login-action@v2
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+      -
+        name: Build and push
+        uses: docker/build-push-action@v3
+        with:
+          file: debian/Dockerfile
+          platforms: linux/amd64,linux/arm/v7,linux/arm64/v8,linux/386
+          push: true
+          target: base
+          tags: |
+            apnpucky/debian-base:latest
+            apnpucky/debian-base:${{ github.sha }}-latest
+            apnpucky/debian-base:${{ steps.current-time.outputs.formattedTime }}-latest
+      -
+        name: Build and push
+        uses: docker/build-push-action@v3
+        with:
+          file: debian/Dockerfile
+          platforms: linux/amd64,linux/arm/v7,linux/arm64/v8,linux/386
+          push: true
+          target: cmake-boost-gfortran
+          tags: |
+            apnpucky/debian-cmake-boost-gfortran:latest
+            apnpucky/debian-cmake-boost-gfortran:${{ github.sha }}-latest
+            apnpucky/debian-cmake-boost-gfortran:${{ steps.current-time.outputs.formattedTime }}-latest
+      
+      -
+        name: Build and push
+        uses: docker/build-push-action@v3
+        with:
+          file: debian/Dockerfile
+          platforms: linux/amd64,linux/arm/v7,linux/arm64/v8,linux/386
+          push: true
+          target: lhapdf
+          tags: |
+            apnpucky/debian-lhapdf:latest
+            apnpucky/debian-lhapdf:${{ github.sha }}-latest
+            apnpucky/debian-lhapdf:${{ steps.current-time.outputs.formattedTime }}-latest
+      -
+        name: Build and push
+        uses: docker/build-push-action@v3
+        with:
+          file: debian/Dockerfile
+          platforms: linux/amd64,linux/arm/v7,linux/arm64/v8,linux/386
+          push: true
+          target: lhapdf-looptools
+          tags: |
+            apnpucky/debian-lhapdf-looptools:latest
+            apnpucky/debian-lhapdf-looptools:${{ github.sha }}-latest
+            apnpucky/debian-lhapdf-looptools:${{ steps.current-time.outputs.formattedTime }}-latest
+      -
+        name: Build and push
+        uses: docker/build-push-action@v3
+        with:
+          file: debian/Dockerfile
+          platforms: linux/amd64,linux/arm/v7,linux/arm64/v8,linux/386
+          push: true
+          target: looptools
+          tags: |
+            apnpucky/debian-looptools:latest
+            apnpucky/debian-looptools:${{ github.sha }}-latest
+            apnpucky/debian-looptools:${{ steps.current-time.outputs.formattedTime }}-latest
+      -
+        name: Build and push
+        uses: docker/build-push-action@v3
+        with:
+          file: debian/Dockerfile
+          platforms: linux/amd64,linux/arm/v7,linux/arm64/v8,linux/386
+          push: true
+          target: resummino
+          tags: |
+            apnpucky/debian-resummino:latest
+            apnpucky/debian-resummino:${{ github.sha }}-latest
+            apnpucky/debian-resummino:${{ steps.current-time.outputs.formattedTime }}-latest
