@@ -65,7 +65,7 @@ jobs:
             apnpucky/gentoo-ebuild-ci:latest
             apnpucky/gentoo-ebuild-ci:${{ github.sha }}-latest
             apnpucky/gentoo-ebuild-ci:${{ steps.current-time.outputs.formattedTime }}-latest
-       -
+      -
         name: gentoo-dev
         uses: docker/build-push-action@v3
         with:
@@ -77,7 +77,7 @@ jobs:
             apnpucky/gentoo-dev:latest
             apnpucky/gentoo-dev:${{ github.sha }}-latest
             apnpucky/gentoo-dev:${{ steps.current-time.outputs.formattedTime }}-latest     
-       -
+      -
         name: gentoo-hep-forge
         uses: docker/build-push-action@v3
         with:
@@ -89,7 +89,7 @@ jobs:
             apnpucky/gentoo-hep-forge:latest
             apnpucky/gentoo-hep-forge:${{ github.sha }}-latest
             apnpucky/gentoo-hep-forge:${{ steps.current-time.outputs.formattedTime }}-latest     
-       -
+      -
         name: gentoo-lhapdf-looptools
         uses: docker/build-push-action@v3
         with:
@@ -101,7 +101,7 @@ jobs:
             apnpucky/gentoo-lhapdf-looptools:latest
             apnpucky/gentoo-lhapdf-looptools:${{ github.sha }}-latest
             apnpucky/gentoo-lhapdf-looptools:${{ steps.current-time.outputs.formattedTime }}-latest     
-       -
+      -
         name: gentoo-rivet3-pythia8-hepmc3
         uses: docker/build-push-action@v3
         with:
@@ -113,7 +113,7 @@ jobs:
             apnpucky/gentoo-rivet3-pythia8-hepmc3:latest
             apnpucky/gentoo-rivet3-pythia8-hepmc3:${{ github.sha }}-latest
             apnpucky/gentoo-rivet3-pythia8-hepmc3:${{ steps.current-time.outputs.formattedTime }}-latest     
-       -
+      -
         name: gentoo-rivet3-pythia8-hepmc2
         uses: docker/build-push-action@v3
         with:
