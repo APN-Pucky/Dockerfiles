@@ -25,6 +25,5 @@ ENV PYTHONPATH=$PYTHONPATH:$LHAPDF/lib/python3.8/site-packages/LHAPDF-$LHAPDF_VE
 #RUN python -c "import lhapdf;print(lhapdf.__version__)"
 RUN lhapdf install cteq6l1 CT14lo CT14nlo MSTW2008lo68cl MSTW2008nlo68cl NNPDF23_nlo_as_0119
 
-
 FROM apnpucky/ubuntu-pip-lhapdf as pip-lhapdf-looptools
 RUN apt-get update -y -qq && apt-get install -y -qq looptools && apt-get clean
