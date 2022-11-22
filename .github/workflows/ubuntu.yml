@@ -28,7 +28,7 @@ jobs:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
       -
-        name: Build and push
+        name: ubuntu-base
         uses: docker/build-push-action@v3
         with:
           file: ubuntu/Dockerfile
@@ -40,7 +40,7 @@ jobs:
             apnpucky/ubuntu-base:${{ github.sha }}-latest
             apnpucky/ubuntu-base:${{ steps.current-time.outputs.formattedTime }}-latest
       -
-        name: Build and push
+        name: ubuntu-apt
         uses: docker/build-push-action@v3
         with:
           file: ubuntu/Dockerfile
@@ -52,7 +52,7 @@ jobs:
             apnpucky/ubuntu-apt:${{ github.sha }}-latest
             apnpucky/ubuntu-apt:${{ steps.current-time.outputs.formattedTime }}-latest
       -
-        name: Build and push
+        name: ubuntu-dev
         uses: docker/build-push-action@v3
         with:
           file: ubuntu/Dockerfile
@@ -64,7 +64,7 @@ jobs:
             apnpucky/ubuntu-dev:${{ github.sha }}-latest
             apnpucky/ubuntu-dev:${{ steps.current-time.outputs.formattedTime }}-latest
       -
-        name: Build and push
+        name: ubuntu-apt
         uses: docker/build-push-action@v3
         with:
           file: ubuntu/Dockerfile
@@ -76,7 +76,7 @@ jobs:
             apnpucky/ubuntu-apt:${{ github.sha }}-latest
             apnpucky/ubuntu-apt:${{ steps.current-time.outputs.formattedTime }}-latest
       -
-        name: Build and push
+        name: ubuntu-pip
         uses: docker/build-push-action@v3
         with:
           file: ubuntu/Dockerfile
@@ -88,7 +88,7 @@ jobs:
             apnpucky/ubuntu-pip:${{ github.sha }}-latest
             apnpucky/ubuntu-pip:${{ steps.current-time.outputs.formattedTime }}-latest
       -
-        name: Build and push
+        name: ubuntu-pip-lhapdf
         uses: docker/build-push-action@v3
         with:
           file: ubuntu/Dockerfile
@@ -100,7 +100,7 @@ jobs:
             apnpucky/ubuntu-pip-lhapdf:${{ github.sha }}-latest
             apnpucky/ubuntu-pip-lhapdf:${{ steps.current-time.outputs.formattedTime }}-latest
       -
-        name: Build and push
+        name: ubuntu-pip-lhapdf 
         uses: docker/build-push-action@v3
         with:
           file: ubuntu/Dockerfile
@@ -114,7 +114,7 @@ jobs:
             apnpucky/ubuntu-pip-lhapdf:6.4.0-${{ github.sha }}-latest
             apnpucky/ubuntu-pip-lhapdf:6.4.0-${{ steps.current-time.outputs.formattedTime }}-latest
       -
-        name: Build and push
+        name: ubunut-pip-lhapdf
         uses: docker/build-push-action@v3
         with:
           file: ubuntu/Dockerfile
@@ -128,7 +128,7 @@ jobs:
             apnpucky/ubuntu-pip-lhapdf:6.5.3-${{ github.sha }}-latest
             apnpucky/ubuntu-pip-lhapdf:6.5.3-${{ steps.current-time.outputs.formattedTime }}-latest
       -
-        name: Build and push
+        name: ubunut-pip-lhapdf-looptools
         uses: docker/build-push-action@v3
         with:
           file: ubuntu/Dockerfile

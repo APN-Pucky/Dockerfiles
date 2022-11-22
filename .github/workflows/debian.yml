@@ -30,7 +30,7 @@ jobs:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
       -
-        name: Build and push
+        name: debian-base
         uses: docker/build-push-action@v3
         with:
           file: debian/Dockerfile
@@ -42,7 +42,7 @@ jobs:
             apnpucky/debian-base:${{ github.sha }}-latest
             apnpucky/debian-base:${{ steps.current-time.outputs.formattedTime }}-latest
       -
-        name: Build and push
+        name: debian-cmake-boost-gfortran
         uses: docker/build-push-action@v3
         with:
           file: debian/Dockerfile
@@ -55,7 +55,7 @@ jobs:
             apnpucky/debian-cmake-boost-gfortran:${{ steps.current-time.outputs.formattedTime }}-latest
       
       -
-        name: Build and push
+        name: debian-lhapdf
         uses: docker/build-push-action@v3
         with:
           file: debian/Dockerfile
@@ -67,7 +67,7 @@ jobs:
             apnpucky/debian-lhapdf:${{ github.sha }}-latest
             apnpucky/debian-lhapdf:${{ steps.current-time.outputs.formattedTime }}-latest
       -
-        name: Build and push
+        name: debian-lhapdf-looptools
         uses: docker/build-push-action@v3
         with:
           file: debian/Dockerfile
@@ -79,7 +79,7 @@ jobs:
             apnpucky/debian-lhapdf-looptools:${{ github.sha }}-latest
             apnpucky/debian-lhapdf-looptools:${{ steps.current-time.outputs.formattedTime }}-latest
       -
-        name: Build and push
+        name: debian-looptools
         uses: docker/build-push-action@v3
         with:
           file: debian/Dockerfile
@@ -91,7 +91,7 @@ jobs:
             apnpucky/debian-looptools:${{ github.sha }}-latest
             apnpucky/debian-looptools:${{ steps.current-time.outputs.formattedTime }}-latest
       -
-        name: Build and push
+        name: debian-resummino
         uses: docker/build-push-action@v3
         with:
           file: debian/Dockerfile
