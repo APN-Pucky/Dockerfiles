@@ -31,7 +31,7 @@ jobs:
           password: ${{ secrets.DOCKERHUB_TOKEN }}
       -
         name: debian-base
-        continue-on-error: true
+
         uses: docker/build-push-action@v3
         with:
           file: debian/Dockerfile
@@ -44,7 +44,7 @@ jobs:
             apnpucky/debian-base:${{ steps.current-time.outputs.formattedTime }}-latest
       -
         name: debian-cmake-boost-gfortran
-        continue-on-error: true
+
         uses: docker/build-push-action@v3
         with:
           file: debian/Dockerfile
@@ -58,7 +58,7 @@ jobs:
       
       -
         name: debian-lhapdf
-        continue-on-error: true
+
         uses: docker/build-push-action@v3
         with:
           file: debian/Dockerfile
@@ -71,7 +71,7 @@ jobs:
             apnpucky/debian-lhapdf:${{ steps.current-time.outputs.formattedTime }}-latest
       -
         name: debian-lhapdf-looptools
-        continue-on-error: true
+
         uses: docker/build-push-action@v3
         with:
           file: debian/Dockerfile
@@ -84,7 +84,7 @@ jobs:
             apnpucky/debian-lhapdf-looptools:${{ steps.current-time.outputs.formattedTime }}-latest
       -
         name: debian-looptools
-        continue-on-error: true
+
         uses: docker/build-push-action@v3
         with:
           file: debian/Dockerfile
@@ -97,7 +97,7 @@ jobs:
             apnpucky/debian-looptools:${{ steps.current-time.outputs.formattedTime }}-latest
       -
         name: debian-resummino
-        continue-on-error: true
+
         uses: docker/build-push-action@v3
         with:
           file: debian/Dockerfile
