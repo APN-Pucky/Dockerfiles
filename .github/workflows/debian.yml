@@ -11,6 +11,11 @@ on:
 jobs:
   docker:
     runs-on: self-hosted
+    strategy:
+      matrix:
+        user: ["apnpucky"]
+        base: [ "debian" ]
+        image: ["base", "dev","cmake-boost-gfortran","lhapdf","lhapdf-looptools","looptools","resummino"]
     steps:
       - name: Get current time
         uses: josStorer/get-current-time@v2.0.2
@@ -30,81 +35,14 @@ jobs:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
       -
-        name: debian-base
-        continue-on-error: true
+        name: ${{ matrix.base }}-${{ matrix.image }}
         uses: docker/build-push-action@v3
         with:
           file: debian/Dockerfile
           platforms: linux/amd64,linux/arm/v7,linux/arm64/v8,linux/386
           push: true
-          target: base
+          target: ${{ matrix.image }}
           tags: |
-            apnpucky/debian-base:latest
-            apnpucky/debian-base:${{ github.sha }}-latest
-            apnpucky/debian-base:${{ steps.current-time.outputs.formattedTime }}-latest
-      -
-        name: debian-cmake-boost-gfortran
-        continue-on-error: true
-        uses: docker/build-push-action@v3
-        with:
-          file: debian/Dockerfile
-          platforms: linux/amd64,linux/arm/v7,linux/arm64/v8,linux/386
-          push: true
-          target: cmake-boost-gfortran
-          tags: |
-            apnpucky/debian-cmake-boost-gfortran:latest
-            apnpucky/debian-cmake-boost-gfortran:${{ github.sha }}-latest
-            apnpucky/debian-cmake-boost-gfortran:${{ steps.current-time.outputs.formattedTime }}-latest
-      
-      -
-        name: debian-lhapdf
-        continue-on-error: true
-        uses: docker/build-push-action@v3
-        with:
-          file: debian/Dockerfile
-          platforms: linux/amd64,linux/arm/v7,linux/arm64/v8,linux/386
-          push: true
-          target: lhapdf
-          tags: |
-            apnpucky/debian-lhapdf:latest
-            apnpucky/debian-lhapdf:${{ github.sha }}-latest
-            apnpucky/debian-lhapdf:${{ steps.current-time.outputs.formattedTime }}-latest
-      -
-        name: debian-lhapdf-looptools
-        continue-on-error: true
-        uses: docker/build-push-action@v3
-        with:
-          file: debian/Dockerfile
-          platforms: linux/amd64,linux/arm/v7,linux/arm64/v8,linux/386
-          push: true
-          target: lhapdf-looptools
-          tags: |
-            apnpucky/debian-lhapdf-looptools:latest
-            apnpucky/debian-lhapdf-looptools:${{ github.sha }}-latest
-            apnpucky/debian-lhapdf-looptools:${{ steps.current-time.outputs.formattedTime }}-latest
-      -
-        name: debian-looptools
-        continue-on-error: true
-        uses: docker/build-push-action@v3
-        with:
-          file: debian/Dockerfile
-          platforms: linux/amd64,linux/arm/v7,linux/arm64/v8,linux/386
-          push: true
-          target: looptools
-          tags: |
-            apnpucky/debian-looptools:latest
-            apnpucky/debian-looptools:${{ github.sha }}-latest
-            apnpucky/debian-looptools:${{ steps.current-time.outputs.formattedTime }}-latest
-      -
-        name: debian-resummino
-        continue-on-error: true
-        uses: docker/build-push-action@v3
-        with:
-          file: debian/Dockerfile
-          platforms: linux/amd64,linux/arm/v7,linux/arm64/v8,linux/386
-          push: true
-          target: resummino
-          tags: |
-            apnpucky/debian-resummino:latest
-            apnpucky/debian-resummino:${{ github.sha }}-latest
-            apnpucky/debian-resummino:${{ steps.current-time.outputs.formattedTime }}-latest
+            ${{ matrix.user }}/${{ matrix.base }}-${{ matrix.image }}:latest
+            ${{ matrix.user }}/${{ matrix.base }}-${{ matrix.image }}:${{ github.sha }}-latest
+            ${{ matrix.user }}/${{ matrix.base }}-${{ matrix.image }}:${{ steps.current-time.outputs.formattedTime }}-latest

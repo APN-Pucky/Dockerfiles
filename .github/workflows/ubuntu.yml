@@ -9,6 +9,11 @@ on:
 jobs:
   docker:
     runs-on: self-hosted
+    strategy:
+      matrix:
+        user: ["apnpucky"]
+        base: [ "ubuntu" ]
+        image: ["base", "apt","dev","pip","pip-lhapdf","pip-lhapdf-looptools"]
     steps:
       - name: Get current time
         uses: josStorer/get-current-time@v2.0.2
@@ -28,114 +33,14 @@ jobs:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
       -
-        name: ubuntu-base
+        name: ${{ matrix.base }}-${{ matrix.image }}
         uses: docker/build-push-action@v3
         with:
           file: ubuntu/Dockerfile
           platforms: linux/amd64,linux/arm/v7,linux/arm64/v8,linux/ppc64le,linux/riscv64,linux/s390x
           push: true
-          target: base
+          target: ${{ matrix.image }}
           tags: |
-            apnpucky/ubuntu-base:latest
-            apnpucky/ubuntu-base:${{ github.sha }}-latest
-            apnpucky/ubuntu-base:${{ steps.current-time.outputs.formattedTime }}-latest
-      -
-        name: ubuntu-apt
-        uses: docker/build-push-action@v3
-        with:
-          file: ubuntu/Dockerfile
-          platforms: linux/amd64,linux/arm/v7,linux/arm64/v8,linux/ppc64le,linux/riscv64,linux/s390x
-          push: true
-          target: apt
-          tags: |
-            apnpucky/ubuntu-apt:latest
-            apnpucky/ubuntu-apt:${{ github.sha }}-latest
-            apnpucky/ubuntu-apt:${{ steps.current-time.outputs.formattedTime }}-latest
-      -
-        name: ubuntu-dev
-        uses: docker/build-push-action@v3
-        with:
-          file: ubuntu/Dockerfile
-          platforms: linux/amd64,linux/arm/v7,linux/arm64/v8,linux/ppc64le,linux/riscv64,linux/s390x
-          push: true
-          target: dev
-          tags: |
-            apnpucky/ubuntu-dev:latest
-            apnpucky/ubuntu-dev:${{ github.sha }}-latest
-            apnpucky/ubuntu-dev:${{ steps.current-time.outputs.formattedTime }}-latest
-      -
-        name: ubuntu-apt
-        uses: docker/build-push-action@v3
-        with:
-          file: ubuntu/Dockerfile
-          platforms: linux/amd64,linux/arm/v7,linux/arm64/v8,linux/ppc64le,linux/riscv64,linux/s390x
-          push: true
-          target: apt
-          tags: |
-            apnpucky/ubuntu-apt:latest
-            apnpucky/ubuntu-apt:${{ github.sha }}-latest
-            apnpucky/ubuntu-apt:${{ steps.current-time.outputs.formattedTime }}-latest
-      -
-        name: ubuntu-pip
-        uses: docker/build-push-action@v3
-        with:
-          file: ubuntu/Dockerfile
-          platforms: linux/amd64,linux/arm/v7,linux/arm64/v8,linux/ppc64le,linux/riscv64,linux/s390x
-          push: true
-          target: pip
-          tags: |
-            apnpucky/ubuntu-pip:latest
-            apnpucky/ubuntu-pip:${{ github.sha }}-latest
-            apnpucky/ubuntu-pip:${{ steps.current-time.outputs.formattedTime }}-latest
-      -
-        name: ubuntu-pip-lhapdf
-        uses: docker/build-push-action@v3
-        with:
-          file: ubuntu/Dockerfile
-          platforms: linux/amd64,linux/arm/v7,linux/arm64/v8,linux/ppc64le,linux/riscv64,linux/s390x
-          push: true
-          target: pip-lhapdf
-          tags: |
-            apnpucky/ubuntu-pip-lhapdf:latest
-            apnpucky/ubuntu-pip-lhapdf:${{ github.sha }}-latest
-            apnpucky/ubuntu-pip-lhapdf:${{ steps.current-time.outputs.formattedTime }}-latest
-      -
-        name: ubuntu-pip-lhapdf 
-        uses: docker/build-push-action@v3
-        with:
-          file: ubuntu/Dockerfile
-          platforms: linux/amd64,linux/arm/v7,linux/arm64/v8,linux/ppc64le,linux/riscv64,linux/s390x
-          push: true
-          target: pip-lhapdf
-          build-args: |
-            LHAPDF_VERSION=6.4.0
-          tags: |
-            apnpucky/ubuntu-pip-lhapdf:6.4.0-latest
-            apnpucky/ubuntu-pip-lhapdf:6.4.0-${{ github.sha }}-latest
-            apnpucky/ubuntu-pip-lhapdf:6.4.0-${{ steps.current-time.outputs.formattedTime }}-latest
-      -
-        name: ubunut-pip-lhapdf
-        uses: docker/build-push-action@v3
-        with:
-          file: ubuntu/Dockerfile
-          platforms: linux/amd64,linux/arm/v7,linux/arm64/v8,linux/ppc64le,linux/riscv64,linux/s390x
-          push: true
-          target: pip-lhapdf
-          build-args: |
-            LHAPDF_VERSION=6.5.3
-          tags: |
-            apnpucky/ubuntu-pip-lhapdf:6.5.3-latest
-            apnpucky/ubuntu-pip-lhapdf:6.5.3-${{ github.sha }}-latest
-            apnpucky/ubuntu-pip-lhapdf:6.5.3-${{ steps.current-time.outputs.formattedTime }}-latest
-      -
-        name: ubunut-pip-lhapdf-looptools
-        uses: docker/build-push-action@v3
-        with:
-          file: ubuntu/Dockerfile
-          platforms: linux/amd64,linux/arm/v7,linux/arm64/v8,linux/ppc64le,linux/riscv64,linux/s390x
-          push: true
-          target: pip-lhapdf-looptools
-          tags: |
-            apnpucky/ubuntu-pip-lhapdf-looptools:latest
-            apnpucky/ubuntu-pip-lhapdf-looptools:${{ github.sha }}-latest
-            apnpucky/ubuntu-pip-lhapdf-looptools:${{ steps.current-time.outputs.formattedTime }}-latest
+            ${{ matrix.user }}/${{ matrix.base }}-${{ matrix.image }}:latest
+            ${{ matrix.user }}/${{ matrix.base }}-${{ matrix.image }}:${{ github.sha }}-latest
+            ${{ matrix.user }}/${{ matrix.base }}-${{ matrix.image }}:${{ steps.current-time.outputs.formattedTime }}-latest
