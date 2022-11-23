@@ -100,4 +100,3 @@ RUN emaint -r hep-forge sync
 #RUN echo 'sci-physics/lhapdf ~amd64' >> /etc/portage/package.accept_keywords/zz-autoaccept
 #RUN echo 'sci-physics/looptools ~amd64' >> /etc/portage/package.accept_keywords/zz-autoaccept
 RUN USE="-hepmc3 hepmc2 python lhapdf" emerge -q =sci-physics/rivet-${RIVET_VERSION} =sci-physics/pythia-${PYTHIA_VERSION} =sci-physics/hepmc-${HEPMC_VERSION} && rm -rf /var/cache/distfiles/*
-

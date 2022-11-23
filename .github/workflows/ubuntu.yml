@@ -10,6 +10,7 @@ jobs:
   docker:
     runs-on: self-hosted
     strategy:
+      fail-fast: false
       matrix:
         user: ["apnpucky"]
         base: [ "ubuntu" ]
