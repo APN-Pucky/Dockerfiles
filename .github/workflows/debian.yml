@@ -15,7 +15,7 @@ jobs:
       matrix:
         user: ["apnpucky"]
         base: [ "debian" ]
-        image: ["base", "dev","cmake-boost-gfortran","lhapdf","lhapdf-looptools","looptools","resummino"]
+        image: ["base", "cmake-boost-gfortran","lhapdf","lhapdf-looptools","looptools","resummino"]
     steps:
       - name: Get current time
         uses: josStorer/get-current-time@v2.0.2
