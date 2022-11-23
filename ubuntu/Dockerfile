@@ -8,7 +8,7 @@ RUN apt-get update -y -qq && apt-get install -y -qq libffi-dev libboost-all-dev 
 RUN update-alternatives --install /usr/bin/python python /usr/bin/python3 1
 
 FROM apnpucky/ubuntu-base as apt
-RUN apt-get update -y -qq && apt-get install -y -qq python3-tqdm  python3-uncertainties python3-sympy  python3-scipy python3-numpy python3-pytest  python3-pytest-cov  python3-setuptools python3-wheel python3 python3-pip git rsync pandoc python3-venv sudo && apt-get clean
+RUN apt-get update -y -qq && apt-get install -y -qq python3-tqdm  python3-uncertainties python3-sympy libffi-dev python3-scipy python3-numpy python3-pytest  python3-pytest-cov  python3-setuptools python3-wheel python3 python3-pip git rsync pandoc python3-venv sudo && apt-get clean
 RUN python3 -m pip install --no-cache-dir --upgrade nbconvert notebook sphinx-math-dollar numpydoc sphinx nbsphinx sphinx-rtd-theme matplotlib pandas build
 
 FROM apnpucky/ubuntu-dev as pip
