@@ -48,7 +48,7 @@ RUN ml --version \
 # make sure we start in /home/easybuild rather than / when shell in started in container
 WORKDIR /home/easybuild
 RUN eb --prefix /scratch --installpath /easybuild --install-latest-eb-release --robot --trace   && rm -rf /scratch/* 
-RUN eb --prefix /scratch --installpath /easybuild GCCcore-11.3.0.eb gompi-2022a.eb foss-2022a.eb Python-3.10.4-GCCcore-11.3.0.eb  --robot --trace   && rm -rf /scratch/*
+RUN eb --prefix /scratch --installpath /easybuild GCCcore-11.3.0.eb gompi-2022a.eb Python-3.10.4-GCCcore-11.3.0.eb  --robot --trace   && rm -rf /scratch/*
 
 
 
