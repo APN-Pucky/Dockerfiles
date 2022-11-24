@@ -5,6 +5,7 @@ on:
     branches: [ "master" ]
     paths:
       - ubuntu/Dockerfile
+      - .github/workflows/ubuntu.yml
 
 jobs:
   docker:
