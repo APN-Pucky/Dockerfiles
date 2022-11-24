@@ -9,6 +9,7 @@ on:
 jobs:
   docker:
     runs-on: self-hosted
+    timeout-minutes: 4320 # 72h
     strategy:
       fail-fast: false
       max-parallel: 1
