@@ -27,3 +27,4 @@ RUN lhapdf install cteq6l1 CT14lo CT14nlo MSTW2008lo68cl MSTW2008nlo68cl NNPDF23
 
 FROM apnpucky/ubuntu-pip-lhapdf as pip-lhapdf-looptools
 RUN apt-get update -y -qq && apt-get install -y -qq looptools && apt-get clean
+
