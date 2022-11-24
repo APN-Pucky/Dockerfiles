@@ -7,6 +7,7 @@ on:
     branches: [ "master" ]
     paths:
       - easybuild/Dockerfile
+      - .github/workflows/easybuild.yml
 
 jobs:
   docker:
