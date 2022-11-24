@@ -5,6 +5,13 @@ services:
   # CENTOS BUILDS                                        #
   ########################################################
 
+
+  centos7-easybuild-ci:
+    build:
+      context: .
+      target: centos7-easybuild-ci
+    image: apnpucky/centos7-easybuild-ci:${TAG:-latest}
+
   centos7-easybuild:
     build:
       context: .
