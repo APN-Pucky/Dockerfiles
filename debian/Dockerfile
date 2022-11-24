@@ -14,7 +14,13 @@ RUN update-alternatives --install /usr/bin/python python /usr/bin/python3 1
 FROM apnpucky/docker-debian-cmake-boost-gfortran as lhapdf
 ARG LHAPDF_VERSION=6.4.0
 ENV LHAPDF=/usr
-RUN wget https://lhapdf.hepforge.org/downloads/?f=LHAPDF-$LHAPDF_VERSION.tar.gz -O LHAPDF-$LHAPDF_VERSION.tar.gz && tar xf LHAPDF-$LHAPDF_VERSION.tar.gz && cd LHAPDF-$LHAPDF_VERSION  && ./configure --prefix=$LHAPDF && make && make install
+RUN wget https://lhapdf.hepforge.org/downloads/?f=LHAPDF-$LHAPDF_VERSION.tar.gz -O LHAPDF-$LHAPDF_VERSION.tar.gz && \
+  tar xf LHAPDF-$LHAPDF_VERSION.tar.gz && \
+  cd LHAPDF-$LHAPDF_VERSION  && \
+  ./configure --prefix=$LHAPDF && \
+  make && \
+  make install && \
+  rm -r LHAPDF-$LHAPDF_VERSION.tar.gz LHAPDF-$LHAPDF_VERSION
 ENV PATH=$PATH:$LHAPDF/bin
 ENV LIBRARY_PATH=$LIBRARY_PATH:$LHAPDF/lib
 ENV LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$LHAPDF/lib
