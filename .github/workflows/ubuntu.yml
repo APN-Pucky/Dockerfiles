@@ -39,7 +39,7 @@ jobs:
         uses: docker/build-push-action@v3
         with:
           file: ubuntu/Dockerfile
-          platforms: linux/amd64,linux/arm/v7,linux/arm64/v8,linux/ppc64le,linux/riscv64,linux/s390x
+          platforms: linux/amd64,linux/arm/v7,linux/arm64/v8,linux/ppc64le,linux/riscv64 #,linux/s390x
           push: true
           target: ${{ matrix.image }}
           tags: |
