@@ -7,6 +7,7 @@ on:
     branches: [ "master" ]
     paths:
       - gentoo/Dockerfile
+      - .github/workflows/gentoo.yml
 
 jobs:
   docker:
