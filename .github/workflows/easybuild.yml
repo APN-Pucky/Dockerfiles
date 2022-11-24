@@ -42,7 +42,7 @@ jobs:
         uses: docker/build-push-action@v3
         with:
           file: easybuild/Dockerfile
-          platforms: linux/amd64 #,linux/386, linux/arm64/v8,linux/arm/v7,linux/ppc64le
+          platforms: linux/amd64 #,linux/386, linux/arm64/v8, linux/arm/v7, linux/ppc64le
           push: true
           target: ${{ matrix.base }}-${{ matrix.image }}
           tags: |
