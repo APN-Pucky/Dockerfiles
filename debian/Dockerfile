@@ -19,8 +19,7 @@ RUN wget https://lhapdf.hepforge.org/downloads/?f=LHAPDF-$LHAPDF_VERSION.tar.gz 
   cd LHAPDF-$LHAPDF_VERSION  && \
   ./configure --prefix=$LHAPDF && \
   make && \
-  make install && \
-  rm -r LHAPDF-$LHAPDF_VERSION.tar.gz LHAPDF-$LHAPDF_VERSION
+  make install
 ENV PATH=$PATH:$LHAPDF/bin
 ENV LIBRARY_PATH=$LIBRARY_PATH:$LHAPDF/lib
 ENV LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$LHAPDF/lib
