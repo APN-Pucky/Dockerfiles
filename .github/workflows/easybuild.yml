@@ -20,7 +20,13 @@ jobs:
         user: ["apnpucky"]
         base: [ "centos7" ]
         image: ["easybuild"]
-        platform: [linux/amd64 ,linux/386, linux/arm64/v8, linux/arm/v7, linux/ppc64le]
+        platform: 
+          - linux/amd64 
+          #- linux/386
+          #- linux/arm64/v8
+          #- linux/arm/v7
+          #- linux/ppc64le
+                
     steps:
       -
         name: Checkout
