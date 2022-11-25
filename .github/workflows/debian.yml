@@ -43,7 +43,7 @@ jobs:
         uses: docker/build-push-action@v3
         with:
           file: debian/Dockerfile
-          platforms: linux/amd64,linux/arm/v7,linux/arm64/v8,linux/386
+          platforms: linux/amd64,linux/arm/v7,linux/arm64/v8 #,linux/386
           push: true
           target: ${{ matrix.image }}
           tags: |
