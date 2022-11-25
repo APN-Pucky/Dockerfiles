@@ -21,7 +21,11 @@ jobs:
         base: [ "gentoo" ]
         image: ["base", "repo","ebuild-ci","dev","hep-forge","lhapdf-looptools","rivet3-pythia8-hepmc3","rivet3-pythia8-hepmc2"]
     steps:
-      - name: Get current time
+      -
+        name: Checkout
+        uses: actions/checkout@v3
+      - 
+        name: Get current time
         uses: josStorer/get-current-time@v2.0.2
         id: current-time
         with:
