@@ -20,6 +20,7 @@ jobs:
         user: ["apnpucky"]
         base: [ "centos7" ]
         image: ["easybuild"]
+        platform: [linux/amd64 ,linux/386, linux/arm64/v8, linux/arm/v7, linux/ppc64le]
     steps:
       -
         name: Checkout
@@ -49,7 +50,7 @@ jobs:
         uses: docker/build-push-action@v3
         with:
           file: easybuild/Dockerfile
-          platforms: linux/amd64 #,linux/386, linux/arm64/v8, linux/arm/v7, linux/ppc64le
+          platforms: ${{ matrix.platform }}
           push: true
           target: ${{ matrix.base }}-${{ matrix.image }}
           tags: |
@@ -61,7 +62,7 @@ jobs:
         uses: docker/build-push-action@v3
         with:
           file: easybuild/Dockerfile
-          platforms: linux/amd64 #,linux/386, linux/arm64/v8, linux/arm/v7, linux/ppc64le
+          platforms: ${{ matrix.platform }}
           push: true
           target: ${{ matrix.base }}-${{ matrix.image }}
           build-args: |
