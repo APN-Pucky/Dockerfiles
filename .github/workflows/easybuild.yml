@@ -19,7 +19,7 @@ jobs:
       matrix:
         user: ["apnpucky"]
         base: [ "centos7" ]
-        image: ["easybuild","easybuild-ci"]
+        image: ["easybuild"]
     steps:
       -
         name: Checkout
@@ -56,3 +56,20 @@ jobs:
             ${{ matrix.user }}/${{ matrix.base }}-${{ matrix.image }}:latest
             ${{ matrix.user }}/${{ matrix.base }}-${{ matrix.image }}:${{ github.sha }}-latest
             ${{ matrix.user }}/${{ matrix.base }}-${{ matrix.image }}:${{ steps.current-time.outputs.formattedTime }}-latest
+      -
+        name: ${{ matrix.base }}-${{ matrix.image }}
+        uses: docker/build-push-action@v3
+        with:
+          file: easybuild/Dockerfile
+          platforms: linux/amd64 #,linux/386, linux/arm64/v8, linux/arm/v7, linux/ppc64le
+          push: true
+          target: ${{ matrix.base }}-${{ matrix.image }}
+          build-args: |
+            EASYINSTALL1=GCCcore-11.3.0.eb
+            EASYINSTALL2=gompi-2022a.eb
+            EASYINSTALL3=foss-2022a.eb
+            EASYINSTALL4=Python-3.10.4-GCCcore-11.3.0.eb
+          tags: |
+            ${{ matrix.user }}/${{ matrix.base }}-${{ matrix.image }}-ci:latest
+            ${{ matrix.user }}/${{ matrix.base }}-${{ matrix.image }}-ci:${{ github.sha }}-latest
+            ${{ matrix.user }}/${{ matrix.base }}-${{ matrix.image }}-ci:${{ steps.current-time.outputs.formattedTime }}-latest
