@@ -20,7 +20,6 @@ jobs:
         user: ["apnpucky"]
         base: [ "gentoo" ]
         image: ["base", "repo","ebuild-ci","dev","hep-forge","lhapdf-looptools","rivet3-pythia8-hepmc3","rivet3-pythia8-hepmc2"]
-        platform: [linux/amd64,linux/386, linux/arm64,linux/ppc64le,linux/riscv64,linux/arm/v5,linux/arm/v6,linux/arm/v7,linux/s390x]
     steps:
       -
         name: Checkout
@@ -50,7 +49,7 @@ jobs:
         uses: docker/build-push-action@v3
         with:
           file: gentoo/Dockerfile
-          platforms: ${{ matrix.platform }}
+          platforms: linux/amd64 #,linux/386, linux/arm64,linux/ppc64le,linux/riscv64,linux/arm/v5,linux/arm/v6,linux/arm/v7, #,linux/s390x,
           push: true
           target: ${{ matrix.base }}-${{ matrix.image }}
           tags: |
