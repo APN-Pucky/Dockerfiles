@@ -19,7 +19,11 @@ jobs:
         base: [ "ubuntu" ]
         image: ["base", "apt","dev","pip","pip-lhapdf","pip-lhapdf-looptools"]
     steps:
-      - name: Get current time
+      -
+        name: Checkout
+        uses: actions/checkout@v3
+      - 
+        name: Get current time
         uses: josStorer/get-current-time@v2.0.2
         id: current-time
         with:
