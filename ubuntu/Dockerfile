@@ -14,6 +14,9 @@ RUN python3 -m pip install --no-cache-dir --upgrade nbconvert notebook sphinx-ma
 FROM apnpucky/ubuntu-dev as pip
 RUN python3 -m  pip install --no-cache-dir --upgrade setuptools wheel pytest pytest-cov pytest-profiling sympy  scipy numpy tqdm  ipython  uncertainties  pandas build matplotlib sphinx-math-dollar jupyterlab numpydoc sphinx nbsphinx sphinx-rtd-theme ipywidgets jupyter_sphinx sphinx-autoapi sphinxcontrib-napoleon
 
+FROM apnpucky/ubuntu-pip as poetry
+RUN python3 -m pip install --no-cache-dir --upgrade poetry poetry-dynamic-versioning
+
 FROM apnpucky/ubuntu-pip as pip-lhapdf
 ARG LHAPDF_VERSION=6.4.0
 ENV LHAPDF=/usr

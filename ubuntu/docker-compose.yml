@@ -24,6 +24,12 @@ services:
       target: pip
     image: apnpucky/ubuntu-pip:${TAG:-latest}
 
+  poetry:
+    build:
+      context: .
+      target: poetry
+    image: apnpucky/ubuntu-poetry:${TAG:-latest}
+
   pip-lhapdf-6.4.0:
     build:
       context: .
