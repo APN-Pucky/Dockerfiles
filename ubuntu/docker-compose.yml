@@ -63,3 +63,9 @@ services:
       context: .
       target: python-lhapdf-looptools
     image: apnpucky/ubuntu-python-lhapdf-looptools:${TAG:-latest}
+
+  python-latexmk:
+    build:
+      context: .
+      target: python-latexmk
+    image: apnpucky/ubuntu-python-latexmk:${TAG:-latest}
