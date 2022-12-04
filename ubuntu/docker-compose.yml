@@ -30,30 +30,36 @@ services:
       target: poetry
     image: apnpucky/ubuntu-poetry:${TAG:-latest}
 
-  pip-lhapdf-6.4.0:
+  python:
     build:
       context: .
-      target: pip-lhapdf
+      target: python
+    image: apnpucky/ubuntu-python:${TAG:-latest}
+
+  python-lhapdf-6.4.0:
+    build:
+      context: .
+      target: python-lhapdf
       args:
         - LHAPDF_VERSION=6.4.0
-    image: apnpucky/ubuntu-pip-lhapdf:6.4.0-${TAG:-latest}
+    image: apnpucky/ubuntu-python-lhapdf:6.4.0-${TAG:-latest}
 
-  pip-lhapdf-6.5.3:
+  python-lhapdf-6.5.3:
     build:
       context: .
-      target: pip-lhapdf
+      target: python-lhapdf
       args:
         - LHAPDF_VERSION=6.5.3
-    image: apnpucky/ubuntu-pip-lhapdf:6.5.3-${TAG:-latest}
+    image: apnpucky/ubuntu-python-lhapdf:6.5.3-${TAG:-latest}
 
-  pip-lhapdf:
+  python-lhapdf:
     build:
       context: .
-      target: pip-lhapdf
-    image: apnpucky/ubuntu-pip-lhapdf:${TAG:-latest}
+      target: python-lhapdf
+    image: apnpucky/ubuntu-python-lhapdf:${TAG:-latest}
 
-  pip-lhapdf-looptools:
+  python-lhapdf-looptools:
     build:
       context: .
-      target: pip-lhapdf-looptools
-    image: apnpucky/ubuntu-pip-lhapdf-looptools:${TAG:-latest}
+      target: python-lhapdf-looptools
+    image: apnpucky/ubuntu-python-lhapdf-looptools:${TAG:-latest}

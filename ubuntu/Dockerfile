@@ -17,7 +17,10 @@ RUN python3 -m  pip install --no-cache-dir --upgrade setuptools wheel pytest pyt
 FROM apnpucky/ubuntu-pip as poetry
 RUN python3 -m pip install --no-cache-dir --upgrade poetry poetry-dynamic-versioning
 
-FROM apnpucky/ubuntu-pip as pip-lhapdf
+FROM apnpucky/ubuntu-poetry as python
+RUN python3 -m pip install --no-cache-dir --upgrade pipenv
+
+FROM apnpucky/ubuntu-python as python-lhapdf
 ARG LHAPDF_VERSION=6.4.0
 ENV LHAPDF=/usr
 RUN wget https://lhapdf.hepforge.org/downloads/?f=LHAPDF-$LHAPDF_VERSION.tar.gz -O LHAPDF-$LHAPDF_VERSION.tar.gz && \
@@ -35,7 +38,7 @@ ENV PYTHONPATH=$PYTHONPATH:$LHAPDF/lib/python3.8/site-packages/LHAPDF-$LHAPDF_VE
 #RUN python -c "import lhapdf;print(lhapdf.__version__)"
 RUN lhapdf install cteq6l1 CT14lo CT14nlo MSTW2008lo68cl MSTW2008nlo68cl NNPDF23_nlo_as_0119
 
-FROM apnpucky/ubuntu-pip-lhapdf as pip-lhapdf-looptools
+FROM apnpucky/ubuntu-pytho-lhapdf as python-lhapdf-looptools
 RUN apt-get update -y -qq && apt-get install -y -qq looptools && apt-get clean
 
 
