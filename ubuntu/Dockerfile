@@ -45,5 +45,5 @@ RUN apt-get update -y -qq && apt-get install -y -qq looptools && apt-get clean
 FROM apnpucky/ubuntu-python as python-latexmk
 RUN apt-get update -y -qq && apt-get install -y -qq latexmk texlive-full texlive-latex-extra texlive-formats-extra texlive-fonts-extra texlive-science aspell aspell-en aspell-de texlive-bibtex-extra biber texlive-latex-extra python3-pygments && apt-get clean
 RUN apt-get update -y -qq && apt-get install -y -qq libmagickwand-dev && apt-get clean
-ARG imagemagic_config=/etc/ImageMagick-6/policy.xml
-RUN if [ -f $imagemagic_config ] ; then sed -i 's/<policy domain="coder" rights="none" pattern="PDF" \/>/<policy domain="coder" rights="read|write" pattern="PDF" \/>/g' $imagemagic_config ; else echo did not see file $imagemagic_config ; fi
+ARG imagemagic_config=/etc/ImageMagick-7/policy.xml
+RUN sed -i 's/<policy domain="coder" rights="none" pattern="PDF" \/>/<policy domain="coder" rights="read|write" pattern="PDF" \/>/g' $imagemagic_config
