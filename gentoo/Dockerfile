@@ -29,7 +29,7 @@ RUN emerge -q imagemagick ghostscript-gpl && rm -rf /var/cache/distfiles/*
 # python3_11
 RUN ACCEPT_KEYWORDS="~amd64" emerge -q dev-lang/python:3.11 && rm -rf /var/cache/distfiles/*
 RUN emerge -q --changed-use --deep --keep-going @world && rm -rf /var/cache/distfiles/*
-RUN emerge -q --autounmask=y --autounmask-write --autounmask-continue --autounmask-use=y dev-python/matplotlib && rm -rf /var/cache/distfiles/*
+RUN USE="lapack" emerge -q --autounmask=y --autounmask-write --autounmask-continue --autounmask-use=y dev-python/{matplotlib,numpy} && rm -rf /var/cache/distfiles/*
 #config
 ENV PKGDIR="/var/cache/binpkgs"
 ENV CCACHE_DIR="/var/cache/ccache"
