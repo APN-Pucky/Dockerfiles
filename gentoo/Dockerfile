@@ -42,6 +42,7 @@ RUN install -m 0775 -o portage -g portage -d "${CCACHE_DIR}"/{0,1,2,3,4,5,6,7,8,
 # test.conf from https://wiki.gentoo.org/wiki/Package_testing
 RUN printf 'COMMON_FLAGS="-O2 -pipe -frecord-gcc-switches"\nCFLAGS="${COMMON_FLAGS}"\nCXXFLAGS="${COMMON_FLAGS}"\nFCFLAGS="${COMMON_FLAGS}"\nFFLAGS="${COMMON_FLAGS}"\nLDFLAGS="${LDFLAGS} -Wl,--defsym=__gentoo_check_ldflags__=0"\nFEATURES="collision-protect ipc-sandbox network-sandbox sandbox split-log split-elog strict test userfetch userpriv usersandbox"\nFEATURES="${FEATURES} -parallel-install"\nPORTAGE_ELOG_CLASSES="log warn error qa"\nPORTAGE_ELOG_SYSTEM="echo save"\nDISTUTILS_STRICT_ENTRY_POINTS=1\nALLOW_TEST="network"\nIWDT_ALL=y\nQA_CMP=y\nQA_CMP_ARGS="-xS"\nQA_SED=y\nQA_VDB=y' > /etc/portage/env/test.conf
 RUN echo 'ACCEPT_LICENSE="* -@EULA"' >> /etc/portage/make.conf
+RUN emerge --depclean
 # FROM here on unstable
 #RUN echo 'ACCEPT_KEYWORDS="~amd64"' >> /etc/portage/make.conf
 
@@ -57,6 +58,14 @@ RUN echo 'sci-physics/hepmc gev' >> /etc/portage/package.use/zz-autoaccept
 RUN echo 'sci-physics/siscone ~amd64' >> /etc/portage/package.accept_keywords/zz-autoaccept
 RUN echo 'dev-python/keyrings-alt ~amd64' >> /etc/portage/package.accept_keywords/zz-autoaccept
 RUN echo 'dev-python/jaraco-classes ~amd64' >> /etc/portage/package.accept_keywords/zz-autoaccept
+
+FROM apnpucky/gentoo-hep-forge as gentoo-hep-forge-unstable
+RUN echo 'ACCEPT_KEYWORDS="~"' >> /etc/portage/make.conf
+RUN emerge -e @world && emerge -e @preserved-rebuild && rm -rf /var/cache/distfiles/* && emerge --depclean
+
+FROM apnpucky/gentoo-hep-forge as gentoo-hep-forge-live
+RUN echo 'ACCEPT_KEYWORDS="~ **"' >> /etc/portage/make.conf
+RUN emerge -e @world && emerge -e @preserved-rebuild && rm -rf /var/cache/distfiles/* && emerge --depclean
 
 
 

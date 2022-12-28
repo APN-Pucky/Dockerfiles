@@ -30,6 +30,17 @@ services:
       target: gentoo-hep-forge
     image: apnpucky/gentoo-hep-forge:${TAG:-latest}
 
+  hep-forge-unstable:
+    build:
+      context: .
+      target: gentoo-hep-forge-unstable
+    image: apnpucky/gentoo-hep-forge-unstable:${TAG:-latest}
+
+  hep-forge-live:
+    build:
+      context: .
+      target: gentoo-hep-forge-live
+    image: apnpucky/gentoo-hep-forge-live:${TAG:-latest}
 
   lhapdf-looptools:
     build:
@@ -48,7 +59,6 @@ services:
       context: .
       target: gentoo-rivet3-pythia8-hepmc2
     image: apnpucky/gentoo-rivet3-pythia8-hepmc2:${TAG:-latest}
-
 
 #  latex:
 #    build:
