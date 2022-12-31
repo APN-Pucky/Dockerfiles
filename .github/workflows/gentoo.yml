@@ -19,7 +19,18 @@ jobs:
       matrix:
         user: ["apnpucky"]
         base: [ "gentoo" ]
-        image: ["base", "repo","ebuild-ci","dev","hep-forge","hep-forge-unstable","hep-forge-live","lhapdf-looptools","rivet3-pythia8-hepmc3","rivet3-pythia8-hepmc2"]
+        image: [
+                "base", 
+                "repo",
+                "ebuild-ci",
+                "dev",
+                "hep-forge",
+                "hep-forge-unstable",
+                #"hep-forge-live",
+                "lhapdf-looptools",
+                "rivet3-pythia8-hepmc3",
+                "rivet3-pythia8-hepmc2"
+                ]
     steps:
       -
         name: Checkout
