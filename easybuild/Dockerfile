@@ -6,7 +6,7 @@ ARG IMG_TAG=7
 # allow CI/CD to change all of the above
 FROM ${IMG_REGISTRY}/${IMG_ORG}/${IMG_NAME}:${IMG_TAG} as centos7-easybuild
 # set default easybuild version
-ARG EB_VER=4.6.2
+ARG EB_VER=4.6.1
 LABEL easybuild_version=${EB_VER}
 # install required packages (EPEL is required for Lmod)
 RUN yum install -y epel-release \
