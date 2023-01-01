@@ -48,8 +48,8 @@ RUN ml --version \
 # make sure we start in /home/easybuild rather than / when shell in started in container
 WORKDIR /home/easybuild
 RUN eb --prefix /scratch --installpath /easybuild --install-latest-eb-release --robot --trace   && rm -rf /scratch/* 
-
 FROM apnpucky/centos7-easybuild as centos7-easybuild-ci
+RUN sed -i 's/www\.cpan\.org/cpan.metacpan.org/g' /easybuild/software/EasyBuild/4.6.2/easybuild/easyconfigs/p/Perl/Perl-5.34.1-GCCcore-11.3.0.eb
 RUN eb --prefix /scratch --installpath /easybuild --install-latest-eb-release --robot --trace   && rm -rf /scratch/* 
 RUN eb --prefix /scratch --installpath /easybuild GCCcore-11.3.0.eb gompi-2022a.eb Python-3.10.4-GCCcore-11.3.0.eb  --robot --trace   && rm -rf /scratch/*
 RUN eb --prefix /scratch --installpath /easybuild Qt5-5.15.5.eb nodejs-16.15.1.eb Mesa-22.0.3.eb --robot --trace   && rm -rf /scratch/*
