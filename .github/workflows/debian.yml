@@ -19,7 +19,14 @@ jobs:
       matrix:
         user: ["apnpucky"]
         base: [ "debian" ]
-        image: ["base", "cmake-boost-gfortran","lhapdf","lhapdf-looptools","looptools","resummino"]
+        image: [
+          "base", 
+          "cmake-boost-gfortran",
+          "lhapdf",
+          "lhapdf-looptools",
+          "looptools",
+          "resummino"
+          ]
     steps:
       -
         name: Checkout
