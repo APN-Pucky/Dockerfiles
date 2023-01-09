@@ -47,7 +47,7 @@ RUN emerge --depclean
 # gentoo-hep-forge
 FROM apnpucky/gentoo-dev as gentoo-hep-forge
 # USE="X" for mesa for opengl for fastjet
-RUN emerge -q sci-physics/root && rm -rf /var/cache/distfiles/*
+RUN ACCEPT_KEYWORDS="~amd64" emerge -q sci-physics/root && rm -rf /var/cache/distfiles/*
 RUN echo 'USE="X"' >> /etc/portage/make.conf
 RUN mkdir /var/db/repos/hep-forge && printf "[hep-forge]\nlocation = /var/db/repos/hep-forge\nsync-type = git\nsync-uri = https://gitlab.com/APN-Pucky/gentoo-hep-forge.git" >> /etc/portage/repos.conf/hep-forge.conf && emaint -r hep-forge sync
 RUN echo '*/*::hep-forge ~amd64' > /etc/portage/package.accept_keywords/hepforge
