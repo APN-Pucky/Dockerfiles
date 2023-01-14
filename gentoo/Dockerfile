@@ -46,11 +46,10 @@ RUN emerge --depclean
 
 # gentoo-hep-forge
 FROM apnpucky/gentoo-dev as gentoo-hep-forge
-# USE="X" for mesa for opengl for fastjet
 RUN echo '>=media-libs/libafterimage-1.20-r6 png gif tiff jpeg' >> /etc/portage/package.use/root
-RUN echo 'sci-physics/root -X -opengl -asimage' >> /etc/portage/package.use/root
-RUN ACCEPT_KEYWORDS="~amd64" emerge -q sci-physics/root && rm -rf /var/cache/distfiles/*
+# USE="X" for mesa for opengl for fastjet
 RUN echo 'USE="X"' >> /etc/portage/make.conf
+RUN ACCEPT_KEYWORDS="~amd64" emerge -q sci-physics/root && rm -rf /var/cache/distfiles/*
 RUN mkdir /var/db/repos/hep-forge && printf "[hep-forge]\nlocation = /var/db/repos/hep-forge\nsync-type = git\nsync-uri = https://gitlab.com/APN-Pucky/gentoo-hep-forge.git" >> /etc/portage/repos.conf/hep-forge.conf && emaint -r hep-forge sync
 RUN echo '*/*::hep-forge ~amd64' > /etc/portage/package.accept_keywords/hepforge
 #TODO better use --autounmask=y --autounmask-write --autounmask-continue --autounmask-use=y
