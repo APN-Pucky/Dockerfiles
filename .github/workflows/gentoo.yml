@@ -23,7 +23,7 @@ jobs:
                 "base", 
                 "repo",
                 "ebuild-ci",
-                "ansible"
+                "ansible",
                 "dev",
                 "hep-forge",
                 "hep-forge-unstable",
