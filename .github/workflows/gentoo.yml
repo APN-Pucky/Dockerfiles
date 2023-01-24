@@ -8,6 +8,8 @@ on:
     paths:
       - gentoo/Dockerfile
       - .github/workflows/gentoo.yml
+  schedule:
+    - cron: 0 6 2 * *
 
 jobs:
   docker:
