@@ -15,6 +15,10 @@ RUN eix-update
 FROM apnpucky/gentoo-repo as gentoo-ebuild-ci
 RUN emerge -q dev-util/pkgdev && rm -rf /var/cache/distfiles/*
 
+# gentoo-ansible
+FROM apnpucky/gentoo-repo as gentoo-ansible
+RUN emerge -q app-admin/ansible-lint app-admin/ansible && rm -rf /var/cache/distfiles/*
+
 # gentoo-dev
 FROM apnpucky/gentoo-ebuild-ci as gentoo-dev
 RUN emerge -q rust && rm -rf /var/cache/distfiles/*
