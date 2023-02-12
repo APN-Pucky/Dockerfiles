@@ -83,7 +83,7 @@ RUN emerge -e @world && emerge -e @preserved-rebuild && rm -rf /var/cache/distfi
 # gentoo-lhapdf-looptools
 FROM apnpucky/gentoo-hep-forge as gentoo-lhapdf-looptools
 LABEL maintainer="APN-Pucky"
-ARG LHAPDF_VERSION=6.3.0
+ARG LHAPDF_VERSION=6.3.0-r1
 RUN emaint -r hep-forge sync
 # stabel lhapdf only support 3.8
 RUN emerge -q eselect-python && eselect python set python3.10 && rm -rf /var/cache/distfiles/*
@@ -98,7 +98,7 @@ LABEL maintainer="APN-Pucky"
 ARG RIVET_VERSION=3.1.6-r1
 ARG PYTHIA_VERSION=8.3.07-r4
 ARG HEPMC_VERSION=3.2.5
-ARG LHAPDF_VERSION=6.3.0
+ARG LHAPDF_VERSION=6.3.0-r1
 RUN emaint -r hep-forge sync
 #RUN echo 'sci-physics/lhapdf ~amd64' >> /etc/portage/package.accept_keywords/zz-autoaccept
 #RUN echo 'sci-physics/looptools ~amd64' >> /etc/portage/package.accept_keywords/zz-autoaccept
