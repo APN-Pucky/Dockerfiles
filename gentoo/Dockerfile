@@ -86,7 +86,7 @@ LABEL maintainer="APN-Pucky"
 ARG LHAPDF_VERSION=6.3.0
 RUN emaint -r hep-forge sync
 # stabel lhapdf only support 3.8
-RUN emerge -q eselect-python && eselect python set python3.8 && rm -rf /var/cache/distfiles/*
+RUN emerge -q eselect-python && eselect python set python3.10 && rm -rf /var/cache/distfiles/*
 #RUN echo 'sci-physics/lhapdf ~amd64' >> /etc/portage/package.accept_keywords/zz-autoaccept
 RUN echo 'sci-physics/looptools **' >> /etc/portage/package.accept_keywords/zz-autoaccept
 RUN USE="python" emerge -q =sci-physics/lhapdf-${LHAPDF_VERSION} sci-physics/looptools && rm -rf /var/cache/distfiles/*
