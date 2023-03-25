@@ -2,7 +2,7 @@
 FROM gentoo/portage:latest as portage-base
 FROM gentoo/stage3:latest as gentoo-base
 LABEL maintainer="APN-Pucky"
-ARG NICENESS=15
+ARG NICENESS=14
 COPY --from=portage-base /var/db/repos/gentoo /var/db/repos/gentoo
 RUN mkdir -p /etc/portage/repos.conf/ && cp /usr/share/portage/config/repos.conf /etc/portage/repos.conf/gentoo.conf
 RUN echo "PORTAGE_NICENESS=\"${NICENESS}\"" >> /etc/portage/make.conf
