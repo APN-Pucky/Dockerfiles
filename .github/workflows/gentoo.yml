@@ -11,6 +11,11 @@ on:
   schedule:
     - cron: 0 6 2 * *
 
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+
 jobs:
   docker:
     runs-on: self-hosted
@@ -32,7 +37,9 @@ jobs:
                 #"hep-forge-live",
                 "lhapdf-looptools",
                 "rivet3-pythia8-hepmc3",
-                "rivet3-pythia8-hepmc2"
+                "rivet3-pythia8-hepmc2",
+                "latex",
+                "prefix"
                 ]
     steps:
       -
