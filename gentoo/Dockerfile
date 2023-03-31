@@ -119,3 +119,6 @@ RUN echo '>=media-libs/harfbuzz-4.3.0 icu -introspection' > /etc/portage/package
 RUN emerge -q latexmk biber app-text/texlive dev-texlive/texlive-latex dev-python/pygments && rm -rf /var/cache/distfiles/*
 
 # gentoo-prefix
+FROM apnpucky/gentoo-base as gentoo-prefix
+LABEL maintainer="APN-Pucky"
+RUN wget https://gitweb.gentoo.org/repo/proj/prefix.git/plain/scripts/bootstrap-prefix.sh && chmod +x bootstrap-prefix.sh && ./bootstrap-prefix.sh $PWD/gentoo-prefix noninteractive
