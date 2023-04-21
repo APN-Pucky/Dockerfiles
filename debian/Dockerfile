@@ -1,6 +1,6 @@
-FROM debian as latexmk
-LABEL maintainer="APN-Pucky"
-RUN apt-get update -y -qq && apt-get install -y -qq latexmk texlive-full texlive-latex-extra texlive-formats-extra texlive-fonts-extra texlive-science aspell aspell-en aspell-de texlive-bibtex-extra biber texlive-latex-extra python3-pygments && apt-get clean
+#FROM debian as latexmk
+#LABEL maintainer="APN-Pucky"
+#RUN apt-get update -y -qq && apt-get install -y -qq latexmk texlive-full texlive-latex-extra texlive-formats-extra texlive-fonts-extra texlive-science aspell aspell-en aspell-de texlive-bibtex-extra biber texlive-latex-extra python3-pygments && apt-get clean
 
 FROM debian:buster as base
 LABEL maintainer="APN-Pucky"
@@ -36,6 +36,6 @@ FROM apnpucky/docker-debian-cmake-boost-gfortran as looptools
 RUN apt-get update -y -qq && apt-get install -y -qq looptools && apt-get clean
 
 FROM apnpucky/docker-debian-lhapdf-looptools as resummino
-ARG RESUMMINO_VERSION=3.1.1
+ARG RESUMMINO_VERSION=3.1.2
 RUN git clone -b ${RESUMMINO_VERSION} --single-branch https://glpat-kXxsEN2wgp4XUV8tHJyN:glpat-kXxsEN2wgp4XUV8tHJyN@zivgitlab.uni-muenster.de/ag-klasen/resummino.git
 RUN cd resummino && mkdir build && cd build && cmake .. -B . && make && make install

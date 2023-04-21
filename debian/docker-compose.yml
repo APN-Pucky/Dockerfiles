@@ -46,6 +46,14 @@ services:
         - RESUMMINO_VERSION=3.1.1
     image: apnpucky/resummino:3.1.1-${TAG:-latest}
 
+  resummino-3.1.2:
+    build:
+      context: .
+      target: resummino
+      args:
+        - RESUMMINO_VERSION=3.1.2
+    image: apnpucky/resummino:3.1.2-${TAG:-latest}
+
   resummino:
     build:
       context: .
