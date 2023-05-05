@@ -32,6 +32,8 @@ jobs:
                 "ebuild-ci",
                 "ansible",
                 "dev",
+                "apn",
+                "apn-unstable",
                 "hep-forge",
                 "hep-forge-unstable",
                 #"hep-forge-live",

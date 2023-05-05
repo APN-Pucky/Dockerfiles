@@ -42,6 +42,24 @@ services:
       target: gentoo-hep-forge-live
     image: apnpucky/gentoo-hep-forge-live:${TAG:-latest}
 
+  apn:
+    build:
+      context: .
+      target: gentoo-apn
+    image: apnpucky/gentoo-apn:${TAG:-latest}
+
+  apn-unstable:
+    build:
+      context: .
+      target: gentoo-apn-unstable
+    image: apnpucky/gentoo-apn-unstable:${TAG:-latest}
+
+  apn-live:
+    build:
+      context: .
+      target: gentoo-apn-live
+    image: apnpucky/gentoo-apn-live:${TAG:-latest}
+
   lhapdf-looptools:
     build:
       context: .
