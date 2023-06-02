@@ -59,8 +59,8 @@ services:
       context: .
       target: resummino
     image: apnpucky/resummino:${TAG:-latest}
-  #latexmk:
-  #  build:
-  #    context: .
-  #    target: latexmk
-  #  image: apnpucky/docker-debian-latexmk:${TAG:-latest}
+  latexmk:
+    build:
+      context: .
+      target: latexmk
+    image: apnpucky/docker-debian-latexmk:${TAG:-latest}
