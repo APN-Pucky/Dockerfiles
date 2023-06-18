@@ -36,7 +36,7 @@ RUN ACCEPT_KEYWORDS="~amd64" emerge -q dev-lang/python:3.11 && rm -rf /var/cache
 RUN emerge -q --changed-use --deep --keep-going @world && rm -rf /var/cache/distfiles/*
 RUN USE="lapack" emerge -q --autounmask=y --autounmask-write --autounmask-continue --autounmask-use=y dev-python/{matplotlib,numpy} && rm -rf /var/cache/distfiles/*
 RUN emerge -q dev-python/pip && rm -rf /var/cache/distfiles/*
-#config
+# Config
 ENV PKGDIR="/var/cache/binpkgs"
 ENV CCACHE_DIR="/var/cache/ccache"
 ENV CCACHE_SIZE="1G"
