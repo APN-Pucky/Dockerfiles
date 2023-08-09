@@ -4,7 +4,7 @@ RUN apt-get update -y -qq && apt-get install -y -qq inkscape latexmk texlive-ful
 
 FROM debian:buster as base
 LABEL maintainer="APN-Pucky"
-RUN apt-get update -y -qq && apt-get install -y -qq wget git curl rsync sudo && apt-get clean
+RUN apt-get update -y -qq && apt-get install -y -qq wget git curl rsync sudo zip && apt-get clean
 
 FROM apnpucky/debian-base as cmake-boost-gfortran
 LABEL maintainer="APN-Pucky"
