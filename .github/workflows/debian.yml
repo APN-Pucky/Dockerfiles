@@ -24,7 +24,7 @@ jobs:
           "cmake-boost-gfortran",
           "lhapdf",
           "lhapdf-looptools",
-          "looptools",
+#          "looptools",
           "resummino",
           "latexmk",
           ]
