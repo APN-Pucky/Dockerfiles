@@ -36,6 +36,6 @@ RUN apt-get update -y -qq && apt-get install -y -qq looptools libooptools-dev &&
 #RUN apt-get update -y -qq && apt-get install -y -qq looptools && apt-get clean
 
 FROM apnpucky/debian-lhapdf-looptools as resummino
-ARG RESUMMINO_VERSION=3.1.3
+ARG RESUMMINO_VERSION=3.1.2
 RUN git clone -b ${RESUMMINO_VERSION} --single-branch https://glpat-kXxsEN2wgp4XUV8tHJyN:glpat-kXxsEN2wgp4XUV8tHJyN@zivgitlab.uni-muenster.de/ag-klasen/resummino.git
 RUN cd resummino && mkdir build && cd build && cmake .. -B . && make && make install
