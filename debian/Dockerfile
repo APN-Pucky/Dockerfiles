@@ -26,8 +26,8 @@ ENV PATH=$PATH:$LHAPDF/bin
 ENV LIBRARY_PATH=$LIBRARY_PATH:$LHAPDF/lib
 ENV LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$LHAPDF/lib
 ENV PYTHONPATH=$PYTHONPATH:$LHAPDF/lib/python3.7/site-packages/
-#RUN python3 -c "import lhapdf;print(lhapdf.__version__)"
-#RUN for n in NNPDF40_nlo_as_01180 NNPDF40_lo_as_01180 PDF4LHC15_nlo_mc PDF4LHC21_mc cteq66 cteq6l1 CT14lo CT14nlo MSTW2008lo68cl MSTW2008nlo68cl NNPDF23_nlo_as_0119; do wget http://lhapdfsets.web.cern.ch/lhapdfsets/current/$n.tar.gz && tar xvfz "$n.tar.gz" --directory $LHAPDF/share/LHAPDF/ ; done && rm -rf *.tar.gz
+RUN python3 -c "import lhapdf;print(lhapdf.__version__)"
+RUN for n in NNPDF40_nlo_as_01180 NNPDF40_lo_as_01180 PDF4LHC15_nlo_mc PDF4LHC21_mc cteq66 cteq6l1 CT14lo CT14nlo MSTW2008lo68cl MSTW2008nlo68cl NNPDF23_nlo_as_0119; do wget http://lhapdfsets.web.cern.ch/lhapdfsets/current/$n.tar.gz && tar xvfz "$n.tar.gz" --directory $LHAPDF/share/LHAPDF/ ; done && rm -rf *.tar.gz
 
 FROM apnpucky/debian-lhapdf as lhapdf-looptools
 RUN apt-get update -y -qq && apt-get install -y -qq looptools libooptools-dev && apt-get clean
@@ -36,6 +36,14 @@ RUN apt-get update -y -qq && apt-get install -y -qq looptools libooptools-dev &&
 #RUN apt-get update -y -qq && apt-get install -y -qq looptools && apt-get clean
 
 FROM apnpucky/debian-lhapdf-looptools as resummino
-ARG RESUMMINO_VERSION=3.1.3
+ARG RESUMMINO_VERSION=3.1.2
 RUN git clone -b ${RESUMMINO_VERSION} --single-branch https://glpat-kXxsEN2wgp4XUV8tHJyN:glpat-kXxsEN2wgp4XUV8tHJyN@zivgitlab.uni-muenster.de/ag-klasen/resummino.git
 RUN cd resummino && mkdir build && cd build && cmake .. -B . && make && make install
+
+
+FROM debian as gentoo-prefix
+RUN apt-get update && apt-get upgrade -y && apt-get install -y build-essential wget
+RUN wget https://gitweb.gentoo.org/repo/proj/prefix.git/plain/scripts/bootstrap-prefix.sh && chmod +x bootstrap-prefix.sh && sed -i 's/UID/NOUID/g' bootstrap-prefix.sh && ./bootstrap-prefix.sh /gentoo-prefix noninteractive
+# set entry point to start gentoo prefix
+ENTRYPOINT ["/gentoo-prefix/startprefix"]
+
