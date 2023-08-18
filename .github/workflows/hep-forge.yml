@@ -51,11 +51,6 @@ jobs:
           VERSION=${VERSION//looptools/${{ matrix.looptools }}}
           VERSION=${VERSION//pythia8/${{ matrix.pythia8 }}}
           echo "VERSION=$VERSION" >> "$GITHUB_OUTPUT"
-      - 
-        name: Pull latest base image
-        run: |
-          docker pull ${{ matrix.user }}/gentoo-hep-forge:latest
-          docker pull ${{ matrix.user }}/${{ matrix.base }}-${{ matrix.image }}:${{ steps.version.outputs.VERSION }}-latest || true
       -
         name: Checkout
         uses: actions/checkout@v3
@@ -79,6 +74,11 @@ jobs:
         with:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
+      - 
+        name: Pull latest base image
+        run: |
+          docker pull ${{ matrix.user }}/gentoo-hep-forge:latest
+          docker pull ${{ matrix.user }}/${{ matrix.base }}-${{ matrix.image }}:${{ steps.version.outputs.VERSION }}-latest || true
       -
         name: ${{ matrix.base }}-${{ matrix.image }}
         uses: docker/build-push-action@v3
