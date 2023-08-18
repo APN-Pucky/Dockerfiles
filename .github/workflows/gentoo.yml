@@ -8,6 +8,13 @@ on:
     paths:
       - gentoo/Dockerfile
       - .github/workflows/gentoo.yml
+  schedule:
+    - cron: 0 6 2 * *
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
 
 jobs:
   docker:
@@ -23,7 +30,10 @@ jobs:
                 "base", 
                 "repo",
                 "ebuild-ci",
+                "ansible",
                 "dev",
+                "apn",
+                "apn-unstable",
                 "hep-forge",
                 "hep-forge-unstable",
                 #"hep-forge-live",

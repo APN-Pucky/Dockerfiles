@@ -8,6 +8,8 @@ on:
     paths:
       - easybuild/Dockerfile
       - .github/workflows/easybuild.yml
+  schedule:
+    - cron: 0 6 3 * *
 
 jobs:
   docker:

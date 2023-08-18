@@ -24,8 +24,9 @@ jobs:
           "dev",
           "lhapdf",
           "lhapdf-looptools",
-          "looptools",
-          "resummino"
+#          "looptools",
+          "resummino",
+          "latexmk",
           ]
     steps:
       -
