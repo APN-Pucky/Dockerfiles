@@ -30,6 +30,9 @@ jobs:
           "lhapdf",
           "lhapdf-looptools",
           "rivet3-hepmc3",
+          "rivet3-hepmc2",
+          "rivet3-pythia8-hepmc3-lhapdf",
+          "rivet3-pythia8-hepmc2-lhapdf",
           "rivet3-pythia8-hepmc3-lhapdf-looptools",
           "rivet3-pythia8-hepmc2-lhapdf-looptools"
           ]
@@ -85,14 +88,15 @@ jobs:
         with:
           file: gentoo/Dockerfile
           platforms: linux/amd64 #,linux/386, linux/arm64,linux/ppc64le,linux/riscv64,linux/arm/v5,linux/arm/v6,linux/arm/v7, #,linux/s390x,
+          pull: true
           push: true
           target: ${{ matrix.base }}-${{ matrix.image }}
           build-args: |
             LHAPDF_VERSION=${{ matrix.lhapdf }}
             LOOPTOOLS_VERSION=${{ matrix.looptools }}
-            RIVET3_VERSION=${{ matrix.rivet }}
-            HEPMC3_VERSION=${{ matrix.hepmc }}
-            PYTHIA8_VERSION=${{ matrix.pythia }}
+            RIVET3_VERSION=${{ matrix.rivet3 }}
+            HEPMC3_VERSION=${{ matrix.hepmc3 }}
+            PYTHIA8_VERSION=${{ matrix.pythia8 }}
           tags: |
             ${{ matrix.user }}/${{ matrix.base }}-${{ matrix.image }}:latest
             ${{ matrix.user }}/${{ matrix.base }}-${{ matrix.image }}:${{ steps.version.outputs.VERSION }}-latest
