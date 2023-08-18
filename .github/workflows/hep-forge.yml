@@ -55,7 +55,7 @@ jobs:
         name: Pull latest base image
         run: |
           docker pull ${{ matrix.user }}/gentoo-hep-forge:latest
-          docker pull ${{ matrix.user }}/${{ matrix.base }}-${{ matrix.image }}:${{ steps.version.VERSION }}-latest || true
+          docker pull ${{ matrix.user }}/${{ matrix.base }}-${{ matrix.image }}:${{ steps.version.outputs.VERSION }}-latest || true
       -
         name: Checkout
         uses: actions/checkout@v3
@@ -95,6 +95,6 @@ jobs:
             PYTHIA8_VERSION=${{ matrix.pythia }}
           tags: |
             ${{ matrix.user }}/${{ matrix.base }}-${{ matrix.image }}:latest
-            ${{ matrix.user }}/${{ matrix.base }}-${{ matrix.image }}:${{ steps.version.VERSION }}-latest
-            ${{ matrix.user }}/${{ matrix.base }}-${{ matrix.image }}:${{ steps.version.VERSION }}-${{ github.sha }}-latest
-            ${{ matrix.user }}/${{ matrix.base }}-${{ matrix.image }}:${{ steps.version.VERSION }}-${{ steps.current-time.outputs.formattedTime }}-latest
+            ${{ matrix.user }}/${{ matrix.base }}-${{ matrix.image }}:${{ steps.version.outputs.VERSION }}-latest
+            ${{ matrix.user }}/${{ matrix.base }}-${{ matrix.image }}:${{ steps.version.outputs.VERSION }}-${{ github.sha }}-latest
+            ${{ matrix.user }}/${{ matrix.base }}-${{ matrix.image }}:${{ steps.version.outputs.VERSION }}-${{ steps.current-time.outputs.formattedTime }}-latest
