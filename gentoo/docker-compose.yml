@@ -60,6 +60,12 @@ services:
       target: gentoo-apn-live
     image: apnpucky/gentoo-apn-live:${TAG:-latest}
 
+  lhapdf:
+    build:
+      context: .
+      target: gentoo-lhapdf
+    image: apnpucky/gentoo-lhapdf:${TAG:-latest}
+
   lhapdf-looptools:
     build:
       context: .
@@ -77,6 +83,12 @@ services:
       context: .
       target: gentoo-rivet3-pythia8-hepmc2
     image: apnpucky/gentoo-rivet3-pythia8-hepmc2:${TAG:-latest}
+
+  prefix:
+    build:
+      context: .
+      target: prefix
+    image: apnpucky/gentoo-prefix:${TAG:-latest}
 
 #  latex:
 #    build:

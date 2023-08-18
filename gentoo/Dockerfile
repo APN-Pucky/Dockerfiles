@@ -87,19 +87,34 @@ RUN echo 'ACCEPT_KEYWORDS="~ **"' >> /etc/portage/make.conf
 RUN emerge -e @world && emerge -e @preserved-rebuild && rm -rf /var/cache/distfiles/* && emerge --depclean
 
 
+FROM apnpucky/gentoo-hep-forge as gentoo-lhapdf
+LABEL maintainer="APN-Pucky"
+ARG LHAPDF_VERSION=6.5.4
+RUN emaint -r hep-forge sync
+# stabel lhapdf only support 3.8
+RUN emerge -q eselect-python && eselect python set python3.10 && rm -rf /var/cache/distfiles/*
+#RUN echo 'sci-physics/lhapdf ~amd64' >> /etc/portage/package.accept_keywords/zz-autoaccept
+RUN USE="python" emerge -q ~sci-physics/lhapdf-${LHAPDF_VERSION} && rm -rf /var/cache/distfiles/*
 
-
-
-# gentoo-lhapdf-looptools
 FROM apnpucky/gentoo-hep-forge as gentoo-lhapdf-looptools
 LABEL maintainer="APN-Pucky"
-ARG LHAPDF_VERSION=6.3.0-r1
+ARG LOOPTOOLS_VERSION=2.15
+ARG LHAPDF_VERSION=6.5.4
 RUN emaint -r hep-forge sync
 # stabel lhapdf only support 3.8
 RUN emerge -q eselect-python && eselect python set python3.10 && rm -rf /var/cache/distfiles/*
 #RUN echo 'sci-physics/lhapdf ~amd64' >> /etc/portage/package.accept_keywords/zz-autoaccept
 RUN echo 'sci-physics/looptools **' >> /etc/portage/package.accept_keywords/zz-autoaccept
-RUN USE="python" emerge -q =sci-physics/lhapdf-${LHAPDF_VERSION} sci-physics/looptools && rm -rf /var/cache/distfiles/*
+RUN USE="python" emerge -q ~sci-physics/lhapdf-${LHAPDF_VERSION} ~sci-physics/looptools-${LOOPTOOLS_VERSION} && rm -rf /var/cache/distfiles/*
+
+
+
+FROM apnpucky/gentoo-hep-forge as gentoo-rivet-hepmc3
+LABEL maintainer="APN-Pucky"
+ARG RIVET_VERSION=3.1.6-r1
+ARG HEPMC_VERSION=3.2.5
+RUN emaint -r hep-forge sync
+RUN USE="hepmc3 -hepmc2 python" emerge -q =sci-physics/rivet-${RIVET_VERSION} =sci-physics/hepmc-${HEPMC_VERSION} && rm -rf /var/cache/distfiles/*
 
 
 # gentoo-lhapdf-looptools
@@ -107,7 +122,6 @@ FROM apnpucky/gentoo-lhapdf-looptools as gentoo-rivet3-pythia8-hepmc3
 LABEL maintainer="APN-Pucky"
 ARG RIVET_VERSION=3.1.6-r1
 ARG PYTHIA_VERSION=8.3.07-r4
-ARG HEPMC_VERSION=3.2.5
 ARG LHAPDF_VERSION=6.3.0-r1
 RUN emaint -r hep-forge sync
 #RUN echo 'sci-physics/lhapdf ~amd64' >> /etc/portage/package.accept_keywords/zz-autoaccept
@@ -133,6 +147,8 @@ RUN echo '>=media-libs/harfbuzz-4.3.0 icu -introspection' > /etc/portage/package
 RUN emerge -q latexmk biber app-text/texlive dev-texlive/texlive-latex dev-python/pygments && rm -rf /var/cache/distfiles/*
 
 # gentoo-prefix
-FROM apnpucky/gentoo-base as gentoo-prefix
+FROM apnpucky/gentoo-base as prefix
 LABEL maintainer="APN-Pucky"
-RUN wget https://gitweb.gentoo.org/repo/proj/prefix.git/plain/scripts/bootstrap-prefix.sh && chmod +x bootstrap-prefix.sh && ./bootstrap-prefix.sh $PWD/gentoo-prefix noninteractive
+RUN wget https://gitweb.gentoo.org/repo/proj/prefix.git/plain/scripts/bootstrap-prefix.sh && chmod +x bootstrap-prefix.sh && sed -i 's/UID/NOUID/g' bootstrap-prefix.sh && ./bootstrap-prefix.sh /gentoo-prefix noninteractive
+# set entry point to start gentoo prefix
+ENTRYPOINT ["/gentoo-prefix/startprefix"]
