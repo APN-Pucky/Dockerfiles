@@ -7,7 +7,7 @@ on:
     branches: [ "master" ]
     paths:
       - gentoo/Dockerfile
-      - .github/workflows/gentoo.yml
+      - .github/workflows/hep-forge.yml
   schedule:
     - cron: 0 6 2 * *
 
