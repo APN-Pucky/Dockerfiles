@@ -76,7 +76,19 @@ jobs:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
       - 
+        name: abort on existing tag
+        id: abort
+        run: |
+          if docker manifest inspect ${{ matrix.user }}/${{ matrix.base }}-${{ matrix.image }}:${{ steps.version.outputs.VERSION }}-${{ github.sha }}-latest; then
+            echo "STOP"
+            echo "STOP=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "DONT STOP"
+            echo "STOP=false" >> "$GITHUB_OUTPUT"
+          fi
+      -
         name: ${{ matrix.base }}-${{ matrix.image }}
+        if: steps.abort.outputs.STOP == 'false'
         uses: docker/build-push-action@v3
         with:
           file: hep-forge/Dockerfile
