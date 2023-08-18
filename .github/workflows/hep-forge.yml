@@ -54,6 +54,7 @@ jobs:
         name: Pull latest base image
         run: |
           docker pull ${{ matrix.user }}/gentoo-hep-forge:latest
+          docker pull ${{ matrix.user }}/${{ matrix.base }}-${{ matrix.image }}:${VERSION}-latest
       -
         name: Checkout
         uses: actions/checkout@v3
