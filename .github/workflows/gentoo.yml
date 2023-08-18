@@ -37,6 +37,7 @@ jobs:
                 "hep-forge",
                 "hep-forge-unstable",
                 #"hep-forge-live",
+                "lhapdf",
                 "lhapdf-looptools",
                 "rivet3-pythia8-hepmc3",
                 "rivet3-pythia8-hepmc2",
