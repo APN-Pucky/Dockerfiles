@@ -1,0 +1,16 @@
+---
+- name: Install git and curl
+  become: true
+  ansible.builtin.apt:
+    name:
+      - git
+      - build-essential
+      - gfortran
+      - cmake
+      - libboost-all-dev
+      - libgsl-dev
+      - lcov
+      - libz-dev
+    state: present
+    clean: true
+    update_cache: true

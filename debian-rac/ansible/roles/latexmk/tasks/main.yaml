@@ -1,0 +1,21 @@
+---
+- name: Install git and curl
+  become: true
+  ansible.builtin.apt:
+    name:
+      - latexmk
+      - texlive-full
+      - texlive-latex-extra
+      - texlive-formats-extra
+      - texlive-fonts-extra
+      - texlive-science
+      - aspell
+      - aspell-en 
+      - aspell-de
+      - texlive-bibtex-extra
+      - biber 
+      - texlive-latex-extra
+      - python3-pygments
+    state: present
+    clean: true
+    update_cache: true

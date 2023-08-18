@@ -29,7 +29,8 @@ jobs:
                 #"hep-forge-live",
                 "lhapdf-looptools",
                 "rivet3-pythia8-hepmc3",
-                "rivet3-pythia8-hepmc2"
+                "rivet3-pythia8-hepmc2",
+                "prefix",
                 ]
     steps:
       -

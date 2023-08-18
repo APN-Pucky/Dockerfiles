@@ -21,7 +21,7 @@ jobs:
         base: [ "debian" ]
         image: [
           "base", 
-          "cmake-boost-gfortran",
+          "dev",
           "lhapdf",
           "lhapdf-looptools",
           "looptools",

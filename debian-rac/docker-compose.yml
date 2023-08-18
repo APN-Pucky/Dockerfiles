@@ -1,0 +1,19 @@
+version: '3.4'
+services:
+  base:
+    build:
+      context: .
+      target: base
+    image: apnpucky/debian-base:${TAG:-latest}
+
+  dev:
+    build:
+      context: .
+      target: dev
+    image: apnpucky/debian-dev:${TAG:-latest}
+
+  latexmk:
+    build:
+      context: .
+      target: latexmk
+    image: apnpucky/debian-latexmk:${TAG:-latest}

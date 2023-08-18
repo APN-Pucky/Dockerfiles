@@ -14,7 +14,6 @@ RUN eix-update
 # gentoo-ebuild-ci
 FROM apnpucky/gentoo-repo as gentoo-ebuild-ci
 RUN emerge -q dev-util/pkgdev && rm -rf /var/cache/distfiles/*
-
 # gentoo-dev
 FROM apnpucky/gentoo-ebuild-ci as gentoo-dev
 RUN emerge -q rust && rm -rf /var/cache/distfiles/*

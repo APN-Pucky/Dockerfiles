@@ -1,0 +1,14 @@
+---
+- name: Install git and curl
+  become: true
+  ansible.builtin.apt:
+    name:
+      - git
+      - wget
+      - git
+      - curl
+      - rsync
+      - sudo
+    state: present
+    clean: true
+    update_cache: true
