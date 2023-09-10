@@ -32,7 +32,9 @@ jobs:
           "rivet3-pythia8-hepmc3-lhapdf",
           "rivet3-pythia8-hepmc2-lhapdf",
           "rivet3-pythia8-hepmc3-lhapdf-looptools",
-          "rivet3-pythia8-hepmc2-lhapdf-looptools"
+          "rivet3-pythia8-hepmc2-lhapdf-looptools",
+          "scikit-hep",
+          "powheg-box-v2"
           ]
         lhapdf: [ "6.5.4", "6.3.0" ]
         looptools: [ "2.15" ]
@@ -40,6 +42,8 @@ jobs:
         hepmc3: [ "3.2.5" ]
         hepmc2: [ "2.06.11" ]
         pythia8: [ "8.3.07" ]
+        scikit-hep: ["0"]
+        powheg-box-v2: ["4027"]
     steps:
       - 
         name: Set up version
@@ -51,6 +55,8 @@ jobs:
           VERSION=${VERSION//hempc3/${{ matrix.hepmc3 }}}
           VERSION=${VERSION//looptools/${{ matrix.looptools }}}
           VERSION=${VERSION//pythia8/${{ matrix.pythia8 }}}
+          VERSION=${VERSION//scikit-hep/${{ matrix.scikit-hep }}}
+          VERSION=${VERSION//powheg-box-v2/${{ matrix.powheg-box-v2 }}}
           echo "VERSION=$VERSION" >> "$GITHUB_OUTPUT"
       -
         name: Checkout
