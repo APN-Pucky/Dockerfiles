@@ -19,6 +19,13 @@ ARG HEPMC3_VERSION=3.2.5
 RUN emaint -r hep-forge sync
 RUN USE="hepmc3 -hepmc2 python" emerge -q ~sci-physics/rivet-${RIVET3_VERSION} ~sci-physics/hepmc-${HEPMC3_VERSION} && rm -rf /var/cache/distfiles/*
 
+FROM apnpucky/gentoo-hep-forge as gentoo-rivet3-hepmc2
+LABEL maintainer="APN-Pucky"
+ARG RIVET3_VERSION=3.1.6
+ARG HEPMC2_VERSION=2.06.11
+RUN emaint -r hep-forge sync
+RUN USE="-hepmc3 hepmc2 python" emerge -q ~sci-physics/rivet-${RIVET3_VERSION} ~sci-physics/hepmc-${HEPMC2_VERSION} && rm -rf /var/cache/distfiles/*
+
 FROM apnpucky/gentoo-hep-forge as gentoo-rivet3-pythia8-hepmc3-lhapdf-looptools
 LABEL maintainer="APN-Pucky"
 ARG HEPMC3_VERSION=3.1.6
