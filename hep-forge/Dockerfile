@@ -79,6 +79,7 @@ RUN USE="-hepmc3 hepmc2 python lhapdf" emerge -q ~sci-physics/rivet-${RIVET3_VER
 FROM apnpucky/gentoo-hep-forge as gentoo-scikit-hep
 LABEL maintainer="APN-Pucky"
 RUN emaint -r hep-forge sync
+RUN echo 'dev-python/iminuit ~amd64' >> /etc/portage/package.accept_keywords/zz-autoaccept
 RUN emerge -q virtual/scikit-hep && rm -rf /var/cache/distfiles/*
 
 FROM apnpucky/gentoo-hep-forge as gentoo-powheg-box-v2
