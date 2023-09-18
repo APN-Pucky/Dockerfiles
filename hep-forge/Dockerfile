@@ -33,6 +33,8 @@ ARG RIVET3_VERSION=3.1.6
 ARG HERWIG7_VERSION=7.2.3
 ARG LHAPDF_VERSION=6.5.4
 RUN emaint -r hep-forge sync
+RUN echo ">=sci-physics/evtgen-02.02.01 pythia" >> /etc/portage/package.use/zz-autoaccept
+RUN echo ">=sci-physics/thepeg-2.2.3-r1 hepmc fastjet rivet" >> /etc/portage/package.use/zz-autoaccept
 RUN USE="hepmc3 -hepmc2 python lhapdf" emerge -q ~sci-physics/rivet-${RIVET3_VERSION} ~sci-physics/herwig-${HERWIG7_VERSION} ~sci-physics/hepmc-${HEPMC3_VERSION}  ~sci-physics/lhapdf-${LHAPDF_VERSION} && rm -rf /var/cache/distfiles/*
 
 
