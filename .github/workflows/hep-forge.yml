@@ -56,6 +56,7 @@ jobs:
           VERSION=${VERSION//lhapdf/${{ matrix.lhapdf }}}
           VERSION=${VERSION//rivet3/${{ matrix.rivet3 }}}
           VERSION=${VERSION//hempc3/${{ matrix.hepmc3 }}}
+          VERSION=${VERSION//hempc2/${{ matrix.hepmc2 }}}
           VERSION=${VERSION//looptools/${{ matrix.looptools }}}
           VERSION=${VERSION//pythia8/${{ matrix.pythia8 }}}
           VERSION=${VERSION//herwig7/${{ matrix.herwig7}}}
