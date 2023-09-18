@@ -43,7 +43,7 @@ jobs:
         rivet3: [ "3.1.8", "3.1.7" ]
         hepmc3: [ "3.2.5" ]
         hepmc2: [ "2.06.11" ]
-        pythia8: [ "8.3.09" ]
+        pythia8: [ "8.3.09", "8.2.45-r3" ]
         herwig7: [ "7.2.3-r2" ]
         scikit-hep: ["0"]
         powheg-box-v2: ["4027"]
