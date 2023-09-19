@@ -34,7 +34,7 @@ jobs:
           "rivet3-pythia8-hepmc2-lhapdf",
           "rivet3-pythia8-hepmc3-lhapdf-looptools",
           "rivet3-pythia8-hepmc2-lhapdf-looptools",
-          "rivet3-herwig7-hepmc3-lhapdf",
+          "rivet3-herwig7-hepmc2-lhapdf",
           "scikit-hep",
           "powheg-box-v2"
           ]
