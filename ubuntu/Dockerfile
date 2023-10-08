@@ -1,7 +1,8 @@
-FROM ubuntu:20.04 as base
+FROM ubuntu:22.04 as base
 LABEL maintainer="APN-Pucky"
 ENV TZ=Europe/Berlin
-RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
+RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime 
+RUN echo $TZ > /etc/timezone
 
 FROM apnpucky/ubuntu-base as dev
 RUN apt-get update -y -qq && apt-get install -y -qq libffi-dev libboost-all-dev libgsl-dev lcov wget build-essential sudo git rsync pandoc curl python3 python3-pip python3-venv cmake python3-tk graphviz && apt-get clean
