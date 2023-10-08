@@ -47,11 +47,8 @@ RUN apt-get update -y -qq && apt-get install -y -qq latexmk texlive-full texlive
 RUN apt-get update -y -qq && apt-get install -y -qq libmagickwand-dev && apt-get clean
 RUN sed -i 's/<policy domain="coder" rights="none" pattern="PDF" \/>/<policy domain="coder" rights="read|write" pattern="PDF" \/>/g' /etc/ImageMagick-**/policy.xml
 
-FROM apnpucky/ubuntu-python-latexmk as python-latexmk-form-qgraf
+FROM apnpucky/ubuntu-python-latexmk as python-latexmk-form
 RUN wget https://github.com/vermaseren/form/releases/download/v4.3.1/form-4.3.1-x86_64-linux.tar.gz
 RUN tar -xzf form-4.3.1-x86_64-linux.tar.gz
-RUN mkdir qgraf
-RUN cd qgraf && wget http://anonymous:anonymous@qgraf.tecnico.ulisboa.pt/v3.6/qgraf-3.6.6.tgz && tar -xzf qgraf-3.6.6.tgz && gfortran -o qgraf qgraf-3.6.6.f08 
 ENV PATH=$PATH:$PWD/form-4.3.1-x86_64-linux/
-ENV PATH=$PATH:$PWD/qgraf/
 
