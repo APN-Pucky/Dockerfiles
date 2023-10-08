@@ -69,3 +69,10 @@ services:
       context: .
       target: python-latexmk
     image: apnpucky/ubuntu-python-latexmk:${TAG:-latest}
+
+    
+  python-latexmk-form-qgraf:
+    build:
+      context: .
+      target: python-latexmk-form-qgraf
+    image: apnpucky/ubuntu-python-latexmk-form-qgraf:${TAG:-latest}
