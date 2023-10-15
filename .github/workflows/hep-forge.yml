@@ -16,8 +16,8 @@ concurrency:
 
 jobs:
   docker:
-    runs-on: ubuntu-latest
-    #runs-on: self-hosted
+    #runs-on: ubuntu-latest
+    runs-on: self-hosted
     timeout-minutes: 4320 # 72h
     strategy:
       fail-fast: false
