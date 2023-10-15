@@ -22,7 +22,7 @@ FROM apnpucky/ubuntu-poetry as python
 RUN python3 -m pip install --no-cache-dir --upgrade pipenv
 
 FROM apnpucky/ubuntu-python as python-lhapdf
-ARG LHAPDF_VERSION=6.4.0
+ARG LHAPDF_VERSION=6.5.4
 ENV LHAPDF=/usr
 RUN wget https://lhapdf.hepforge.org/downloads/?f=LHAPDF-$LHAPDF_VERSION.tar.gz -O LHAPDF-$LHAPDF_VERSION.tar.gz && \
     tar xf LHAPDF-$LHAPDF_VERSION.tar.gz && \
@@ -36,7 +36,7 @@ ENV PATH=$PATH:$LHAPDF/bin
 ENV LIBRARY_PATH=$LIBRARY_PATH:$LHAPDF/lib
 ENV LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$LHAPDF/lib
 ENV PYTHONPATH=$PYTHONPATH:$LHAPDF/lib/python3.8/site-packages/LHAPDF-$LHAPDF_VERSION-py3.8-linux-x86_64.egg/:/usr/lib/python3.8/site-packages/
-#RUN python -c "import lhapdf;print(lhapdf.__version__)"
+RUN python -c "import lhapdf;print(lhapdf.__version__)"
 RUN lhapdf install cteq6l1 CT14lo CT14nlo MSTW2008lo68cl MSTW2008nlo68cl NNPDF23_nlo_as_0119
 
 FROM apnpucky/ubuntu-python-lhapdf as python-lhapdf-looptools
