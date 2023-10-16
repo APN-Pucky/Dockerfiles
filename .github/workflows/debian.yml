@@ -27,6 +27,7 @@ jobs:
           "lhapdf-looptools",
 #          "looptools",
           "resummino",
+          "gentoo-prefix",
           "latexmk",
           ]
     steps:
