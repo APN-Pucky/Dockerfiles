@@ -12,7 +12,7 @@ RUN apt-get update -y -qq && apt-get install -y -qq git build-essential gfortran
 RUN update-alternatives --install /usr/bin/python python /usr/bin/python3 1
 
 FROM apnpucky/debian-cmake-boost-gfortran as lhapdf
-ARG LHAPDF_VERSION=6.5.3
+ARG LHAPDF_VERSION=6.5.4
 ENV LHAPDF=/usr
 RUN wget https://lhapdf.hepforge.org/downloads/?f=LHAPDF-$LHAPDF_VERSION.tar.gz -O LHAPDF-$LHAPDF_VERSION.tar.gz && \
   tar xf LHAPDF-$LHAPDF_VERSION.tar.gz && \
