@@ -100,3 +100,23 @@ LABEL maintainer="APN-Pucky"
 ARG POWHEG_BOX_V2_VERSION=4027
 RUN emaint -r hep-forge sync
 RUN emerge -q virtual/powheg-box-v2 && rm -rf /var/cache/distfiles/*
+
+FROM apnpucky/gentoo-hep-forge as gentoo-susy
+LABEL maintainer="APN-Pucky"
+ARG NNLLFAST_VERSION=1.1
+ARG NLLFAST_VERSION=3.1
+ARG SPHENO_VERSION=3.3.8
+ARG SOFTSUSY_VERSION=4.1.13
+ARG RESUMMINO_VERSION=3.1.2
+#ARG FEYNHIGGS_VERSION=2.18.1
+RUN emaint -r hep-forge sync && echo "rebuild"
+RUN emerge -q ~resummino-$RESUMMINO_VERSION ~nll-fast-$NLLFAST_VERSION ~nnll-fast-$NNLLFAST_VERSION ~softsusy-$SOFTSUSY_VERSION ~spheno-$SPHENO_VERSION && rm -rf /var/cache/distfiles/*
+
+FROM apnpucky/gentoo-susy as gentoo-hepi
+LABEL maintainer="APN-Pucky"
+RUN emaint -r hep-forge sync
+RUN echo 'dev-python/poetry ~amd64' >> /etc/portage/package.accept_keywords/zz-autoaccept
+RUN echo 'dev-python/poetry-plugin-export ~amd64' >> /etc/portage/package.accept_keywords/zz-autoaccept
+RUN echo 'dev-python/shellingham ~amd64' >> /etc/portage/package.accept_keywords/zz-autoaccept
+RUN emerge -q poetry && rm -rf /var/cache/distfiles/*
+

@@ -36,6 +36,8 @@ jobs:
           "rivet3-pythia8-hepmc2-lhapdf",
           "rivet3-pythia8-hepmc3-lhapdf-looptools",
           "rivet3-pythia8-hepmc2-lhapdf-looptools",
+          "susy",
+          "hepi",
           "powheg-box-v2",
           ]
         lhapdf: [ "6.5.4", "6.3.0" ]
@@ -47,6 +49,11 @@ jobs:
         herwig7: [ "7.2.3-r2" ]
         scikit-hep: ["0"]
         powheg-box-v2: ["4027"]
+        resummino: ["3.1.2"]
+        softsusy: ["4.1.13"]
+        spheno: ["3.3.8"]
+        nllfast: ["3.1"]
+        nnllfast: ["1.1"]
     steps:
       - 
         name: Set up version
@@ -62,6 +69,11 @@ jobs:
           VERSION=${VERSION//herwig7/${{ matrix.herwig7}}}
           VERSION=${VERSION//scikit-hep/${{ matrix.scikit-hep }}}
           VERSION=${VERSION//powheg-box-v2/${{ matrix.powheg-box-v2 }}}
+          VERSION=${VERSION//resummino/${{ matrix.resummino }}}
+          VERSION=${VERSION//softsusy/${{ matrix.softsusy }}}
+          VERSION=${VERSION//spheno/${{ matrix.spheno }}}
+          VERSION=${VERSION//nllfast/${{ matrix.nllfast }}}
+          VERSION=${VERSION//nnllfast/${{ matrix.nnllfast }}}
           echo "VERSION=$VERSION" >> "$GITHUB_OUTPUT"
       -
         name: Checkout

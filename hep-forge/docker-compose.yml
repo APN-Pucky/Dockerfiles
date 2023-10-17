@@ -90,6 +90,18 @@ services:
       target: prefix
     image: apnpucky/gentoo-prefix:${TAG:-latest}
 
+  susy:
+    build:
+      context: .
+      target: gentoo-susy
+    image: apnpucky/gentoo-susy:${TAG:-latest}
+
+  hepi:
+    build:
+      context: .
+      target: gentoo-hepi
+    image: apnpucky/gentoo-hepi:${TAG:-latest}
+
 #  latex:
 #    build:
 #      context: .
