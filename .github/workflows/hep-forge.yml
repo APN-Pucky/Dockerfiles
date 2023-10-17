@@ -26,16 +26,16 @@ jobs:
         user: ["apnpucky"]
         base: [ "gentoo" ]
         image: [ 
-          "rivet3-herwig7-hepmc2-lhapdf",
-          "scikit-hep",
           "lhapdf",
           "lhapdf-looptools",
+          "rivet3-herwig7-hepmc2-lhapdf",
           "rivet3-hepmc3",
           "rivet3-hepmc2",
           "rivet3-pythia8-hepmc3-lhapdf",
           "rivet3-pythia8-hepmc2-lhapdf",
           "rivet3-pythia8-hepmc3-lhapdf-looptools",
           "rivet3-pythia8-hepmc2-lhapdf-looptools",
+          "scikit-hep",
           "susy",
           "hepi",
           "powheg-box-v2",
