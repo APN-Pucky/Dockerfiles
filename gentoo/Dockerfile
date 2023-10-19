@@ -25,7 +25,7 @@ FROM apnpucky/gentoo-ebuild-ci as gentoo-dev
 RUN emerge -q rust && rm -rf /var/cache/distfiles/*
 RUN echo 'USE="-qt5 -X"' >> /etc/portage/make.conf
 RUN echo 'LUA_TARGETS="lua5-1 lua5-3 lua5-4"' >> /etc/portage/make.conf
-RUN echo 'PYTHON_TARGETS="python3_8 python3_9 python3_10 python3_11"' >> /etc/portage/make.conf
+RUN echo 'PYTHON_TARGETS="python3_10 python3_11 python3_12"' >> /etc/portage/make.conf
 RUN emerge -q sys-devel/gcc sys-devel/llvm dev-util/ccache virtual/fortran dev-util/cmake dev-libs/boost app-portage/pkg-testing-tools dev-lang/perl dev-lang/python:3.8 dev-lang/python:3.9 dev-lang/python:3.10 dev-lang/lua:5.1 dev-lang/lua:5.3  && rm -rf /var/cache/distfiles/*
 RUN ACCEPT_KEYWORDS="~amd64" emerge -q '>=app-portage/pkg-testing-tools-0.1.2' && rm -rf /var/cache/distfiles/*
 # Documentation
