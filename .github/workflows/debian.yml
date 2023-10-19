@@ -22,7 +22,7 @@ jobs:
         base: [ "debian" ]
         image: [
           "base", 
-          "dev",
+#          "dev",
           "lhapdf",
           "lhapdf-looptools",
 #          "looptools",
