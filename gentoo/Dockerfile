@@ -48,7 +48,6 @@ RUN install -m 0775 -o portage -g portage -d "${CCACHE_DIR}"/{0,1,2,3,4,5,6,7,8,
 RUN install -m 0775 -o portage -g portage -d "${CCACHE_DIR}"/{0,1,2,3,4,5,6,7,8,9,a,b,c,d,e,f}/{0,1,2,3,4,5,6,7,8,9,a,b,c,d,e,f}
 # test.conf from https://wiki.gentoo.org/wiki/Package_testing
 RUN printf 'COMMON_FLAGS="-O2 -pipe -frecord-gcc-switches"\nCFLAGS="${COMMON_FLAGS}"\nCXXFLAGS="${COMMON_FLAGS}"\nFCFLAGS="${COMMON_FLAGS}"\nFFLAGS="${COMMON_FLAGS}"\nLDFLAGS="${LDFLAGS} -Wl,--defsym=__gentoo_check_ldflags__=0"\nFEATURES="collision-protect ipc-sandbox network-sandbox sandbox split-log split-elog strict test userfetch userpriv usersandbox"\nFEATURES="${FEATURES} -parallel-install"\nPORTAGE_ELOG_CLASSES="log warn error qa"\nPORTAGE_ELOG_SYSTEM="echo save"\nDISTUTILS_STRICT_ENTRY_POINTS=1\nALLOW_TEST="network"\nIWDT_ALL=y\nQA_CMP=y\nQA_CMP_ARGS="-xS"\nQA_SED=y\nQA_VDB=y' > /etc/portage/env/test.conf
-RUN emerge app-eselect/eselect-repository
 RUN echo 'ACCEPT_LICENSE="* -@EULA"' >> /etc/portage/make.conf
 RUN emerge --depclean
 
@@ -56,6 +55,8 @@ RUN emerge --depclean
 FROM apnpucky/gentoo-dev as gentoo-apn
 RUN mkdir /var/db/repos/apn && printf "[apn]\nlocation = /var/db/repos/apn\nsync-type = git\nsync-uri = https://gitlab.com/APN-Pucky/gentoo-apn.git" >> /etc/portage/repos.conf/apn.conf && emaint -r apn sync
 RUN echo '*/*::apn ~amd64' > /etc/portage/package.accept_keywords/apn
+RUN emerge app-eselect/eselect-repository
+RUN eselect repository enable guru && emaint -r guru sync
 
 FROM apnpucky/gentoo-apn as gentoo-apn-unstable
 RUN echo 'ACCEPT_KEYWORDS="~"' >> /etc/portage/make.conf
@@ -73,6 +74,8 @@ RUN echo 'USE="X"' >> /etc/portage/make.conf
 RUN ACCEPT_KEYWORDS="~amd64" emerge -q sci-physics/root  --autounmask=y --autounmask-write --autounmask-continue --autounmask-use=y && rm -rf /var/cache/distfiles/*
 RUN mkdir /var/db/repos/hep-forge && printf "[hep-forge]\nlocation = /var/db/repos/hep-forge\nsync-type = git\nsync-uri = https://gitlab.com/APN-Pucky/gentoo-hep-forge.git" >> /etc/portage/repos.conf/hep-forge.conf && emaint -r hep-forge sync
 RUN echo '*/*::hep-forge ~amd64' > /etc/portage/package.accept_keywords/hepforge
+RUN emerge app-eselect/eselect-repository
+RUN eselect repository enable science && emaint -r science sync
 #TODO better use --autounmask=y --autounmask-write --autounmask-continue --autounmask-use=y
 RUN echo 'sci-physics/hepmc gev' >> /etc/portage/package.use/zz-autoaccept
 RUN echo 'sci-physics/siscone ~amd64' >> /etc/portage/package.accept_keywords/zz-autoaccept
