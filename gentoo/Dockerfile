@@ -57,6 +57,7 @@ RUN mkdir /var/db/repos/apn && printf "[apn]\nlocation = /var/db/repos/apn\nsync
 RUN echo '*/*::apn ~amd64' > /etc/portage/package.accept_keywords/apn
 RUN emerge app-eselect/eselect-repository
 RUN eselect repository enable guru && emaint -r guru sync
+RUN eselect repository enable jjakob && emaint -r jjakob sync
 
 FROM apnpucky/gentoo-apn as gentoo-apn-unstable
 RUN echo 'ACCEPT_KEYWORDS="~"' >> /etc/portage/make.conf
