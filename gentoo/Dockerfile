@@ -55,6 +55,8 @@ RUN emerge --depclean
 FROM apnpucky/gentoo-dev as gentoo-apn
 RUN mkdir /var/db/repos/apn && printf "[apn]\nlocation = /var/db/repos/apn\nsync-type = git\nsync-uri = https://gitlab.com/APN-Pucky/gentoo-apn.git" >> /etc/portage/repos.conf/apn.conf && emaint -r apn sync
 RUN echo '*/*::apn ~amd64' > /etc/portage/package.accept_keywords/apn
+RUN echo '*/*::guru ~amd64' > /etc/portage/package.accept_keywords/guru
+RUN echo '*/*::jjakob ~amd64' > /etc/portage/package.accept_keywords/jjakob
 RUN emerge app-eselect/eselect-repository
 RUN eselect repository enable guru && emaint -r guru sync
 RUN eselect repository enable jjakob && emaint -r jjakob sync
@@ -75,6 +77,7 @@ RUN echo 'USE="X"' >> /etc/portage/make.conf
 RUN ACCEPT_KEYWORDS="~amd64" emerge -q sci-physics/root  --autounmask=y --autounmask-write --autounmask-continue --autounmask-use=y && rm -rf /var/cache/distfiles/*
 RUN mkdir /var/db/repos/hep-forge && printf "[hep-forge]\nlocation = /var/db/repos/hep-forge\nsync-type = git\nsync-uri = https://gitlab.com/APN-Pucky/gentoo-hep-forge.git" >> /etc/portage/repos.conf/hep-forge.conf && emaint -r hep-forge sync
 RUN echo '*/*::hep-forge ~amd64' > /etc/portage/package.accept_keywords/hepforge
+RUN echo '*/*::science ~amd64' > /etc/portage/package.accept_keywords/science
 RUN emerge app-eselect/eselect-repository
 RUN eselect repository enable science && emaint -r science sync
 #TODO better use --autounmask=y --autounmask-write --autounmask-continue --autounmask-use=y
