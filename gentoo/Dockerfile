@@ -25,7 +25,7 @@ FROM apnpucky/gentoo-ebuild-ci as gentoo-dev
 RUN emerge -q rust && rm -rf /var/cache/distfiles/*
 RUN echo 'USE="-qt5 -X"' >> /etc/portage/make.conf
 RUN echo 'LUA_TARGETS="lua5-1 lua5-3 lua5-4"' >> /etc/portage/make.conf
-RUN echo 'PYTHON_TARGETS="python3_8 python3_9 python3_10 python3_11"' >> /etc/portage/make.conf
+RUN echo 'PYTHON_TARGETS="python3_10 python3_11 python3_12"' >> /etc/portage/make.conf
 RUN emerge -q sys-devel/gcc sys-devel/llvm dev-util/ccache virtual/fortran dev-util/cmake dev-libs/boost app-portage/pkg-testing-tools dev-lang/perl dev-lang/python:3.10 dev-lang/python:3.11 dev-lang/lua:5.1 dev-lang/lua:5.3  && rm -rf /var/cache/distfiles/*
 RUN ACCEPT_KEYWORDS="* ~*" emerge -q '>=app-portage/pkg-testing-tools-0.1.2' && rm -rf /var/cache/distfiles/*
 # Documentation
@@ -52,7 +52,16 @@ RUN emerge --depclean
 # gentoo-apn
 FROM apnpucky/gentoo-dev as gentoo-apn
 RUN mkdir /var/db/repos/apn && printf "[apn]\nlocation = /var/db/repos/apn\nsync-type = git\nsync-uri = https://gitlab.com/APN-Pucky/gentoo-apn.git" >> /etc/portage/repos.conf/apn.conf && emaint -r apn sync
+<<<<<<< HEAD
 RUN echo '*/*::apn * ~*' > /etc/portage/package.accept_keywords/apn
+=======
+RUN echo '*/*::apn ~amd64' > /etc/portage/package.accept_keywords/apn
+RUN echo '*/*::guru ~amd64' > /etc/portage/package.accept_keywords/guru
+RUN echo '*/*::jjakob ~amd64' > /etc/portage/package.accept_keywords/jjakob
+RUN emerge app-eselect/eselect-repository
+RUN eselect repository enable guru && emaint -r guru sync
+RUN eselect repository enable jjakob && emaint -r jjakob sync
+>>>>>>> 88c5af2e60867431f357cc54fa3ba49864baf68a
 
 FROM apnpucky/gentoo-apn as gentoo-apn-unstable
 RUN echo 'ACCEPT_KEYWORDS="~"' >> /etc/portage/make.conf
@@ -69,7 +78,14 @@ RUN echo '>=media-libs/libafterimage-1.20-r6 png gif tiff jpeg' >> /etc/portage/
 RUN echo 'USE="X"' >> /etc/portage/make.conf
 RUN ACCEPT_KEYWORDS="**" emerge -q ~sci-physics/root-6.28.08  --autounmask=y --autounmask-write --autounmask-continue --autounmask-use=y && rm -rf /var/cache/distfiles/*
 RUN mkdir /var/db/repos/hep-forge && printf "[hep-forge]\nlocation = /var/db/repos/hep-forge\nsync-type = git\nsync-uri = https://gitlab.com/APN-Pucky/gentoo-hep-forge.git" >> /etc/portage/repos.conf/hep-forge.conf && emaint -r hep-forge sync
+<<<<<<< HEAD
 RUN echo '*/*::hep-forge * ~*' > /etc/portage/package.accept_keywords/hepforge
+=======
+RUN echo '*/*::hep-forge ~amd64' > /etc/portage/package.accept_keywords/hepforge
+RUN echo '*/*::science ~amd64' > /etc/portage/package.accept_keywords/science
+RUN emerge app-eselect/eselect-repository
+RUN eselect repository enable science && emaint -r science sync
+>>>>>>> 88c5af2e60867431f357cc54fa3ba49864baf68a
 #TODO better use --autounmask=y --autounmask-write --autounmask-continue --autounmask-use=y
 RUN echo 'sci-physics/hepmc gev' >> /etc/portage/package.use/zz-autoaccept
 RUN echo 'sci-physics/siscone ~*' >> /etc/portage/package.accept_keywords/zz-autoaccept

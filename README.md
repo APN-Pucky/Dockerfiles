@@ -3,6 +3,7 @@
 [![workflow][ubuntu image]][ubuntu link] 
 [![workflow][debian image]][debian link] 
 [![workflow][easybuild image]][easybuild link] 
+[![HEP Docker Image CI](https://github.com/APN-Pucky/Dockerfiles/actions/workflows/hep-forge.yml/badge.svg)](https://github.com/APN-Pucky/Dockerfiles/actions/workflows/hep-forge.yml)
 
 [debian image]: https://github.com/APN-Pucky/Dockerfiles/actions/workflows/debian.yml/badge.svg
 [debian link]: https://github.com/APN-Pucky/Dockerfiles/actions/workflows/debian.yml

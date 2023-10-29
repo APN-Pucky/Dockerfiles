@@ -21,7 +21,10 @@ jobs:
       matrix:
         user: ["apnpucky"]
         base: [ "centos7" ]
-        image: ["easybuild","easybuild-ci"]
+        image: [
+          "easybuild",
+          "easybuild-ci"
+        ]
     steps:
       -
         name: Checkout
