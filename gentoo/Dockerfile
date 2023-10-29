@@ -26,14 +26,12 @@ RUN emerge -q rust && rm -rf /var/cache/distfiles/*
 RUN echo 'USE="-qt5 -X"' >> /etc/portage/make.conf
 RUN echo 'LUA_TARGETS="lua5-1 lua5-3 lua5-4"' >> /etc/portage/make.conf
 RUN echo 'PYTHON_TARGETS="python3_8 python3_9 python3_10 python3_11"' >> /etc/portage/make.conf
-RUN emerge -q sys-devel/gcc sys-devel/llvm dev-util/ccache virtual/fortran dev-util/cmake dev-libs/boost app-portage/pkg-testing-tools dev-lang/perl dev-lang/python:3.8 dev-lang/python:3.9 dev-lang/python:3.10 dev-lang/lua:5.1 dev-lang/lua:5.3  && rm -rf /var/cache/distfiles/*
-RUN ACCEPT_KEYWORDS="~amd64" emerge -q '>=app-portage/pkg-testing-tools-0.1.2' && rm -rf /var/cache/distfiles/*
+RUN emerge -q sys-devel/gcc sys-devel/llvm dev-util/ccache virtual/fortran dev-util/cmake dev-libs/boost app-portage/pkg-testing-tools dev-lang/perl dev-lang/python:3.10 dev-lang/python:3.11 dev-lang/lua:5.1 dev-lang/lua:5.3  && rm -rf /var/cache/distfiles/*
+RUN ACCEPT_KEYWORDS="* ~*" emerge -q '>=app-portage/pkg-testing-tools-0.1.2' && rm -rf /var/cache/distfiles/*
 # Documentation
 RUN echo 'media-libs/harfbuzz icu -introspection' > /etc/portage/package.use/harfbuzz
 RUN emerge -q virtual/latex-base && rm -rf /var/cache/distfiles/*
 RUN emerge -q imagemagick ghostscript-gpl && rm -rf /var/cache/distfiles/*
-# python3_11
-RUN ACCEPT_KEYWORDS="~amd64" emerge -q dev-lang/python:3.11 && rm -rf /var/cache/distfiles/*
 RUN emerge -q --changed-use --deep --keep-going @world && rm -rf /var/cache/distfiles/*
 RUN USE="lapack" emerge -q --autounmask=y --autounmask-write --autounmask-continue --autounmask-use=y dev-python/{matplotlib,numpy} && rm -rf /var/cache/distfiles/*
 RUN emerge -q dev-python/pip && rm -rf /var/cache/distfiles/*
@@ -54,7 +52,7 @@ RUN emerge --depclean
 # gentoo-apn
 FROM apnpucky/gentoo-dev as gentoo-apn
 RUN mkdir /var/db/repos/apn && printf "[apn]\nlocation = /var/db/repos/apn\nsync-type = git\nsync-uri = https://gitlab.com/APN-Pucky/gentoo-apn.git" >> /etc/portage/repos.conf/apn.conf && emaint -r apn sync
-RUN echo '*/*::apn ~amd64' > /etc/portage/package.accept_keywords/apn
+RUN echo '*/*::apn * ~*' > /etc/portage/package.accept_keywords/apn
 
 FROM apnpucky/gentoo-apn as gentoo-apn-unstable
 RUN echo 'ACCEPT_KEYWORDS="~"' >> /etc/portage/make.conf
@@ -69,14 +67,14 @@ FROM apnpucky/gentoo-dev as gentoo-hep-forge
 RUN echo '>=media-libs/libafterimage-1.20-r6 png gif tiff jpeg' >> /etc/portage/package.use/root
 # USE="X" for mesa for opengl for fastjet
 RUN echo 'USE="X"' >> /etc/portage/make.conf
-RUN ACCEPT_KEYWORDS="~amd64" emerge -q sci-physics/root  --autounmask=y --autounmask-write --autounmask-continue --autounmask-use=y && rm -rf /var/cache/distfiles/*
+RUN ACCEPT_KEYWORDS="**" emerge -q ~sci-physics/root-6.28.08  --autounmask=y --autounmask-write --autounmask-continue --autounmask-use=y && rm -rf /var/cache/distfiles/*
 RUN mkdir /var/db/repos/hep-forge && printf "[hep-forge]\nlocation = /var/db/repos/hep-forge\nsync-type = git\nsync-uri = https://gitlab.com/APN-Pucky/gentoo-hep-forge.git" >> /etc/portage/repos.conf/hep-forge.conf && emaint -r hep-forge sync
-RUN echo '*/*::hep-forge ~amd64' > /etc/portage/package.accept_keywords/hepforge
+RUN echo '*/*::hep-forge * ~*' > /etc/portage/package.accept_keywords/hepforge
 #TODO better use --autounmask=y --autounmask-write --autounmask-continue --autounmask-use=y
 RUN echo 'sci-physics/hepmc gev' >> /etc/portage/package.use/zz-autoaccept
-RUN echo 'sci-physics/siscone ~amd64' >> /etc/portage/package.accept_keywords/zz-autoaccept
-RUN echo 'dev-python/keyrings-alt ~amd64' >> /etc/portage/package.accept_keywords/zz-autoaccept
-RUN echo 'dev-python/jaraco-classes ~amd64' >> /etc/portage/package.accept_keywords/zz-autoaccept
+RUN echo 'sci-physics/siscone ~*' >> /etc/portage/package.accept_keywords/zz-autoaccept
+RUN echo 'dev-python/keyrings-alt ~*' >> /etc/portage/package.accept_keywords/zz-autoaccept
+RUN echo 'dev-python/jaraco-classes ~*' >> /etc/portage/package.accept_keywords/zz-autoaccept
 
 FROM apnpucky/gentoo-hep-forge as gentoo-hep-forge-unstable
 RUN echo 'ACCEPT_KEYWORDS="~"' >> /etc/portage/make.conf

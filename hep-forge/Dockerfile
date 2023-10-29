@@ -104,4 +104,5 @@ RUN echo 'dev-python/poetry ~amd64' >> /etc/portage/package.accept_keywords/zz-a
 RUN echo 'dev-python/poetry-plugin-export ~amd64' >> /etc/portage/package.accept_keywords/zz-autoaccept
 RUN echo 'dev-python/shellingham ~amd64' >> /etc/portage/package.accept_keywords/zz-autoaccept
 RUN emerge -q poetry && rm -rf /var/cache/distfiles/*
+RUN emerge -q pandoc-bin && rm -rf /var/cache/distfiles/*
 
