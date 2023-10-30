@@ -21,13 +21,27 @@ FROM apnpucky/gentoo-repo as gentoo-ansible
 RUN emerge -q app-admin/ansible-lint app-admin/ansible && rm -rf /var/cache/distfiles/*
 
 # gentoo-dev
-FROM apnpucky/gentoo-ebuild-ci as gentoo-dev
+FROM apnpucky/gentoo-ebuild-ci as gentoo-c
 RUN emerge -q rust && rm -rf /var/cache/distfiles/*
 RUN echo 'USE="-qt5 -X"' >> /etc/portage/make.conf
-RUN echo 'LUA_TARGETS="lua5-1 lua5-3 lua5-4"' >> /etc/portage/make.conf
+RUN emerge -q sys-devel/gcc sys-devel/llvm dev-util/ccache virtual/fortran dev-util/cmake dev-libs/boost  && rm -rf /var/cache/distfiles/*
+
+FROM apnpucky/gentoo-c as gentoo-python
 RUN echo 'PYTHON_TARGETS="python3_10 python3_11 python3_12"' >> /etc/portage/make.conf
-RUN emerge -q sys-devel/gcc sys-devel/llvm dev-util/ccache virtual/fortran dev-util/cmake dev-libs/boost app-portage/pkg-testing-tools dev-lang/perl dev-lang/python:3.10 dev-lang/python:3.11 dev-lang/lua:5.1 dev-lang/lua:5.3  && rm -rf /var/cache/distfiles/*
+RUN emerge -q dev-lang/python:3.10 dev-lang/python:3.11 && rm -rf /var/cache/distfiles/*
+
+FROM apnpucky/gentoo-python as gentoo-lua
+RUN echo 'LUA_TARGETS="lua5-1 lua5-3 lua5-4"' >> /etc/portage/make.conf
+RUN emerge -q dev-lang/lua:5.1 dev-lang/lua:5.3  && rm -rf /var/cache/distfiles/*
+
+FROM apnpucky/gentoo-lua as gentoo-perl
+RUN emerge -q dev-lang/perl  && rm -rf /var/cache/distfiles/*
+
+FROM apnpucky/gentoo-perl as gentoo-test
 RUN ACCEPT_KEYWORDS="* ~*" emerge -q '>=app-portage/pkg-testing-tools-0.1.2' && rm -rf /var/cache/distfiles/*
+RUN emerge -q app-portage/pkg-testing-tools  && rm -rf /var/cache/distfiles/*
+
+FROM apnpucky/gentoo-test as gentoo-doc
 # Documentation
 RUN echo 'media-libs/harfbuzz icu -introspection' > /etc/portage/package.use/harfbuzz
 RUN emerge -q virtual/latex-base && rm -rf /var/cache/distfiles/*
@@ -35,6 +49,8 @@ RUN emerge -q imagemagick ghostscript-gpl && rm -rf /var/cache/distfiles/*
 RUN emerge -q --changed-use --deep --keep-going @world && rm -rf /var/cache/distfiles/*
 RUN USE="lapack" emerge -q --autounmask=y --autounmask-write --autounmask-continue --autounmask-use=y dev-python/{matplotlib,numpy} && rm -rf /var/cache/distfiles/*
 RUN emerge -q dev-python/pip && rm -rf /var/cache/distfiles/*
+
+FROM apnpucky/gentoo-doc as gentoo-dev
 # Config
 ENV PKGDIR="/var/cache/binpkgs"
 ENV CCACHE_DIR="/var/cache/ccache"

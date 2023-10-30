@@ -30,7 +30,12 @@ jobs:
                 "base", 
                 "repo",
                 "ebuild-ci",
-                "ansible",
+                "c",
+                "python",
+                "lua",
+                "perl",
+                "test",
+                "doc",
                 "dev",
                 "apn",
                 "apn-unstable",
@@ -41,6 +46,7 @@ jobs:
                 #"lhapdf-looptools",
                 #"rivet3-pythia8-hepmc3",
                 #"rivet3-pythia8-hepmc2",
+                "ansible",
                 "prefix",
                 ]
     steps:
