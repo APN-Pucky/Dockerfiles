@@ -20,13 +20,26 @@ RUN emerge -q dev-util/pkgdev && rm -rf /var/cache/distfiles/*
 FROM apnpucky/gentoo-repo as gentoo-ansible
 RUN ACCEPT_KEYWORDS="* ~*" emerge -q app-admin/ansible-lint app-admin/ansible && rm -rf /var/cache/distfiles/*
 
-# gentoo-dev
-FROM apnpucky/gentoo-ebuild-ci as gentoo-c
-RUN emerge -q rust && rm -rf /var/cache/distfiles/*
-RUN echo 'USE="-qt5 -X"' >> /etc/portage/make.conf
-RUN emerge -q sys-devel/gcc sys-devel/llvm dev-util/ccache virtual/fortran dev-util/cmake dev-libs/boost  && rm -rf /var/cache/distfiles/*
 
-FROM apnpucky/gentoo-c as gentoo-python
+# gentoo-dev
+FROM apnpucky/gentoo-ebuild-ci as gentoo-rust
+RUN emerge -q rust && rm -rf /var/cache/distfiles/*
+
+# gentoo-dev
+FROM apnpucky/gentoo-rust as gentoo-c
+RUN echo 'USE="-qt5 -X"' >> /etc/portage/make.conf
+RUN emerge -q sys-devel/gcc dev-util/ccache virtual/fortran dev-util/cmake  && rm -rf /var/cache/distfiles/*
+
+# gentoo-dev
+FROM apnpucky/gentoo-c as gentoo-llvm
+RUN echo 'USE="-qt5 -X"' >> /etc/portage/make.conf
+RUN emerge -q sys-devel/llvm  && rm -rf /var/cache/distfiles/*
+
+# gentoo-dev
+FROM apnpucky/gentoo-llvm as gentoo-boost
+RUN emerge -q dev-libs/boost  && rm -rf /var/cache/distfiles/*
+
+FROM apnpucky/gentoo-boost as gentoo-python
 RUN echo 'PYTHON_TARGETS="python3_10 python3_11 python3_12"' >> /etc/portage/make.conf
 RUN emerge -q dev-lang/python:3.10 dev-lang/python:3.11 && rm -rf /var/cache/distfiles/*
 
