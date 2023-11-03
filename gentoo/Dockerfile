@@ -52,7 +52,6 @@ RUN emerge -q dev-lang/perl  && rm -rf /var/cache/distfiles/*
 
 FROM apnpucky/gentoo-perl as gentoo-test
 RUN ACCEPT_KEYWORDS="* ~*" emerge -q '>=app-portage/pkg-testing-tools-0.1.2' && rm -rf /var/cache/distfiles/*
-RUN emerge -q app-portage/pkg-testing-tools  && rm -rf /var/cache/distfiles/*
 
 FROM apnpucky/gentoo-test as gentoo-doc
 # Documentation
