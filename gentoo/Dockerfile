@@ -7,7 +7,7 @@ COPY --from=portage-base /var/db/repos/gentoo /var/db/repos/gentoo
 RUN mkdir -p /etc/portage/repos.conf/ && cp /usr/share/portage/config/repos.conf /etc/portage/repos.conf/gentoo.conf
 RUN echo "PORTAGE_NICENESS=\"${NICENESS}\"" >> /etc/portage/make.conf
 
-FROM apnpucky/gentoo-base as gentoo-repo
+FROM apnpucky/gentoo-base:47b7ed7d8c2c2c1710edced3f8794213b63c4789-latest as gentoo-repo
 RUN emerge -q eix dev-vcs/git && rm -rf /var/cache/distfiles/*
 RUN rm -rf /var/db/repos/gentoo && mkdir /var/db/repos/gentoo && printf "[DEFAULT]\nmain-repo = gentoo\n\n[gentoo]\nlocation = /var/db/repos/gentoo\nsync-type = git\nsync-uri = https://github.com/gentoo-mirror/gentoo.git\nauto-sync = yes\nsync-git-verify-commit-signature = yes\nsync-openpgp-key-path = /usr/share/openpgp-keys/gentoo-release.asc" > /etc/portage/repos.conf/gentoo.conf && emerge --sync 
 RUN eix-update
