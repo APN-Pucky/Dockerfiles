@@ -22,7 +22,6 @@ jobs:
     timeout-minutes: 4320 # 72h
     strategy:
       fail-fast: false
-      max-parallel: 1
       matrix:
         user: ["apnpucky"]
         base: [ "gentoo" ]
