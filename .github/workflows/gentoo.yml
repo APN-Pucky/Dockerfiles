@@ -76,7 +76,7 @@ jobs:
         uses: docker/build-push-action@v3
         with:
           file: gentoo/Dockerfile
-          platforms: linux/amd64,linux/arm/v7,linux/arm64,linux/386,linux/riscv64 #,linux/ppc64le,linux/arm/v5,linux/arm/v6, #,linux/s390x,
+          platforms: linux/amd64,linux/arm/v7,linux/arm64,linux/riscv64 #,linux/ppc64le,linux/arm/v5,linux/arm/v6, #,linux/s390x,
           push: true
           pull: true
           target: ${{ matrix.base }}-${{ matrix.image }}
