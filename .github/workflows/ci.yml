@@ -27,11 +27,17 @@ jobs:
         user: ["apnpucky"]
         base: [ "gentoo" ]
         image: [
-                "hep-forge",
-                "apn",
-                "apn-unstable",
-                "hep-forge-unstable",
-                ]
+          "hep-forge",
+          "apn",
+          "apn-unstable",
+          "hep-forge-unstable",
+        ]
+        platform: [
+          "linux/amd64",
+          "linux/arm/v7",
+          "linux/arm64" 
+          #,linux/riscv64 #,linux/ppc64le,linux/arm/v5,linux/arm/v6, #,linux/s390x,
+        ]
     steps:
       -
         name: Checkout
@@ -61,7 +67,7 @@ jobs:
         uses: docker/build-push-action@v3
         with:
           file: gentoo/Dockerfile
-          platforms: linux/amd64,linux/arm/v7,linux/arm64 #,linux/riscv64 #,linux/ppc64le,linux/arm/v5,linux/arm/v6, #,linux/s390x,
+          platforms: ${{ matrix.platform }} 
           push: true
           pull: true
           target: ${{ matrix.base }}-${{ matrix.image }}

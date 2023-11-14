@@ -41,6 +41,10 @@ jobs:
           "hepi",
           "powheg-box-v2",
           ]
+        platform: [
+          "linux/amd64", 
+          #,linux/386, linux/arm64,linux/ppc64le,linux/riscv64,linux/arm/v5,linux/arm/v6,linux/arm/v7, #,linux/s390x,
+        ]
         lhapdf: [ "6.5.4", "6.3.0" ]
         looptools: [ "2.15" ]
         rivet3: [ "3.1.8", "3.1.7" ]
@@ -116,7 +120,7 @@ jobs:
         uses: docker/build-push-action@v3
         with:
           file: hep-forge/Dockerfile
-          platforms: linux/amd64 #,linux/386, linux/arm64,linux/ppc64le,linux/riscv64,linux/arm/v5,linux/arm/v6,linux/arm/v7, #,linux/s390x,
+          platforms: ${{ matrix.platform }}
           pull: true
           push: true
           target: ${{ matrix.base }}-${{ matrix.image }}
