@@ -6,7 +6,7 @@ on:
   push:
     branches: [ "master" ]
     paths:
-      - gentoo/Dockerfile
+      - ci/Dockerfile
       - .github/workflows/gentoo.yml
   schedule:
     - cron: 0 6 7 * *
@@ -66,7 +66,7 @@ jobs:
         name: ${{ matrix.base }}-${{ matrix.image }}
         uses: docker/build-push-action@v3
         with:
-          file: gentoo/Dockerfile
+          file: ci/Dockerfile
           platforms: ${{ matrix.platform }} 
           push: true
           pull: true
