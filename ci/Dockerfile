@@ -1,21 +1,3 @@
-# gentoo-apn
-FROM apnpucky/gentoo-dev as gentoo-apn
-RUN mkdir /var/db/repos/apn && printf "[apn]\nlocation = /var/db/repos/apn\nsync-type = git\nsync-uri = https://gitlab.com/APN-Pucky/gentoo-apn.git" >> /etc/portage/repos.conf/apn.conf && emaint -r apn sync
-RUN echo '*/*::apn * ~*' > /etc/portage/package.accept_keywords/apn
-RUN echo '*/*::guru * ~*' > /etc/portage/package.accept_keywords/guru
-RUN echo '*/*::jjakob * ~*' > /etc/portage/package.accept_keywords/jjakob
-RUN emerge app-eselect/eselect-repository
-RUN eselect repository enable guru && emaint -r guru sync
-RUN eselect repository enable jjakob && emaint -r jjakob sync
-
-FROM apnpucky/gentoo-apn as gentoo-apn-unstable
-RUN echo 'ACCEPT_KEYWORDS="~"' >> /etc/portage/make.conf
-RUN emerge -e @world && emerge -e @preserved-rebuild && rm -rf /var/cache/distfiles/* && emerge --depclean
-
-FROM apnpucky/gentoo-apn as gentoo-apn-live
-RUN echo 'ACCEPT_KEYWORDS="~ **"' >> /etc/portage/make.conf
-RUN emerge -e @world && emerge -e @preserved-rebuild && rm -rf /var/cache/distfiles/* && emerge --depclean
-
 # gentoo-hep-forge
 FROM apnpucky/gentoo-dev as gentoo-hep-forge
 # USE="X" for mesa for opengl for fastjet
@@ -41,4 +23,25 @@ RUN emerge -e @world && emerge -e @preserved-rebuild && rm -rf /var/cache/distfi
 FROM apnpucky/gentoo-hep-forge as gentoo-hep-forge-live
 RUN echo 'ACCEPT_KEYWORDS="~ **"' >> /etc/portage/make.conf
 RUN emerge -e @world && emerge -e @preserved-rebuild && rm -rf /var/cache/distfiles/* && emerge --depclean
+
+
+
+# gentoo-apn
+FROM apnpucky/gentoo-dev as gentoo-apn
+RUN mkdir /var/db/repos/apn && printf "[apn]\nlocation = /var/db/repos/apn\nsync-type = git\nsync-uri = https://gitlab.com/APN-Pucky/gentoo-apn.git" >> /etc/portage/repos.conf/apn.conf && emaint -r apn sync
+RUN echo '*/*::apn * ~*' > /etc/portage/package.accept_keywords/apn
+RUN echo '*/*::guru * ~*' > /etc/portage/package.accept_keywords/guru
+RUN echo '*/*::jjakob * ~*' > /etc/portage/package.accept_keywords/jjakob
+RUN emerge app-eselect/eselect-repository
+RUN eselect repository enable guru && emaint -r guru sync
+RUN eselect repository enable jjakob && emaint -r jjakob sync
+
+FROM apnpucky/gentoo-apn as gentoo-apn-unstable
+RUN echo 'ACCEPT_KEYWORDS="~"' >> /etc/portage/make.conf
+RUN emerge -e @world && emerge -e @preserved-rebuild && rm -rf /var/cache/distfiles/* && emerge --depclean
+
+FROM apnpucky/gentoo-apn as gentoo-apn-live
+RUN echo 'ACCEPT_KEYWORDS="~ **"' >> /etc/portage/make.conf
+RUN emerge -e @world && emerge -e @preserved-rebuild && rm -rf /var/cache/distfiles/* && emerge --depclean
+
 
