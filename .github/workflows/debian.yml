@@ -30,10 +30,8 @@ jobs:
           "gentoo-prefix",
           "latexmk",
           ]
-        platform: [
-          "linux/amd64",
-          "linux/arm/v7",
-          "linux/arm64/v8" 
+        platforms: [
+          "linux/amd64,linux/arm/v7,linux/arm64/v8" 
           #,linux/386
         ]
     steps:
@@ -65,7 +63,7 @@ jobs:
         uses: docker/build-push-action@v3
         with:
           file: debian/Dockerfile
-          platforms: ${{ matrix.platform }}
+          platforms: ${{ matrix.platforms }}
           push: true
           target: ${{ matrix.image }}
           tags: |
