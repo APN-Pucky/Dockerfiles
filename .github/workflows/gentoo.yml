@@ -42,8 +42,12 @@ jobs:
                 "test",
                 "doc",
                 "dev",
+                "apn",
+                "hep-forge",
                 "ansible",
                 "latex",
+                "apn-unstable",
+                "hep-forge-unstable",
                 "prefix",
                 ]
         platforms: [
