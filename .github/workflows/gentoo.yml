@@ -33,6 +33,7 @@ jobs:
                 "ebuild-ci",
                 "rust",
                 "c",
+                "c-tools",
                 "llvm",
                 "boost",
                 "python",
