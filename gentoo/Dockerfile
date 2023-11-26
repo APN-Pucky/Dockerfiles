@@ -27,10 +27,14 @@ RUN emerge -q rust-bin && rm -rf /var/cache/distfiles/*
 # gentoo-dev
 FROM apnpucky/gentoo-rust as gentoo-c
 RUN echo 'USE="-qt5 -X"' >> /etc/portage/make.conf
-RUN emerge -q sys-devel/gcc dev-util/ccache virtual/fortran dev-util/cmake  && rm -rf /var/cache/distfiles/*
+RUN emerge -q sys-devel/gcc && rm -rf /var/cache/distfiles/*
+
+FROM apnpucky/gentoo-c as gentoo-c-tools
+RUN echo 'USE="-qt5 -X"' >> /etc/portage/make.conf
+RUN emerge -q dev-util/ccache virtual/fortran dev-util/cmake  && rm -rf /var/cache/distfiles/*
 
 # gentoo-dev
-FROM apnpucky/gentoo-c as gentoo-llvm
+FROM apnpucky/gentoo-c-tools as gentoo-llvm
 RUN echo 'USE="-qt5 -X"' >> /etc/portage/make.conf
 RUN emerge -q sys-devel/llvm  && rm -rf /var/cache/distfiles/*
 
