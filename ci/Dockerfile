@@ -11,7 +11,7 @@ RUN emerge --sync
 #TODO better use --autounmask=y --autounmask-write --autounmask-continue --autounmask-use=y
 RUN echo '~sci-physics/root-6.28.08 **' > /etc/portage/package.accept_keywords/root 
 RUN echo '~sci-physics/root-6.28.08 -X -qt5 -asimage -opengl -jupyter' > /etc/portage/package.use/root 
-RUN emerge -q ~sci-physics/root-6.28.08  --autounmask=y --autounmask-write --autounmask-continue --autounmask-use=y && rm -rf /var/cache/distfiles/*
+#RUN emerge -q ~sci-physics/root-6.28.08  --autounmask=y --autounmask-write --autounmask-continue --autounmask-use=y && rm -rf /var/cache/distfiles/*
 RUN echo 'sci-physics/hepmc gev' >> /etc/portage/package.use/zz-autoaccept
 RUN echo 'sci-physics/siscone ~*' >> /etc/portage/package.accept_keywords/zz-autoaccept
 RUN echo 'dev-python/keyrings-alt ~*' >> /etc/portage/package.accept_keywords/zz-autoaccept
