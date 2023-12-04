@@ -9,7 +9,7 @@ on:
       - easybuild/Dockerfile
       - .github/workflows/easybuild.yml
   schedule:
-    - cron: 0 6 3 * *
+    - cron: 0 6 21 * *
 
 jobs:
   docker:

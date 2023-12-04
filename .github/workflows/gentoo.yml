@@ -9,7 +9,7 @@ on:
       - gentoo/Dockerfile
       - .github/workflows/gentoo.yml
   schedule:
-    - cron: 0 6 2 * *
+    - cron: 0 6 1 * *
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
@@ -18,8 +18,9 @@ concurrency:
 
 jobs:
   docker:
+    #runs-on: ubuntu-latest
     runs-on: self-hosted
-    timeout-minutes: 4320 # 72h
+    timeout-minutes: 43200 # 720h
     strategy:
       fail-fast: false
       max-parallel: 1
@@ -27,26 +28,32 @@ jobs:
         user: ["apnpucky"]
         base: [ "gentoo" ]
         image: [
-                "base",
-                "repo",
-                "ebuild-ci",
-                "rust",
-                "c",
-                "llvm",
-                "boost",
-                "python",
-                "lua",
-                "perl",
-                "test",
-                "doc",
-                "dev",
+                #"base",
+                #"repo",
+                #"ebuild-ci",
+                #"rust",
+                #"c",
+                #"c-tools",
+                #"llvm",
+                #"boost",
+                #"python",
+                #"lua",
+                #"perl",
+                #"test",
+                #"doc",
+                #"dev",
+                #"apn",
                 "hep-forge",
-                "apn",
                 "ansible",
+                "latex",
                 "apn-unstable",
                 "hep-forge-unstable",
                 "prefix",
                 ]
+        platforms: [
+          "linux/amd64,linux/arm/v7,linux/arm64,linux/riscv64" 
+          #,linux/riscv64 #,linux/ppc64le,linux/arm/v5,linux/arm/v6, #,linux/s390x,
+        ]
     steps:
       -
         name: Checkout
@@ -76,7 +83,7 @@ jobs:
         uses: docker/build-push-action@v3
         with:
           file: gentoo/Dockerfile
-          platforms: linux/amd64,linux/arm/v7,linux/arm64,linux/386,linux/riscv64 #,linux/ppc64le,linux/arm/v5,linux/arm/v6, #,linux/s390x,
+          platforms: ${{ matrix.platforms }}
           push: true
           pull: true
           target: ${{ matrix.base }}-${{ matrix.image }}
