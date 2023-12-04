@@ -7,7 +7,7 @@ on:
       - hep-forge/Dockerfile
       - .github/workflows/hep-forge.yml
   schedule:
-    - cron: 0 6 2 * *
+    - cron: 0 6 9 * *
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
@@ -116,7 +116,7 @@ jobs:
         uses: docker/build-push-action@v3
         with:
           file: hep-forge/Dockerfile
-          platforms: linux/amd64 #,linux/386, linux/arm64,linux/ppc64le,linux/riscv64,linux/arm/v5,linux/arm/v6,linux/arm/v7, #,linux/s390x,
+          platforms: linux/amd64,linux/arm/v7,linux/arm64 #,linux/386, linux/arm64,linux/ppc64le,linux/riscv64,linux/arm/v5,linux/arm/v6,linux/arm/v7, #,linux/s390x,
           pull: true
           push: true
           target: ${{ matrix.base }}-${{ matrix.image }}
@@ -125,7 +125,15 @@ jobs:
             LOOPTOOLS_VERSION=${{ matrix.looptools }}
             RIVET3_VERSION=${{ matrix.rivet3 }}
             HEPMC3_VERSION=${{ matrix.hepmc3 }}
+            HEPMC2_VERSION=${{ matrix.hepmc2 }}
             PYTHIA8_VERSION=${{ matrix.pythia8 }}
+            HERWIG7_VERSION=${{ matrix.herwig7 }}
+            POWHEG_BOX_V2_VERSION=${{ matrix.powheg-box-v2 }}
+            RESUMMINO_VERSION=${{ matrix.resummino }}
+            SOFTSUSY_VERSION=${{ matrix.softsusy }}
+            SPHENO_VERSION=${{ matrix.spheno }}
+            NLLFAST_VERSION=${{ matrix.nllfast }}
+            NNLLFAST_VERSION=${{ matrix.nnllfast }}
           tags: |
             ${{ matrix.user }}/${{ matrix.base }}-${{ matrix.image }}:latest
             ${{ matrix.user }}/${{ matrix.base }}-${{ matrix.image }}:${{ steps.version.outputs.VERSION }}-latest
