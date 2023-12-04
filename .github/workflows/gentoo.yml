@@ -28,21 +28,21 @@ jobs:
         user: ["apnpucky"]
         base: [ "gentoo" ]
         image: [
-                #"base",
-                #"repo",
-                #"ebuild-ci",
-                #"rust",
-                #"c",
-                #"c-tools",
-                #"llvm",
-                #"boost",
-                #"python",
-                #"lua",
-                #"perl",
-                #"test",
-                #"doc",
-                #"dev",
-                #"apn",
+                "base",
+                "repo",
+                "ebuild-ci",
+                "rust",
+                "c",
+                "c-tools",
+                "llvm",
+                "boost",
+                "python",
+                "lua",
+                "perl",
+                "test",
+                "doc",
+                "dev",
+                "apn",
                 "hep-forge",
                 "ansible",
                 "latex",
@@ -85,7 +85,6 @@ jobs:
           file: gentoo/Dockerfile
           platforms: ${{ matrix.platforms }}
           push: true
-          pull: true
           target: ${{ matrix.base }}-${{ matrix.image }}
           tags: |
             ${{ matrix.user }}/${{ matrix.base }}-${{ matrix.image }}:latest

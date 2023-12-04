@@ -121,7 +121,6 @@ jobs:
         with:
           file: hep-forge/Dockerfile
           platforms: ${{ matrix.platforms }}
-          pull: true
           push: true
           target: ${{ matrix.base }}-${{ matrix.image }}
           build-args: |
