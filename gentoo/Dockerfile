@@ -80,7 +80,7 @@ RUN printf 'COMMON_FLAGS="-O2 -pipe -frecord-gcc-switches"\nCFLAGS="${COMMON_FLA
 RUN echo 'ACCEPT_LICENSE="* -@EULA"' >> /etc/portage/make.conf
 # Feed portagefilelist.org
 RUN echo 'sys-apps/util-linux caps' > /etc/portage/package.use/util-linux
-RUN emerge pfl
+RUN USE="-network-cron" emerge pfl
 RUN pfl
 RUN emerge --depclean
 
