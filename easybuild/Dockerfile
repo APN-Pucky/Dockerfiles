@@ -10,7 +10,7 @@ ARG EB_VER=4.6.1
 LABEL easybuild_version=${EB_VER}
 # install required packages (EPEL is required for Lmod)
 RUN yum install -y epel-release \
-  && yum install -y bzip2 file gcc-c++ git Lmod make openssl openssl-devel patch python3-pip unzip vim which rdma-core-devel
+  && yum install -y bzip2 file gcc-c++ git Lmod make openssl openssl-devel patch python3-pip unzip vim which rdma-core-devel perl-Thread-Queue debianutils
 # install EasBuild & archspec
 RUN pip3 install easybuild==${EB_VER} archspec pep8
 # add 'easybuild' user
@@ -49,7 +49,6 @@ RUN ml --version \
 WORKDIR /home/easybuild
 RUN eb --prefix /scratch --installpath /easybuild --install-latest-eb-release --robot --trace   && rm -rf /scratch/* 
 FROM apnpucky/centos7-easybuild as centos7-easybuild-ci
-RUN sed -i 's/www\.cpan\.org/cpan.metacpan.org/g' /easybuild/software/EasyBuild/4.6.2/easybuild/easyconfigs/p/Perl/Perl-5.34.1-GCCcore-11.3.0.eb
 RUN eb --prefix /scratch --installpath /easybuild --install-latest-eb-release --robot --trace   && rm -rf /scratch/* 
 RUN eb --prefix /scratch --installpath /easybuild GCCcore-11.3.0.eb gompi-2022a.eb Python-3.10.4-GCCcore-11.3.0.eb  --robot --trace   && rm -rf /scratch/*
 # Some heavy load
