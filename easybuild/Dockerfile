@@ -51,13 +51,13 @@ RUN eb --prefix /scratch --installpath /easybuild --install-latest-eb-release --
 FROM apnpucky/centos7-easybuild as centos7-easybuild-ci
 RUN eb --prefix /scratch --installpath /easybuild --install-latest-eb-release --robot --trace   && rm -rf /scratch/* 
 # 2022a
-RUN eb --prefix /scratch --installpath /easybuild GCCcore-11.3.0.eb   --robot --trace   && rm -rf /scratch/*
-RUN eb --prefix /scratch --installpath /easybuild gompi-2022a.eb   --robot --trace   && rm -rf /scratch/*
-RUN eb --prefix /scratch --installpath /easybuild Python-3.10.4-GCCcore-11.3.0.eb  --robot --trace   && rm -rf /scratch/*
+#RUN eb --prefix /scratch --installpath /easybuild GCCcore-11.3.0.eb   --robot --trace   && rm -rf /scratch/*
+#RUN eb --prefix /scratch --installpath /easybuild gompi-2022a.eb   --robot --trace   && rm -rf /scratch/*
+#RUN eb --prefix /scratch --installpath /easybuild Python-3.10.4-GCCcore-11.3.0.eb  --robot --trace   && rm -rf /scratch/*
 # Some heavy load
-RUN eb --prefix /scratch --installpath /easybuild Qt5-5.15.5-GCCcore-11.3.0.eb --robot --trace   && rm -rf /scratch/*
-RUN eb --prefix /scratch --installpath /easybuild nodejs-16.15.1-GCCcore-11.3.0.eb --robot --trace   && rm -rf /scratch/*
-RUN eb --prefix /scratch --installpath /easybuild Mesa-22.0.3-GCCcore-11.3.0.eb --robot --trace   && rm -rf /scratch/*
+#RUN eb --prefix /scratch --installpath /easybuild Qt5-5.15.5-GCCcore-11.3.0.eb --robot --trace   && rm -rf /scratch/*
+#RUN eb --prefix /scratch --installpath /easybuild nodejs-16.15.1-GCCcore-11.3.0.eb --robot --trace   && rm -rf /scratch/*
+#RUN eb --prefix /scratch --installpath /easybuild Mesa-22.0.3-GCCcore-11.3.0.eb --robot --trace   && rm -rf /scratch/*
 # 2023a
 RUN eb --prefix /scratch --installpath /easybuild GCCcore-12.3.0.eb gompi-2023a.eb --robot --trace   && rm -rf /scratch/*
 
