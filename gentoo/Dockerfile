@@ -54,6 +54,7 @@ FROM apnpucky/gentoo-lua as gentoo-perl
 RUN emerge -q dev-lang/perl  && rm -rf /var/cache/distfiles/*
 
 FROM apnpucky/gentoo-perl as gentoo-test
+RUN install -m 0750 -o portage -g portage -d /etc/portage/env /etc/portage/package.{accept_keywords,env,unmask,use}
 RUN mkdir /var/db/repos/apn && printf "[apn]\nlocation = /var/db/repos/apn\nsync-type = git\nsync-uri = https://gitlab.com/APN-Pucky/gentoo-apn.git" > /etc/portage/repos.conf/apn.conf && emaint -r apn sync
 RUN echo '*/*::apn * ~*' > /etc/portage/package.accept_keywords/apn
 RUN echo '*/*::guru * ~*' > /etc/portage/package.accept_keywords/guru
