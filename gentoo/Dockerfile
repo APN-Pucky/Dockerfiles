@@ -20,7 +20,7 @@ RUN emerge -q dev-util/pkgdev && rm -rf /var/cache/distfiles/*
 FROM apnpucky/gentoo-repo as gentoo-ansible
 RUN ACCEPT_KEYWORDS="* ~*" emerge -q app-admin/ansible-lint app-admin/ansible && rm -rf /var/cache/distfiles/*
 
-# gentoo-dev
+# gentoo-rust
 FROM apnpucky/gentoo-ebuild-ci as gentoo-rust
 RUN emerge -q rust-bin && rm -rf /var/cache/distfiles/*
 
