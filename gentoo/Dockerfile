@@ -9,7 +9,7 @@ RUN echo "PORTAGE_NICENESS=\"${NICENESS}\"" >> /etc/portage/make.conf
 
 FROM apnpucky/gentoo-base as gentoo-repo
 RUN emerge -q eix dev-vcs/git && rm -rf /var/cache/distfiles/*
-RUN rm -rf /var/db/repos/gentoo && mkdir /var/db/repos/gentoo && printf "[DEFAULT]\nmain-repo = gentoo\n\n[gentoo]\nlocation = /var/db/repos/gentoo\nsync-type = git\nsync-uri = https://github.com/gentoo-mirror/gentoo.git\nauto-sync = yes\nsync-git-verify-commit-signature = yes\nsync-openpgp-key-path = /usr/share/openpgp-keys/gentoo-release.asc" > /etc/portage/repos.conf/gentoo.conf && emerge --sync 
+RUN rm -rf /var/db/repos/gentoo && mkdir -p /var/db/repos/gentoo && printf "[DEFAULT]\nmain-repo = gentoo\n\n[gentoo]\nlocation = /var/db/repos/gentoo\nsync-type = git\nsync-uri = https://github.com/gentoo-mirror/gentoo.git\nauto-sync = yes\nsync-git-verify-commit-signature = yes\nsync-openpgp-key-path = /usr/share/openpgp-keys/gentoo-release.asc" > /etc/portage/repos.conf/gentoo.conf && emerge --sync 
 RUN eix-update
 
 # gentoo-ebuild-ci
@@ -96,7 +96,7 @@ RUN emerge --depclean
 
 # gentoo-apn
 FROM apnpucky/gentoo-dev as gentoo-apn
-RUN mkdir /var/db/repos/apn && printf "[apn]\nlocation = /var/db/repos/apn\nsync-type = git\nsync-uri = https://gitlab.com/APN-Pucky/gentoo-apn.git" >> /etc/portage/repos.conf/apn.conf && emaint -r apn sync
+RUN mkdir -p /var/db/repos/apn && printf "[apn]\nlocation = /var/db/repos/apn\nsync-type = git\nsync-uri = https://gitlab.com/APN-Pucky/gentoo-apn.git" > /etc/portage/repos.conf/apn.conf && emaint -r apn sync
 RUN echo '*/*::apn * ~*' > /etc/portage/package.accept_keywords/apn
 RUN echo '*/*::guru * ~*' > /etc/portage/package.accept_keywords/guru
 RUN echo '*/*::jjakob * ~*' > /etc/portage/package.accept_keywords/jjakob
@@ -109,7 +109,7 @@ RUN emerge --sync
 FROM apnpucky/gentoo-dev as gentoo-hep-forge
 # USE="X" for mesa for opengl for fastjet
 RUN echo 'USE="X -qt5"' >> /etc/portage/make.conf
-RUN mkdir /var/db/repos/hep-forge && printf "[hep-forge]\nlocation = /var/db/repos/hep-forge\nsync-type = git\nsync-uri = https://gitlab.com/APN-Pucky/gentoo-hep-forge.git" > /etc/portage/repos.conf/hep-forge.conf
+RUN mkdir -p /var/db/repos/hep-forge && printf "[hep-forge]\nlocation = /var/db/repos/hep-forge\nsync-type = git\nsync-uri = https://gitlab.com/APN-Pucky/gentoo-hep-forge.git" > /etc/portage/repos.conf/hep-forge.conf
 RUN echo '*/*::hep-forge * ~*' > /etc/portage/package.accept_keywords/hepforge
 RUN echo '*/*::science * ~*' > /etc/portage/package.accept_keywords/science
 RUN emerge app-eselect/eselect-repository
