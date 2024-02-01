@@ -45,7 +45,7 @@ RUN emerge -q dev-libs/boost  && rm -rf /var/cache/distfiles/*
 FROM apnpucky/gentoo-boost as gentoo-python
 RUN echo 'PYTHON_TARGETS="python3_10 python3_11 python3_12"' >> /etc/portage/make.conf
 RUN mkdir -p /etc/portage/profile/ && echo "-python_targets_python3_12" >> /etc/portage/profile/use.mask
-RUN emerge -q dev-lang/python:3.10 dev-lang/python:3.11 && rm -rf /var/cache/distfiles/*
+RUN emerge -q dev-lang/python:3.10 dev-lang/python:3.11 dev-lang/python:3.12 && rm -rf /var/cache/distfiles/*
 
 FROM apnpucky/gentoo-python as gentoo-lua
 RUN echo 'LUA_TARGETS="lua5-1 lua5-3 lua5-4"' >> /etc/portage/make.conf
