@@ -46,13 +46,13 @@ jobs:
           "linux/amd64", 
           #,linux/386, linux/arm64,linux/ppc64le,linux/riscv64,linux/arm/v5,linux/arm/v6,linux/arm/v7, #,linux/s390x,
         ]
-        lhapdf: [ "6.5.4", "6.3.0" ]
+        lhapdf: [ "6.5.4" ]
         looptools: [ "2.15" ]
-        rivet3: [ "3.1.9", "3.1.8" ]
-        hepmc3: [ "3.2.6", "3.2.5" ]
+        rivet3: [ "3.1.9" ]
+        hepmc3: [ "3.2.6" ]
         hepmc2: [ "2.06.11" ]
-        pythia8: [ "8.3.09", "8.2.45-r3" ]
-        herwig7: [ "7.3.0", "7.2.3-r2" ]
+        pythia8: [ "8.3.09" ]
+        herwig7: [ "7.3.0" ]
         scikit-hep: ["0"]
         powheg-box-v2: ["4027"]
         resummino: ["3.1.2"]
