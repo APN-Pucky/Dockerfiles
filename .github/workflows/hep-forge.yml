@@ -30,6 +30,7 @@ jobs:
           "lhapdf",
           "lhapdf-looptools",
           "rivet3-herwig7-hepmc2-lhapdf",
+          "rivet3-herwig7-hepmc3-lhapdf",
           "rivet3-hepmc3",
           "rivet3-hepmc2",
           "rivet3-pythia8-hepmc3-lhapdf",
@@ -47,7 +48,7 @@ jobs:
         ]
         lhapdf: [ "6.5.4", "6.3.0" ]
         looptools: [ "2.15" ]
-        rivet3: [ "3.1.8", "3.1.7" ]
+        rivet3: [ "3.1.9", "3.1.8" ]
         hepmc3: [ "3.2.6", "3.2.5" ]
         hepmc2: [ "2.06.11" ]
         pythia8: [ "8.3.09", "8.2.45-r3" ]
