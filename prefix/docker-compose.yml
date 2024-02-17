@@ -6,3 +6,15 @@ services:
       context: .
       target: debian-gentoo-prefix
     image: apnpucky/debian-gentoo-prefix:${TAG:-latest}
+
+  debian-gentoo-prefix-ci:
+    build:
+      context: .
+      target: debian-gentoo-prefix-ci
+    image: apnpucky/debian-gentoo-prefix-ci:${TAG:-latest}
+
+  gentoo-gentoo-prefix:
+    build:
+      context: .
+      target: gentoo-gentoo-prefix
+    image: apnpucky/gentoo-gentoo-prefix:${TAG:-latest}
