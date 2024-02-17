@@ -31,7 +31,7 @@ RUN emerge -q sys-devel/gcc && rm -rf /var/cache/distfiles/*
 
 FROM apnpucky/gentoo-c as gentoo-c-tools
 RUN echo 'USE="-qt5 -X"' >> /etc/portage/make.conf
-RUN emerge -q dev-util/ccache virtual/fortran dev-util/cmake  && rm -rf /var/cache/distfiles/*
+RUN emerge -q dev-util/ccache virtual/fortran dev-build/cmake  && rm -rf /var/cache/distfiles/*
 
 # gentoo-dev
 FROM apnpucky/gentoo-c-tools as gentoo-llvm
@@ -148,9 +148,3 @@ LABEL maintainer="APN-Pucky"
 RUN echo '>=media-libs/harfbuzz-4.3.0 icu -introspection' > /etc/portage/package.use/harfbuzz
 RUN emerge -q latexmk biber app-text/texlive dev-texlive/texlive-latex dev-python/pygments && rm -rf /var/cache/distfiles/*
 
-# gentoo-prefix
-FROM apnpucky/gentoo-base as prefix
-LABEL maintainer="APN-Pucky"
-RUN wget https://gitweb.gentoo.org/repo/proj/prefix.git/plain/scripts/bootstrap-prefix.sh && chmod +x bootstrap-prefix.sh && sed -i 's/UID/NOUID/g' bootstrap-prefix.sh && ./bootstrap-prefix.sh /gentoo-prefix noninteractive
-# set entry point to start gentoo prefix
-ENTRYPOINT ["/gentoo-prefix/startprefix"]

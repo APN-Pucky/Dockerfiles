@@ -18,3 +18,9 @@ services:
       context: .
       target: gentoo-gentoo-prefix
     image: apnpucky/gentoo-gentoo-prefix:${TAG:-latest}
+
+  gentoo-gentoo-prefix-ci:
+    build:
+      context: .
+      target: gentoo-gentoo-prefix-ci
+    image: apnpucky/gentoo-gentoo-prefix-ci:${TAG:-latest}
