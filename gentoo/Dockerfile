@@ -9,7 +9,7 @@ RUN echo "PORTAGE_NICENESS=\"${NICENESS}\"" >> /etc/portage/make.conf
 
 FROM apnpucky/gentoo-base as gentoo-repo
 RUN emerge -q eix dev-vcs/git && rm -rf /var/cache/distfiles/*
-RUN rm -rf /var/db/repos/gentoo && mkdir /var/db/repos/gentoo && printf "[DEFAULT]\nmain-repo = gentoo\n\n[gentoo]\nlocation = /var/db/repos/gentoo\nsync-type = git\nsync-uri = https://github.com/gentoo-mirror/gentoo.git\nauto-sync = yes\nsync-git-verify-commit-signature = yes\nsync-openpgp-key-path = /usr/share/openpgp-keys/gentoo-release.asc" > /etc/portage/repos.conf/gentoo.conf && emerge --sync 
+RUN rm -rf /var/db/repos/gentoo && mkdir -p /var/db/repos/gentoo && printf "[DEFAULT]\nmain-repo = gentoo\n\n[gentoo]\nlocation = /var/db/repos/gentoo\nsync-type = git\nsync-uri = https://github.com/gentoo-mirror/gentoo.git\nauto-sync = yes\nsync-git-verify-commit-signature = yes\nsync-openpgp-key-path = /usr/share/openpgp-keys/gentoo-release.asc" > /etc/portage/repos.conf/gentoo.conf && emerge --sync 
 RUN eix-update
 
 # gentoo-ebuild-ci
@@ -20,7 +20,7 @@ RUN emerge -q dev-util/pkgdev && rm -rf /var/cache/distfiles/*
 FROM apnpucky/gentoo-repo as gentoo-ansible
 RUN ACCEPT_KEYWORDS="* ~*" emerge -q app-admin/ansible-lint app-admin/ansible && rm -rf /var/cache/distfiles/*
 
-# gentoo-dev
+# gentoo-rust
 FROM apnpucky/gentoo-ebuild-ci as gentoo-rust
 RUN emerge -q rust-bin && rm -rf /var/cache/distfiles/*
 
@@ -44,7 +44,8 @@ RUN emerge -q dev-libs/boost  && rm -rf /var/cache/distfiles/*
 
 FROM apnpucky/gentoo-boost as gentoo-python
 RUN echo 'PYTHON_TARGETS="python3_10 python3_11 python3_12"' >> /etc/portage/make.conf
-RUN emerge -q dev-lang/python:3.10 dev-lang/python:3.11 && rm -rf /var/cache/distfiles/*
+RUN mkdir -p /etc/portage/profile/ && echo "-python_targets_python3_12" >> /etc/portage/profile/use.mask
+RUN emerge -q dev-lang/python:3.10 dev-lang/python:3.11 dev-lang/python:3.12 && rm -rf /var/cache/distfiles/*
 
 FROM apnpucky/gentoo-python as gentoo-lua
 RUN echo 'LUA_TARGETS="lua5-1 lua5-3 lua5-4"' >> /etc/portage/make.conf
@@ -53,8 +54,18 @@ RUN emerge -q dev-lang/lua:5.1 dev-lang/lua:5.3  && rm -rf /var/cache/distfiles/
 FROM apnpucky/gentoo-lua as gentoo-perl
 RUN emerge -q dev-lang/perl  && rm -rf /var/cache/distfiles/*
 
+#gentoo-test
 FROM apnpucky/gentoo-perl as gentoo-test
-RUN ACCEPT_KEYWORDS="* ~*" emerge -q '>=app-portage/pkg-testing-tools-0.1.2' && rm -rf /var/cache/distfiles/*
+RUN install -m 0750 -o portage -g portage -d /etc/portage/env /etc/portage/package.{accept_keywords,env,unmask,use}
+RUN mkdir /var/db/repos/apn && printf "[apn]\nlocation = /var/db/repos/apn\nsync-type = git\nsync-uri = https://gitlab.com/APN-Pucky/gentoo-apn.git" > /etc/portage/repos.conf/apn.conf && emaint -r apn sync
+RUN echo '*/*::apn * ~*' > /etc/portage/package.accept_keywords/apn
+RUN echo '*/*::guru * ~*' > /etc/portage/package.accept_keywords/guru
+RUN echo '*/*::jjakob * ~*' > /etc/portage/package.accept_keywords/jjakob
+RUN emerge app-eselect/eselect-repository
+RUN eselect repository enable guru
+RUN eselect repository enable jjakob
+RUN emerge --sync
+RUN ACCEPT_KEYWORDS="* ~*" emerge -q '>=app-portage/pkg-testing-tools-0.2.1' && rm -rf /var/cache/distfiles/*
 
 FROM apnpucky/gentoo-test as gentoo-doc
 # Documentation
@@ -86,7 +97,7 @@ RUN emerge --depclean
 
 # gentoo-apn
 FROM apnpucky/gentoo-dev as gentoo-apn
-RUN mkdir /var/db/repos/apn && printf "[apn]\nlocation = /var/db/repos/apn\nsync-type = git\nsync-uri = https://gitlab.com/APN-Pucky/gentoo-apn.git" >> /etc/portage/repos.conf/apn.conf && emaint -r apn sync
+RUN mkdir -p /var/db/repos/apn && printf "[apn]\nlocation = /var/db/repos/apn\nsync-type = git\nsync-uri = https://gitlab.com/APN-Pucky/gentoo-apn.git" > /etc/portage/repos.conf/apn.conf && emaint -r apn sync
 RUN echo '*/*::apn * ~*' > /etc/portage/package.accept_keywords/apn
 RUN echo '*/*::guru * ~*' > /etc/portage/package.accept_keywords/guru
 RUN echo '*/*::jjakob * ~*' > /etc/portage/package.accept_keywords/jjakob
@@ -99,7 +110,7 @@ RUN emerge --sync
 FROM apnpucky/gentoo-dev as gentoo-hep-forge
 # USE="X" for mesa for opengl for fastjet
 RUN echo 'USE="X -qt5"' >> /etc/portage/make.conf
-RUN mkdir /var/db/repos/hep-forge && printf "[hep-forge]\nlocation = /var/db/repos/hep-forge\nsync-type = git\nsync-uri = https://gitlab.com/APN-Pucky/gentoo-hep-forge.git" >> /etc/portage/repos.conf/hep-forge.conf
+RUN mkdir -p /var/db/repos/hep-forge && printf "[hep-forge]\nlocation = /var/db/repos/hep-forge\nsync-type = git\nsync-uri = https://gitlab.com/APN-Pucky/gentoo-hep-forge.git" > /etc/portage/repos.conf/hep-forge.conf
 RUN echo '*/*::hep-forge * ~*' > /etc/portage/package.accept_keywords/hepforge
 RUN echo '*/*::science * ~*' > /etc/portage/package.accept_keywords/science
 RUN emerge app-eselect/eselect-repository
@@ -108,11 +119,12 @@ RUN emerge --sync
 #TODO better use --autounmask=y --autounmask-write --autounmask-continue --autounmask-use=y
 RUN echo '~sci-physics/root-6.28.08 **' > /etc/portage/package.accept_keywords/root 
 RUN echo '~sci-physics/root-6.28.08 -X -qt5 -asimage -opengl -jupyter' > /etc/portage/package.use/root 
-RUN emerge -q ~sci-physics/root-6.28.08  --autounmask=y --autounmask-write --autounmask-continue --autounmask-use=y && rm -rf /var/cache/distfiles/*
 RUN echo 'sci-physics/hepmc gev' >> /etc/portage/package.use/zz-autoaccept
 RUN echo 'sci-physics/siscone ~*' >> /etc/portage/package.accept_keywords/zz-autoaccept
 RUN echo 'dev-python/keyrings-alt ~*' >> /etc/portage/package.accept_keywords/zz-autoaccept
 RUN echo 'dev-python/jaraco-classes ~*' >> /etc/portage/package.accept_keywords/zz-autoaccept
+#RUN emerge -q ~sci-physics/root-6.28.08  --autounmask=y --autounmask-write --autounmask-continue --autounmask-use=y && rm -rf /var/cache/distfiles/*
+RUN emerge -q dev-python/scipy  --autounmask=y --autounmask-write --autounmask-continue --autounmask-use=y && rm -rf /var/cache/distfiles/*
 
 FROM apnpucky/gentoo-hep-forge as gentoo-hep-forge-unstable
 RUN echo 'ACCEPT_KEYWORDS="~"' >> /etc/portage/make.conf
