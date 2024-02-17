@@ -61,7 +61,7 @@ jobs:
         name: ${{ matrix.image }}
         uses: docker/build-push-action@v3
         with:
-          file: gentoo/Dockerfile
+          file: prefix/Dockerfile
           platforms: ${{ matrix.platforms }}
           push: true
           target: ${{ matrix.image }}
