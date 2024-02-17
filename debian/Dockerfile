@@ -41,9 +41,3 @@ RUN git clone -b ${RESUMMINO_VERSION} --single-branch https://glpat-kXxsEN2wgp4X
 RUN cd resummino && mkdir build && cd build && cmake .. -B . && make && make install
 
 
-FROM debian as gentoo-prefix
-RUN apt-get update && apt-get upgrade -y && apt-get install -y build-essential wget
-RUN wget https://gitweb.gentoo.org/repo/proj/prefix.git/plain/scripts/bootstrap-prefix.sh && chmod +x bootstrap-prefix.sh && sed -i 's/UID/NOUID/g' bootstrap-prefix.sh && ./bootstrap-prefix.sh /gentoo-prefix noninteractive
-# set entry point to start gentoo prefix
-ENTRYPOINT ["/gentoo-prefix/startprefix"]
-
