@@ -1,0 +1,8 @@
+version: '3.4'
+services:
+
+  debian-gentoo-prefix:
+    build:
+      context: .
+      target: debian-gentoo-prefix
+    image: apnpucky/debian-gentoo-prefix:${TAG:-latest}
