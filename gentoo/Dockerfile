@@ -123,7 +123,7 @@ RUN echo 'sci-physics/hepmc gev' >> /etc/portage/package.use/zz-autoaccept
 RUN echo 'sci-physics/siscone ~*' >> /etc/portage/package.accept_keywords/zz-autoaccept
 RUN echo 'dev-python/keyrings-alt ~*' >> /etc/portage/package.accept_keywords/zz-autoaccept
 RUN echo 'dev-python/jaraco-classes ~*' >> /etc/portage/package.accept_keywords/zz-autoaccept
-#RUN emerge -q ~sci-physics/root-6.28.08  --autounmask=y --autounmask-write --autounmask-continue --autounmask-use=y && rm -rf /var/cache/distfiles/*
+RUN emerge -q sci-physics/root  --autounmask=y --autounmask-write --autounmask-continue --autounmask-use=y && rm -rf /var/cache/distfiles/*
 RUN emerge -q dev-python/scipy  --autounmask=y --autounmask-write --autounmask-continue --autounmask-use=y && rm -rf /var/cache/distfiles/*
 
 FROM apnpucky/gentoo-hep-forge as gentoo-hep-forge-unstable
