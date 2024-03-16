@@ -60,35 +60,8 @@ services:
       target: gentoo-apn-live
     image: apnpucky/gentoo-apn-live:${TAG:-latest}
 
-  lhapdf:
-    build:
-      context: .
-      target: gentoo-lhapdf
-    image: apnpucky/gentoo-lhapdf:${TAG:-latest}
+  
 
-  lhapdf-looptools:
-    build:
-      context: .
-      target: gentoo-lhapdf-looptools
-    image: apnpucky/gentoo-lhapdf-looptools:${TAG:-latest}
-
-  rivet3-pythia8-hepmc3:
-    build:
-      context: .
-      target: gentoo-rivet3-pythia8-hepmc3
-    image: apnpucky/gentoo-rivet3-pythia8-hepmc3:${TAG:-latest}
-
-  rivet3-pythia8-hepmc2:
-    build:
-      context: .
-      target: gentoo-rivet3-pythia8-hepmc2
-    image: apnpucky/gentoo-rivet3-pythia8-hepmc2:${TAG:-latest}
-
-  prefix:
-    build:
-      context: .
-      target: prefix
-    image: apnpucky/gentoo-prefix:${TAG:-latest}
 
 #  latex:
 #    build:

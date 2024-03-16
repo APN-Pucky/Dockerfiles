@@ -6,6 +6,13 @@ ARG NICENESS=14
 COPY --from=portage-base /var/db/repos/gentoo /var/db/repos/gentoo
 RUN mkdir -p /etc/portage/repos.conf/ && cp /usr/share/portage/config/repos.conf /etc/portage/repos.conf/gentoo.conf
 RUN echo "PORTAGE_NICENESS=\"${NICENESS}\"" >> /etc/portage/make.conf
+RUN echo "FEATURES=\"${FEATURES} getbinpkg\"" >> /etc/portage/make.conf
+#RUN printf "" > /etc/portage/binrepos.conf/gentoobinhost.conf
+RUN printf "[amd64gentoobinhost]\npriority=9999\nsync-uri=https://ftp.uni-stuttgart.de/gentoo-distfiles/releases/amd64/binpackages/17.1/x86-64/\n"  > /etc/portage/binrepos.conf/amd64gentoobinhost.conf
+RUN printf "[arm64gentoobinhost]\npriority=9999\nsync-uri=https://ftp.uni-stuttgart.de/gentoo-distfiles/releases/arm64/binpackages/17.0/arm64/\n" > /etc/portage/binrepos.conf/arm64gentoobinhost.conf
+RUN printf "[armgentoobinhost]\npriority=9999\nsync-uri=https://ftp.uni-stuttgart.de/gentoo-distfiles/releases/arm/binpackages/17.0/armv7a/\n" > /etc/portage/binrepos.conf/armgentoobinhost.conf
+RUN printf "[riscvgentoobinhost]\npriority=9999\nsync-uri=https://ftp.uni-stuttgart.de/gentoo-distfiles/releases/rsicv/binpackages/20.0/armv7a/rv64_lp64d/\n" > /etc/portage/binrepos.conf/riscvgentoobinhost.conf
+RUN mv /etc/portage/gnupg /etc/portage/gnupg.bak ; getuto
 
 FROM apnpucky/gentoo-base as gentoo-repo
 RUN emerge -q eix dev-vcs/git && rm -rf /var/cache/distfiles/*
