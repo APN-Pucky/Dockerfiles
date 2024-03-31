@@ -18,7 +18,18 @@ jobs:
       matrix:
         user: ["apnpucky"]
         base: [ "ubuntu" ]
-        image: ["base", "apt","dev","pip","poetry","python","python-lhapdf","python-lhapdf-looptools"]
+        image: [
+          "base",
+          "apt",
+          "dev",
+          "pip",
+          "poetry",
+          "python",
+          "python-lhapdf",
+          "python-lhapdf-looptools",
+          "python-latexmk",
+          "python-latexmk-form",
+        ]
     steps:
       -
         name: Checkout
