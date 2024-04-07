@@ -53,3 +53,7 @@ RUN wget https://github.com/vermaseren/form/releases/download/v4.3.1/form-4.3.1-
 RUN tar -xzf form-4.3.1-x86_64-linux.tar.gz
 ENV PATH=$PATH:$PWD/form-4.3.1-x86_64-linux/
 
+FROM apnpucky/ubuntu-python as python-form
+RUN wget https://github.com/vermaseren/form/releases/download/v4.3.1/form-4.3.1-x86_64-linux.tar.gz
+RUN tar -xzf form-4.3.1-x86_64-linux.tar.gz
+ENV PATH=$PATH:$PWD/form-4.3.1-x86_64-linux/

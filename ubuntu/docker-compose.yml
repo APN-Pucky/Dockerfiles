@@ -68,3 +68,9 @@ services:
       context: .
       target: python-latexmk-form
     image: apnpucky/ubuntu-python-latexmk-form:${TAG:-latest}
+
+  python-form:
+    build:
+      context: .
+      target: python-form
+    image: apnpucky/ubuntu-latexmk-form:${TAG:-latest}

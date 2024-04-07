@@ -27,6 +27,7 @@ jobs:
           "python",
           "python-lhapdf",
           "python-lhapdf-looptools",
+          "python-form",
           "python-latexmk",
           "python-latexmk-form",
         ]
