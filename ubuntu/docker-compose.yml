@@ -30,6 +30,12 @@ services:
       target: poetry
     image: apnpucky/ubuntu-poetry:${TAG:-latest}
 
+  hatch: 
+    build:
+      context: .
+      target: hatch
+    image: apnpucky/ubuntu-hatch:${TAG:-latest}
+
   python:
     build:
       context: .
@@ -73,4 +79,4 @@ services:
     build:
       context: .
       target: python-form
-    image: apnpucky/ubuntu-latexmk-form:${TAG:-latest}
+    image: apnpucky/ubuntu-python-form:${TAG:-latest}
