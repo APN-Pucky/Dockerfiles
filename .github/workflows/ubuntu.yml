@@ -24,6 +24,7 @@ jobs:
           "dev",
           "pip",
           "poetry",
+          "hatch",
           "python",
           "python-lhapdf",
           "python-lhapdf-looptools",
