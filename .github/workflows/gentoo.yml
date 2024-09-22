@@ -1,7 +1,6 @@
 name: Gentoo Docker Image CI
 
 
-
 on:
   push:
     branches: [ "master" ]
