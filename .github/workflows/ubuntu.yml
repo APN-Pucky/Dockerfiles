@@ -9,9 +9,9 @@ on:
 
 jobs:
   docker:
-    #runs-on: ubuntu-latest
-    runs-on: self-hosted
-    timeout-minutes: 4320 # 72h
+    runs-on: ubuntu-latest
+    #runs-on: self-hosted
+    #timeout-minutes: 4320 # 72h
     strategy:
       fail-fast: false
       max-parallel: 1
@@ -24,6 +24,7 @@ jobs:
           "dev",
           "pip",
           "poetry",
+          "hatch",
           "python",
           "python-lhapdf",
           "python-lhapdf-looptools",
