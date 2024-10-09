@@ -38,6 +38,7 @@ jobs:
         name: Set up version
         id: version
         run: |
+          VERSION=${{ matrix.image }}
           VERSION=${VERSION//scikit-hep/${{ matrix.scikit-hep }}}
           echo "VERSION=$VERSION" >> "$GITHUB_OUTPUT"
       -
