@@ -1,0 +1,7 @@
+version: '3.4'
+services:
+  scikit-hep:
+    build:
+      context: .
+      target: gentoo-scikit-hep
+    image: apnpucky/gentoo-scikit-hep:${TAG:-latest}
