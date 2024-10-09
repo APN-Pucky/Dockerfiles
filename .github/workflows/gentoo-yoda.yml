@@ -1,4 +1,4 @@
-name: HEP Docker Image CI
+name: gentoo-yoda Docker Image CI
 
 on:
   push:
@@ -26,7 +26,6 @@ jobs:
         user: ["apnpucky"]
         base: [ "gentoo" ]
         image: [ 
-#          "scikit-hep",
           "yoda",
           ]
         platforms: [

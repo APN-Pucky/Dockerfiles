@@ -1,4 +1,4 @@
-name: HEP Docker Image CI
+name: gentoo-scikit-hep Docker Image CI
 
 on:
   push:
