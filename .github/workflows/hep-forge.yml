@@ -28,6 +28,7 @@ jobs:
         image: [ 
 #          "scikit-hep",
           "lhapdf",
+          "yoda",
           "lhapdf-looptools",
           "rivet3-herwig7-hepmc2-lhapdf",
           "rivet3-herwig7-hepmc3-lhapdf",
@@ -46,6 +47,7 @@ jobs:
           "linux/amd64", 
           #,linux/386, linux/arm64,linux/ppc64le,linux/riscv64,linux/arm/v5,linux/arm/v6,linux/arm/v7, #,linux/s390x,
         ]
+        yoda: [ "1.9.10", "2.0.1" ]
         lhapdf: [ "6.5.4" ]
         looptools: [ "2.15" ]
         rivet3: [ "3.1.9" ]
@@ -67,6 +69,7 @@ jobs:
         run: |
           VERSION=${{ matrix.image }}
           VERSION=${VERSION//lhapdf/${{ matrix.lhapdf }}}
+          VERSION=${VERSION//yoda/${{ matrix.yoda }}}
           VERSION=${VERSION//rivet3/${{ matrix.rivet3 }}}
           VERSION=${VERSION//hempc3/${{ matrix.hepmc3 }}}
           VERSION=${VERSION//hempc2/${{ matrix.hepmc2 }}}

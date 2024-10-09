@@ -1,70 +1,16 @@
 version: '3.4'
 services:
-  base:
-    build:
-      context: .
-      target: gentoo-base
-    image: apnpucky/gentoo-base:${TAG:-latest}
-
-  repo:
-    build:
-      context: .
-      target: gentoo-repo
-    image: apnpucky/gentoo-repo:${TAG:-latest}
-
-  ebuild-ci:
-    build:
-      context: .
-      target: gentoo-ebuild-ci
-    image: apnpucky/gentoo-ebuild-ci:${TAG:-latest}
-
-  dev:
-    build:
-      context: .
-      target: gentoo-dev
-    image: apnpucky/gentoo-dev:${TAG:-latest}
-
-  hep-forge:
-    build:
-      context: .
-      target: gentoo-hep-forge
-    image: apnpucky/gentoo-hep-forge:${TAG:-latest}
-
-  hep-forge-unstable:
-    build:
-      context: .
-      target: gentoo-hep-forge-unstable
-    image: apnpucky/gentoo-hep-forge-unstable:${TAG:-latest}
-
-  hep-forge-live:
-    build:
-      context: .
-      target: gentoo-hep-forge-live
-    image: apnpucky/gentoo-hep-forge-live:${TAG:-latest}
-
-  apn:
-    build:
-      context: .
-      target: gentoo-apn
-    image: apnpucky/gentoo-apn:${TAG:-latest}
-
-  apn-unstable:
-    build:
-      context: .
-      target: gentoo-apn-unstable
-    image: apnpucky/gentoo-apn-unstable:${TAG:-latest}
-
-  apn-live:
-    build:
-      context: .
-      target: gentoo-apn-live
-    image: apnpucky/gentoo-apn-live:${TAG:-latest}
-
   lhapdf:
     build:
       context: .
       target: gentoo-lhapdf
     image: apnpucky/gentoo-lhapdf:${TAG:-latest}
+
+  yoda:
+    build:
+      context: .
+      target: gentoo-yoda
+    image: apnpucky/gentoo-yoda:${TAG:-latest}
 
   lhapdf-looptools:
     build:

@@ -5,6 +5,12 @@ RUN emaint -r hep-forge sync
 RUN echo ">=sci-physics/lhapdf-sets-0 lhapdf_sets_ct14lo lhapdf_sets_ct14nlo lhapdf_sets_cteq66 lhapdf_sets_cteq6l1" >> /etc/portage/package.use/zz-autoaccept
 RUN USE="python" emerge -q ~sci-physics/lhapdf-${LHAPDF_VERSION} && rm -rf /var/cache/distfiles/*
 
+FROM apnpucky/gentoo-hep-forge as gentoo-yoda
+LABEL maintainer="APN-Pucky"
+ARG YODA_VERSION=2.0.1
+RUN emaint -r gentoo sync
+RUN USE="python" emerge -q ~sci-physics/yoda-${YODA_VERSION}::gentoo && rm -rf /var/cache/distfiles/*
+
 FROM apnpucky/gentoo-lhapdf as gentoo-lhapdf-looptools
 LABEL maintainer="APN-Pucky"
 ARG LOOPTOOLS_VERSION=2.15
