@@ -11,6 +11,12 @@ ARG YODA_VERSION=2.0.1
 RUN emaint -r gentoo sync
 RUN USE="python" emerge -q ~sci-physics/yoda-${YODA_VERSION}::gentoo && rm -rf /var/cache/distfiles/*
 
+FROM apnpucky/gentoo-hep-forge as gentoo-scikit-hep
+LABEL maintainer="APN-Pucky"
+ARG YODA_VERSION=2.0.1
+RUN emaint -r gentoo sync
+RUN USE="python" emerge -q ~sci-physics/yoda-${YODA_VERSION}::gentoo && rm -rf /var/cache/distfiles/*
+
 FROM apnpucky/gentoo-lhapdf as gentoo-lhapdf-looptools
 LABEL maintainer="APN-Pucky"
 ARG LOOPTOOLS_VERSION=2.15
@@ -90,12 +96,6 @@ ARG HEPMC2_VERSION=2.06.11
 RUN emaint -r hep-forge sync
 RUN USE="-hepmc3 hepmc2 python lhapdf" emerge -q ~sci-physics/rivet-${RIVET3_VERSION} ~sci-physics/pythia-${PYTHIA8_VERSION} ~sci-physics/hepmc-${HEPMC2_VERSION} && rm -rf /var/cache/distfiles/*
 
-FROM apnpucky/gentoo-hep-forge as gentoo-scikit-hep
-LABEL maintainer="APN-Pucky"
-RUN emaint -r hep-forge sync
-RUN echo 'dev-python/iminuit ~amd64' >> /etc/portage/package.accept_keywords/zz-autoaccept
-RUN echo 'dev-python/scipy ~amd64' >> /etc/portage/package.accept_keywords/zz-autoaccept
-RUN emerge -q virtual/scikit-hep && rm -rf /var/cache/distfiles/*
 
 FROM apnpucky/gentoo-lhapdf-looptools as gentoo-powheg-box-v2
 LABEL maintainer="APN-Pucky"

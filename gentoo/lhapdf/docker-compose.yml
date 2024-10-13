@@ -1,0 +1,7 @@
+version: '3.4'
+services:
+  lhapdf:
+    build:
+      context: .
+      target: gentoo-lhapdf
+    image: apnpucky/gentoo-lhapdf:${TAG:-latest}

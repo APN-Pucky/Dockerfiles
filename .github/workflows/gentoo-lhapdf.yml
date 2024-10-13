@@ -1,11 +1,11 @@
-name: HEP Docker Image CI
+name: gentoo-lhapdf Docker Image CI
 
 on:
   push:
     branches: [ "master" ]
     paths:
-      - hep-forge/Dockerfile
-      - .github/workflows/hep-forge.yml
+      - gentoo/lhapdf/Dockerfile
+      - .github/workflows/gentoo-lhapdf.yml
   schedule:
     - cron: 0 6 14 * *
 
@@ -26,42 +26,13 @@ jobs:
         user: ["apnpucky"]
         base: [ "gentoo" ]
         image: [ 
-#          "scikit-hep",
-          "yoda",
           "lhapdf",
-          "lhapdf-looptools",
-          "rivet3-herwig7-hepmc2-lhapdf",
-          "rivet3-herwig7-hepmc3-lhapdf",
-          "rivet3-hepmc3",
-          "rivet3-hepmc2",
-          "rivet3-pythia8-hepmc3-lhapdf",
-          "rivet3-pythia8-hepmc2-lhapdf",
-          "rivet3-pythia8-hepmc3-lhapdf-looptools",
-          "rivet3-pythia8-hepmc2-lhapdf-looptools",
-          "scikit-hep",
-          "susy",
-          "hepi",
-          "powheg-box-v2",
           ]
         platforms: [
           "linux/amd64", 
           #,linux/386, linux/arm64,linux/ppc64le,linux/riscv64,linux/arm/v5,linux/arm/v6,linux/arm/v7, #,linux/s390x,
         ]
-        yoda: [ "1.9.10", "2.0.1" ]
         lhapdf: [ "6.5.4" ]
-        looptools: [ "2.15" ]
-        rivet3: [ "3.1.9" ]
-        hepmc3: [ "3.2.6" ]
-        hepmc2: [ "2.06.11" ]
-        pythia8: [ "8.3.09" ]
-        herwig7: [ "7.3.0" ]
-        scikit-hep: ["0"]
-        powheg-box-v2: ["4027"]
-        resummino: ["3.1.2"]
-        softsusy: ["4.1.13"]
-        spheno: ["3.3.8"]
-        nllfast: ["3.1"]
-        nnllfast: ["1.1"]
     steps:
       - 
         name: Set up version
@@ -69,20 +40,6 @@ jobs:
         run: |
           VERSION=${{ matrix.image }}
           VERSION=${VERSION//lhapdf/${{ matrix.lhapdf }}}
-          VERSION=${VERSION//yoda/${{ matrix.yoda }}}
-          VERSION=${VERSION//rivet3/${{ matrix.rivet3 }}}
-          VERSION=${VERSION//hempc3/${{ matrix.hepmc3 }}}
-          VERSION=${VERSION//hempc2/${{ matrix.hepmc2 }}}
-          VERSION=${VERSION//looptools/${{ matrix.looptools }}}
-          VERSION=${VERSION//pythia8/${{ matrix.pythia8 }}}
-          VERSION=${VERSION//herwig7/${{ matrix.herwig7}}}
-          VERSION=${VERSION//scikit-hep/${{ matrix.scikit-hep }}}
-          VERSION=${VERSION//powheg-box-v2/${{ matrix.powheg-box-v2 }}}
-          VERSION=${VERSION//resummino/${{ matrix.resummino }}}
-          VERSION=${VERSION//softsusy/${{ matrix.softsusy }}}
-          VERSION=${VERSION//spheno/${{ matrix.spheno }}}
-          VERSION=${VERSION//nllfast/${{ matrix.nllfast }}}
-          VERSION=${VERSION//nnllfast/${{ matrix.nnllfast }}}
           echo "VERSION=$VERSION" >> "$GITHUB_OUTPUT"
       -
         name: Checkout
@@ -123,24 +80,12 @@ jobs:
         if: steps.abort.outputs.STOP == 'false'
         uses: docker/build-push-action@v3
         with:
-          file: hep-forge/Dockerfile
+          file: gentoo/lhapdf/Dockerfile
           platforms: ${{ matrix.platforms }}
           push: true
           target: ${{ matrix.base }}-${{ matrix.image }}
           build-args: |
-            LHAPDF_VERSION=${{ matrix.lhapdf }}
-            LOOPTOOLS_VERSION=${{ matrix.looptools }}
-            RIVET3_VERSION=${{ matrix.rivet3 }}
-            HEPMC3_VERSION=${{ matrix.hepmc3 }}
-            HEPMC2_VERSION=${{ matrix.hepmc2 }}
-            PYTHIA8_VERSION=${{ matrix.pythia8 }}
-            HERWIG7_VERSION=${{ matrix.herwig7 }}
-            POWHEG_BOX_V2_VERSION=${{ matrix.powheg-box-v2 }}
-            RESUMMINO_VERSION=${{ matrix.resummino }}
-            SOFTSUSY_VERSION=${{ matrix.softsusy }}
-            SPHENO_VERSION=${{ matrix.spheno }}
-            NLLFAST_VERSION=${{ matrix.nllfast }}
-            NNLLFAST_VERSION=${{ matrix.nnllfast }}
+            lhapdf_VERSION=${{ matrix.lhapdf }}
           tags: |
             ${{ matrix.user }}/${{ matrix.base }}-${{ matrix.image }}:latest
             ${{ matrix.user }}/${{ matrix.base }}-${{ matrix.image }}:${{ steps.version.outputs.VERSION }}-latest
