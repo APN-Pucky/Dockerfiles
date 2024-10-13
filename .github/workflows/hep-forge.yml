@@ -26,9 +26,6 @@ jobs:
         user: ["apnpucky"]
         base: [ "gentoo" ]
         image: [ 
-#          "scikit-hep",
-          "yoda",
-          "lhapdf",
           "lhapdf-looptools",
           "rivet3-herwig7-hepmc2-lhapdf",
           "rivet3-herwig7-hepmc3-lhapdf",

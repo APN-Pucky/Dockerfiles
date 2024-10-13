@@ -1,17 +1,5 @@
 version: '3.4'
 services:
-  lhapdf:
-    build:
-      context: .
-      target: gentoo-lhapdf
-    image: apnpucky/gentoo-lhapdf:${TAG:-latest}
-
-  yoda:
-    build:
-      context: .
-      target: gentoo-yoda
-    image: apnpucky/gentoo-yoda:${TAG:-latest}
-
   lhapdf-looptools:
     build:
       context: .
