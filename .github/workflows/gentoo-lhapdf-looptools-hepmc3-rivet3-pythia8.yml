@@ -1,11 +1,11 @@
-name: gentoo-lhapdf-looptools Docker Image CI
+name: gentoo-lhapdf-looptools-hepmc3-rivet3-pythia8 Docker Image CI
 
 on:
   push:
     branches: [ "master" ]
     paths:
-      - gentoo/lhapdf/looptools/Dockerfile
-      - .github/workflows/gentoo-lhapdf-looptools.yml
+      - gentoo/lhapdf/looptools/hepmc3/rivet3/pythia8/Dockerfile
+      - .github/workflows/gentoo-lhapdf-looptools-hepmc3-rivet3-pythia8.yml
   schedule:
     - cron: 0 6 14 * *
 
@@ -26,7 +26,7 @@ jobs:
         user: ["apnpucky"]
         base: [ "gentoo" ]
         image: [ 
-          "lhapdf-looptools",
+          "lhapdf-looptools-hepmc3-rivet3-pythia8",
           ]
         platforms: [
           "linux/amd64", 
@@ -34,6 +34,9 @@ jobs:
         ]
         lhapdf: [ "6.5.4" ]
         looptools: [ "2.15" ]
+        rivet3: [ "3.1.9" ]
+        hepmc3: [ "3.2.6" ]
+        pythia8: [ "8.3.09" ]
     steps:
       - 
         name: Set up version
@@ -42,6 +45,7 @@ jobs:
           VERSION=${{ matrix.image }}
           VERSION=${VERSION//lhapdf/${{ matrix.lhapdf }}}
           VERSION=${VERSION//looptools/${{ matrix.looptools }}}
+          VERSION=${VERSION//lhapdf/${{ matrix.looptools }}}
           echo "VERSION=$VERSION" >> "$GITHUB_OUTPUT"
       -
         name: Checkout
@@ -89,6 +93,9 @@ jobs:
           build-args: |
             LHAPDF_VERSION=${{ matrix.lhapdf }}
             LOOPTOOLS_VERSION=${{ matrix.looptools }}
+            RIVET3_VERSION=${{ matrix.rivet3 }}
+            HEPMC3_VERSION=${{ matrix.hepmc3 }}
+            PYTHIA8_VERSION=${{ matrix.pythia8 }}
           tags: |
             ${{ matrix.user }}/${{ matrix.base }}-${{ matrix.image }}:latest
             ${{ matrix.user }}/${{ matrix.base }}-${{ matrix.image }}:${{ steps.version.outputs.VERSION }}-latest
