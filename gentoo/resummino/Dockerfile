@@ -6,5 +6,5 @@ LABEL maintainer="APN-Pucky"
 #ARG SOFTSUSY_VERSION=4.1.13
 ARG RESUMMINO_VERSION=3.1.2
 #ARG FEYNHIGGS_VERSION=2.18.1
-RUN emaint -r hep-forge sync && echo "rebuild"
+RUN emaint -r hep-forge sync
 RUN emerge -q ~resummino-$RESUMMINO_VERSION && rm -rf /var/cache/distfiles/*
