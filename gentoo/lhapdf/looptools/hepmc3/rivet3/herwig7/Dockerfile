@@ -10,4 +10,6 @@ RUN echo "sci-physics/thepeg lhapdf hepmc3 fastjet rivet" >> /etc/portage/packag
 RUN echo 'sci-physics/herwig ~*' >> /etc/portage/package.accept_keywords/zz-autoaccept
 RUN echo 'sci-physics/thepeg ~*' >> /etc/portage/package.accept_keywords/zz-autoaccept
 RUN echo 'sci-physics/hepmc ~*' >> /etc/portage/package.accept_keywords/zz-autoaccept
+RUN echo 'sci-physics/yoda ~*' >> /etc/portage/package.accept_keywords/zz-autoaccept
+RUN echo 'sci-physics/rivet ~*' >> /etc/portage/package.accept_keywords/zz-autoaccept
 RUN USE="hepmc3 -hepmc2" emerge -q ~sci-physics/rivet-${RIVET3_VERSION} ~sci-physics/herwig-${HERWIG7_VERSION} ~sci-physics/hepmc-${HEPMC3_VERSION}  ~sci-physics/lhapdf-${LHAPDF_VERSION} && rm -rf /var/cache/distfiles/*
