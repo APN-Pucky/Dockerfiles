@@ -88,7 +88,7 @@ jobs:
         if: steps.abort.outputs.STOP == 'false'
         uses: docker/build-push-action@v3
         with:
-          file: gentoo/lhapdf/Dockerfile
+          file: gentoo/lhapdf/looptools/hepmc3/rivet3/pythia8/Dockerfile
           platforms: ${{ matrix.platforms }}
           push: true
           target: ${{ matrix.base }}-${{ matrix.image }}
