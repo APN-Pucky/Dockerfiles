@@ -1,10 +1,5 @@
 version: '3.4'
 services:
-  lhapdf-looptools:
-    build:
-      context: .
-      target: gentoo-lhapdf-looptools
-    image: apnpucky/gentoo-lhapdf-looptools:${TAG:-latest}
 
   rivet3-pythia8-hepmc3:
     build:
