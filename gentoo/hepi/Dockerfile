@@ -8,4 +8,5 @@ LABEL maintainer="APN-Pucky"
 ARG HEPI_VERSION=0.2.8
 #ARG FEYNHIGGS_VERSION=2.18.1
 RUN emaint -r hep-forge sync
+RUN echo 'dev-python/uncertainties ~*' >> /etc/portage/package.accept_keywords/zz-autoaccept
 RUN emerge -q resummino nll-fast nnll-fast softsusy spheno ~hepi-$HEPI_VERSION && rm -rf /var/cache/distfiles/*
