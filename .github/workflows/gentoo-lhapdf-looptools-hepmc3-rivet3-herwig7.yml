@@ -34,7 +34,7 @@ jobs:
         ]
         lhapdf: [ "6.5.4" ]
         looptools: [ "2.15" ]
-        rivet3: [ "3.1.9" ]
+        rivet3: [ "3.1.10" ]
         hepmc3: [ "3.2.6" ]
         herwig7: [ "7.3.0" ]
     steps:
