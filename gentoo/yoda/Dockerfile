@@ -1,4 +1,4 @@
-FROM apnpucky/gentoo-hep-forge as gentoo-yoda
+FROM apnpucky/gentoo-hep-forge AS gentoo-yoda
 LABEL maintainer="APN-Pucky"
 ARG YODA_VERSION=2.0.1
 RUN emaint -r gentoo sync
