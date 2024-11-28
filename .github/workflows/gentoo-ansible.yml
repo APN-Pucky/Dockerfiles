@@ -4,7 +4,7 @@ on:
   push:
     branches: [ "master" ]
     paths:
-      - gentoo/ansibl/Dockerfile
+      - gentoo/ansible/Dockerfile
       - .github/workflows/gentoo-ansible.yml
   schedule:
     - cron: 0 6 15 * *
