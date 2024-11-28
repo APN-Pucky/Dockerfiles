@@ -23,10 +23,6 @@ RUN eix-update
 FROM apnpucky/gentoo-repo as gentoo-ebuild-ci
 RUN emerge -q dev-util/pkgdev && rm -rf /var/cache/distfiles/*
 
-# gentoo-ansible
-FROM apnpucky/gentoo-repo as gentoo-ansible
-RUN ACCEPT_KEYWORDS="* ~*" emerge -q app-admin/ansible-lint app-admin/ansible && rm -rf /var/cache/distfiles/*
-
 # gentoo-rust
 FROM apnpucky/gentoo-ebuild-ci as gentoo-rust
 RUN emerge -q rust-bin && rm -rf /var/cache/distfiles/*
