@@ -2,7 +2,7 @@ FROM apnpucky/gentoo-lhapdf-looptools as gentoo-lhapdf-looptools-hepmc3-rivet3-p
 ARG HEPMC3_VERSION=3.1.6
 ARG RIVET3_VERSION=3.1.6
 ARG PYTHIA8_VERSION=8.3.07
-RUN emaint -r hep-forge sync
+RUN emaint -r gentoo sync
 RUN echo 'sci-physics/pythia ~*' >> /etc/portage/package.accept_keywords/zz-autoaccept
 RUN echo 'sci-physics/hepmc ~*' >> /etc/portage/package.accept_keywords/zz-autoaccept
 RUN echo 'sci-physics/yoda ~*' >> /etc/portage/package.accept_keywords/zz-autoaccept
