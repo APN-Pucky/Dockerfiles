@@ -1,5 +1,4 @@
 FROM apnpucky/gentoo-lhapdf-looptools as gentoo-lhapdf-looptools-hepmc3-rivet3-pythia8
-LABEL maintainer="APN-Pucky"
 ARG HEPMC3_VERSION=3.1.6
 ARG RIVET3_VERSION=3.1.6
 ARG PYTHIA8_VERSION=8.3.07
