@@ -14,4 +14,4 @@ RUN echo 'sci-physics/rivet ~*'        >> /etc/portage/package.accept_keywords/z
 RUN echo 'dev-python/uncertainties ~*' >> /etc/portage/package.accept_keywords/zz-autoaccept
 RUN echo 'sci-physics/herwig ~*'       >> /etc/portage/package.accept_keywords/zz-autoaccept
 RUN echo 'sci-physics/thepeg ~*'       >> /etc/portage/package.accept_keywords/zz-autoaccept
-RUN USE="python hepmc3 -hepmc2 lhapdf" emerge -q resummino nll-fast nnll-fast softsusy spheno hepi powheg-box-v2 sci-physics/lhapdf sci-physics/lhapdf-sets sci-physics/looptools sci-physics/rivet sci-physics/openloops sci-physics/herwig && rm -rf /var/cache/distfiles/*
+RUN USE="python hepmc3 -hepmc2 lhapdf" emerge -q powheg-box-v2 sci-physics/lhapdf sci-physics/lhapdf-sets sci-physics/looptools sci-physics/rivet sci-physics/openloops sci-physics/herwig && rm -rf /var/cache/distfiles/*
