@@ -7,7 +7,7 @@ on:
       - gentoo/g2hep/Dockerfile
       - .github/workflows/gentoo-g2hep.yml
   schedule:
-    - cron: 0 6 14 * *
+    - cron: 0 6 24 * *
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
