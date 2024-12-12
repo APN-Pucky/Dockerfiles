@@ -1,5 +1,11 @@
-FROM apnpucky/gentoo-hep-forge as gentoo-g2hep
+FROM apnpucky/gentoo-repo as gentoo-g2hep
 LABEL maintainer="APN-Pucky"
+
+RUN emerge app-eselect/eselect-repository
+RUN eselect repository enable science
+RUN eselect repository enable hep-forge
+RUN emerge --sync
+
 RUN echo ">=sci-physics/lhapdf-sets-0 lhapdf_sets_ct14lo lhapdf_sets_ct14nlo lhapdf_sets_cteq66 lhapdf_sets_cteq6l1" >> /etc/portage/package.use/zz-autoaccept
 RUN echo "sci-physics/evtgen pythia herwig"                                                                          >> /etc/portage/package.use/zz-autoaccept
 RUN echo "sci-physics/thepeg lhapdf hepmc3 fastjet rivet"                                                            >> /etc/portage/package.use/zz-autoaccept
