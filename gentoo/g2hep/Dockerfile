@@ -3,6 +3,8 @@ LABEL maintainer="APN-Pucky"
 RUN emaint -r gentoo sync
 RUN emaint -r science sync
 RUN emaint -r hep-forge sync
+# TODO RM
+RUN emerge --oneshot sys-apps/portage
 RUN echo ">=sci-physics/lhapdf-sets-0 lhapdf_sets_ct14lo lhapdf_sets_ct14nlo lhapdf_sets_cteq66 lhapdf_sets_cteq6l1" >> /etc/portage/package.use/zz-autoaccept
 RUN echo "sci-physics/evtgen pythia herwig"                                                                          >> /etc/portage/package.use/zz-autoaccept
 RUN echo "sci-physics/thepeg lhapdf hepmc3 fastjet rivet"                                                            >> /etc/portage/package.use/zz-autoaccept
@@ -18,5 +20,5 @@ RUN echo 'dev-python/uncertainties ~*' >> /etc/portage/package.accept_keywords/z
 RUN echo 'sci-physics/herwig ~*'       >> /etc/portage/package.accept_keywords/zz-autoaccept
 RUN echo 'sci-physics/thepeg ~*'       >> /etc/portage/package.accept_keywords/zz-autoaccept
 
-RUN USE="python hepmc3 -hepmc2 lhapdf root" emerge -q powheg-box-v2 sci-physics/lhapdf sci-physics/lhapdf-sets sci-physics/looptools sci-physics/rivet:3 sci-physics/pythia:8 sci-physics/openloops >=sci-physics/hepmc-3.2.7 && rm -rf /var/cache/distfiles/*
+RUN USE="python hepmc3 -hepmc2 lhapdf root" emerge -q powheg-box-v2 sci-physics/lhapdf sci-physics/lhapdf-sets sci-physics/looptools sci-physics/rivet:3 sci-physics/pythia:8 sci-physics/openloops '>=sci-physics/hepmc-3.2.7' && rm -rf /var/cache/distfiles/*
 # TODO hepi, resummino, sherpa, herwig, n(n)ll-fast scikit-hep
