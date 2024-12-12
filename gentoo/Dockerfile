@@ -40,7 +40,7 @@ RUN emerge -q dev-util/ccache virtual/fortran dev-build/cmake  && rm -rf /var/ca
 # gentoo-dev
 FROM apnpucky/gentoo-c-tools as gentoo-llvm
 RUN echo 'USE="-qt5 -X"' >> /etc/portage/make.conf
-RUN emerge -q sys-devel/llvm  && rm -rf /var/cache/distfiles/*
+RUN emerge -q llvm-core/llvm  && rm -rf /var/cache/distfiles/*
 
 # gentoo-dev
 FROM apnpucky/gentoo-llvm as gentoo-boost
