@@ -1,14 +1,13 @@
-name: Gentoo Docker Image CI
-
+name: gentoo-g2hep Docker Image CI
 
 on:
   push:
     branches: [ "master" ]
     paths:
-      - gentoo/Dockerfile
-      - .github/workflows/gentoo.yml
+      - gentoo/g2hep/Dockerfile
+      - .github/workflows/gentoo-g2hep.yml
   schedule:
-    - cron: 0 6 1 * *
+    - cron: 0 6 14 * *
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
@@ -19,39 +18,19 @@ jobs:
   docker:
     runs-on: ubuntu-latest
     #runs-on: self-hosted
-    timeout-minutes: 43200 # 720h
+    timeout-minutes: 4320 # 72h
     strategy:
       fail-fast: false
       max-parallel: 1
       matrix:
         user: ["apnpucky"]
-        base: ["gentoo"]
-        image: [
-               "base",
-               "repo",
-               "ebuild-ci",
-               "rust",
-               "c",
-               "c-tools",
-               "llvm",
-               "boost",
-               "python",
-               "lua",
-               "perl",
-               "test",
-               "doc",
-               "dev",
-               "apn",
-               "hep-forge",
-               "ansible",
-               "latex",
-               "apn-unstable",
-               "hep-forge-unstable",
-               "prefix",
-                ]
+        base: [ "gentoo" ]
+        image: [ 
+          "g2hep",
+          ]
         platforms: [
-          "linux/amd64,linux/arm/v7,linux/arm64,linux/riscv64" 
-          #,linux/ppc64le, #,linux/s390x,
+          "linux/amd64", 
+          #,linux/386, linux/arm64,linux/ppc64le,linux/riscv64,linux/arm/v5,linux/arm/v6,linux/arm/v7, #,linux/s390x,
         ]
     steps:
       -
@@ -77,11 +56,23 @@ jobs:
         with:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
+      - 
+        name: abort on existing tag
+        id: abort
+        run: |
+          if docker manifest inspect ${{ matrix.user }}/${{ matrix.base }}-${{ matrix.image }}:${{ steps.version.outputs.VERSION }}-${{ github.sha }}-latest; then
+            echo "STOP"
+            echo "STOP=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "DONT STOP"
+            echo "STOP=false" >> "$GITHUB_OUTPUT"
+          fi
       -
         name: ${{ matrix.base }}-${{ matrix.image }}
+        if: steps.abort.outputs.STOP == 'false'
         uses: docker/build-push-action@v3
         with:
-          file: gentoo/Dockerfile
+          file: gentoo/g2hep/Dockerfile
           platforms: ${{ matrix.platforms }}
           push: true
           target: ${{ matrix.base }}-${{ matrix.image }}

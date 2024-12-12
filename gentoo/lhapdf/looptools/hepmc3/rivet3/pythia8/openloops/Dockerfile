@@ -1,5 +1,4 @@
 FROM apnpucky/gentoo-lhapdf-looptools-hepmc3-rivet3-pythia8 as gentoo-lhapdf-looptools-hepmc3-rivet3-pythia8-openloops
-LABEL maintainer="APN-Pucky"
 ARG OPENLOOPS_VERSION=2.1.3
 RUN emaint -r science sync
 RUN echo 'sci-physics/openloops ~*' >> /etc/portage/package.accept_keywords/zz-autoaccept
