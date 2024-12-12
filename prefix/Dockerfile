@@ -17,9 +17,7 @@ RUN install -m 0750 -d /gentoo-prefix/etc/portage/env /gentoo-prefix/etc/portage
 RUN mkdir -p /gentoo-prefix/var/db/repos/apn && printf "[apn]\nlocation = /gentoo-prefix/var/db/repos/apn\nsync-type = git\nsync-uri = https://gitlab.com/APN-Pucky/gentoo-apn.git" > /gentoo-prefix/etc/portage/repos.conf/apn.conf && echo "emaint -r apn sync" | /gentoo-prefix/startprefix
 RUN echo '*/*::apn * ~*' > /gentoo-prefix/etc/portage/package.accept_keywords/apn
 RUN echo '*/*::guru * ~*' > /gentoo-prefix/etc/portage/package.accept_keywords/guru
-RUN echo '*/*::jjakob * ~*' > /gentoo-prefix/etc/portage/package.accept_keywords/jjakob
 RUN echo "eselect repository enable guru" | /gentoo-prefix/startprefix
-RUN echo "eselect repository enable jjakob" | /gentoo-prefix/startprefix
 RUN echo "emerge -q dev-util/pkgdev && rm -rf /gentoo-prefix/var/cache/distfiles/*" | /gentoo-prefix/startprefix 
 # install langs
 RUN echo 'USE="-qt5 -X"' >> /gentoo-prefix/etc/portage/make.conf
@@ -75,9 +73,7 @@ RUN install -m 0750 -d /gentoo-prefix/etc/portage/env /gentoo-prefix/etc/portage
 RUN mkdir -p /gentoo-prefix/var/db/repos/apn && printf "[apn]\nlocation = /gentoo-prefix/var/db/repos/apn\nsync-type = git\nsync-uri = https://gitlab.com/APN-Pucky/gentoo-apn.git" > /gentoo-prefix/etc/portage/repos.conf/apn.conf && echo "emaint -r apn sync" | /gentoo-prefix/startprefix
 RUN echo '*/*::apn * ~*' > /gentoo-prefix/etc/portage/package.accept_keywords/apn
 RUN echo '*/*::guru * ~*' > /gentoo-prefix/etc/portage/package.accept_keywords/guru
-RUN echo '*/*::jjakob * ~*' > /gentoo-prefix/etc/portage/package.accept_keywords/jjakob
 RUN echo "eselect repository enable guru" | /gentoo-prefix/startprefix
-RUN echo "eselect repository enable jjakob" | /gentoo-prefix/startprefix
 RUN echo "emerge -q dev-util/pkgdev && rm -rf /gentoo-prefix/var/cache/distfiles/*" | /gentoo-prefix/startprefix 
 # install langs
 RUN echo 'USE="-qt5 -X"' >> /gentoo-prefix/etc/portage/make.conf
