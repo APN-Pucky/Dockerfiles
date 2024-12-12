@@ -10,6 +10,7 @@ RUN echo "sci-physics/evtgen pythia herwig"                                     
 RUN echo "sci-physics/thepeg lhapdf hepmc3 fastjet rivet"                                                            >> /etc/portage/package.use/zz-autoaccept
 RUN echo ">=sci-libs/hdf5-1.14.4_p3-r1 cxx"                                                                          >> /etc/portage/package.use/zz-autoaccept
 RUN echo ">=sci-physics/oneloop-3.7.2 qpkind16 -qpkind"                                                              >> /etc/portage/package.use/zz-autoaccept
+RUN echo ">=sci-physics/root-6 -X -qt5 -asimage -opengl -jupyter"                                                    >> /etc/portage/package.use/zz-autoaccept
 
 RUN echo 'sci-physics/looptools **'    >> /etc/portage/package.accept_keywords/zz-autoaccept
 RUN echo 'sci-physics/pythia ~*'       >> /etc/portage/package.accept_keywords/zz-autoaccept
