@@ -1,14 +1,14 @@
-name: gentoo-rust Docker Image CI
+name: gentoo-llvm Docker Image CI
 
 
 on:
   push:
     branches: [ "master" ]
     paths:
-      - gentoo/rust/Dockerfile
-      - .github/workflows/gentoo-rust.yml
+      - gentoo/llvm/Dockerfile
+      - .github/workflows/gentoo-llvm.yml
   schedule:
-    - cron: 0 6 4 * *
+    - cron: 0 6 7 * *
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
@@ -27,7 +27,7 @@ jobs:
         user: ["apnpucky"]
         base: ["gentoo"]
         image: [
-               "rust",
+               "llvm",
                 ]
         platforms: [
           "linux/amd64,linux/arm/v7,linux/arm64,linux/riscv64" 
@@ -61,7 +61,7 @@ jobs:
         name: ${{ matrix.base }}-${{ matrix.image }}
         uses: docker/build-push-action@v3
         with:
-          file: gentoo/rust/Dockerfile
+          file: gentoo/llvm/Dockerfile
           platforms: ${{ matrix.platforms }}
           push: true
           target: ${{ matrix.base }}-${{ matrix.image }}
