@@ -18,6 +18,11 @@ RUN python3 -m  pip install --no-cache-dir --upgrade setuptools wheel pytest pyt
 FROM apnpucky/ubuntu-pip as hatch
 RUN python3 -m pip install --no-cache-dir --upgrade hatch hatch-vcs
 
+FROM apnpucky/ubuntu-hatch as hatch-latexmk
+RUN apt-get update -y -qq && apt-get install -y -qq latexmk texlive-full texlive-latex-extra texlive-formats-extra texlive-fonts-extra texlive-science aspell aspell-en aspell-de texlive-bibtex-extra biber texlive-latex-extra python3-pygments && apt-get clean
+RUN apt-get update -y -qq && apt-get install -y -qq libmagickwand-dev && apt-get clean
+RUN sed -i 's/<policy domain="coder" rights="none" pattern="PDF" \/>/<policy domain="coder" rights="read|write" pattern="PDF" \/>/g' /etc/ImageMagick-**/policy.xml
+
 FROM apnpucky/ubuntu-pip as poetry
 RUN python3 -m pip install --no-cache-dir --upgrade poetry poetry-dynamic-versioning
 
