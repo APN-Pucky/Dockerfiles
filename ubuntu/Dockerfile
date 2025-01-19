@@ -1,4 +1,4 @@
-FROM ubuntu:22.04 as base
+FROM ubuntu as base
 LABEL maintainer="APN-Pucky"
 ENV TZ=Europe/Berlin
 RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime 

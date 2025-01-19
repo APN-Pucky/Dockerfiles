@@ -36,6 +36,12 @@ services:
       target: hatch
     image: apnpucky/ubuntu-hatch:${TAG:-latest}
 
+  hatch-latexmk: 
+    build:
+      context: .
+      target: hatch-latexmk
+    image: apnpucky/ubuntu-hatch-latexmk:${TAG:-latest}
+
   python:
     build:
       context: .
