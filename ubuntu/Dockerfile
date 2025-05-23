@@ -30,7 +30,7 @@ RUN sed -i 's/<policy domain="coder" rights="none" pattern="PDF" \/>/<policy dom
 
 
 FROM apnpucky/ubuntu-poetry as python
-RUN python3 -m pip install --no-cache-dir --upgrade pipenv
+RUN pipx pipenv
 
 FROM apnpucky/ubuntu-python as python-lhapdf
 ARG LHAPDF_VERSION=6.5.4
