@@ -12,7 +12,7 @@ FROM apnpucky/ubuntu-base as apt
 RUN apt-get update -y -qq && apt-get install -y -qq python3-tqdm python3-pandas python3-sphinx python3-sympy python3-matplotlib libffi-dev python3-scipy python3-numpy python3-pytest  python3-pytest-cov  python3-setuptools python3-wheel python3 python3-pip git rsync pandoc python3-venv sudo && apt-get clean
 
 FROM apnpucky/ubuntu-dev as pip
-RUN python3 -m  pip install --no-cache-dir --upgrade --break-system-packages setuptools wheel pytest pytest-cov pytest-profiling sympy  scipy numpy tqdm  ipython  uncertainties  pandas build matplotlib sphinx-math-dollar jupyterlab numpydoc sphinx nbsphinx sphinx-rtd-theme ipywidgets jupyter_sphinx sphinx-autoapi sphinxcontrib-napoleon
+RUN python3 -m  pip install --no-cache-dir --upgrade --break-system-packages setuptools pytest pytest-cov pytest-profiling sympy  scipy numpy tqdm  ipython  uncertainties  pandas build matplotlib sphinx-math-dollar jupyterlab numpydoc sphinx nbsphinx sphinx-rtd-theme ipywidgets jupyter_sphinx sphinx-autoapi sphinxcontrib-napoleon
 
 FROM apnpucky/ubuntu-apt as hatch
 RUN python3 -m pip install --no-cache-dir --upgrade --break-system-packages hatch hatch-vcs
