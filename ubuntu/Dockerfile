@@ -50,7 +50,6 @@ RUN lhapdf install cteq6l1 CT14lo CT14nlo MSTW2008lo68cl MSTW2008nlo68cl NNPDF23
 FROM apnpucky/ubuntu-python-lhapdf as python-lhapdf-looptools
 RUN apt-get update -y -qq && apt-get install -y -qq looptools && apt-get clean
 
-
 FROM apnpucky/ubuntu-python as python-latexmk
 RUN apt-get update -y -qq && apt-get install -y -qq latexmk texlive-full texlive-latex-extra texlive-formats-extra texlive-fonts-extra texlive-science aspell aspell-en aspell-de texlive-bibtex-extra biber texlive-latex-extra python3-pygments && apt-get clean
 RUN apt-get update -y -qq && apt-get install -y -qq libmagickwand-dev && apt-get clean
