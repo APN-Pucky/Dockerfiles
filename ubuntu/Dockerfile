@@ -9,14 +9,13 @@ RUN apt-get update -y -qq && apt-get install -y -qq libffi-dev libboost-all-dev 
 RUN update-alternatives --install /usr/bin/python python /usr/bin/python3 1
 
 FROM apnpucky/ubuntu-base as apt
-RUN apt-get update -y -qq && apt-get install -y -qq python3-tqdm  python3-uncertainties python3-sympy libffi-dev python3-scipy python3-numpy python3-pytest  python3-pytest-cov  python3-setuptools python3-wheel python3 python3-pip git rsync pandoc python3-venv sudo && apt-get clean
-RUN python3 -m pip install --no-cache-dir --upgrade nbconvert notebook sphinx-math-dollar numpydoc sphinx nbsphinx sphinx-rtd-theme matplotlib pandas build
+RUN apt-get update -y -qq && apt-get install -y -qq python3-tqdm python3-pandas python3-sphinx python3-sympy python3-matplotlib libffi-dev python3-scipy python3-numpy python3-pytest  python3-pytest-cov  python3-setuptools python3-wheel python3 python3-pip git rsync pandoc python3-venv sudo && apt-get clean
 
 FROM apnpucky/ubuntu-dev as pip
-RUN python3 -m  pip install --no-cache-dir --upgrade setuptools wheel pytest pytest-cov pytest-profiling sympy  scipy numpy tqdm  ipython  uncertainties  pandas build matplotlib sphinx-math-dollar jupyterlab numpydoc sphinx nbsphinx sphinx-rtd-theme ipywidgets jupyter_sphinx sphinx-autoapi sphinxcontrib-napoleon
+RUN python3 -m  pip install --no-cache-dir --upgrade --break-system-packages setuptools wheel pytest pytest-cov pytest-profiling sympy  scipy numpy tqdm  ipython  uncertainties  pandas build matplotlib sphinx-math-dollar jupyterlab numpydoc sphinx nbsphinx sphinx-rtd-theme ipywidgets jupyter_sphinx sphinx-autoapi sphinxcontrib-napoleon
 
-FROM apnpucky/ubuntu-pip as hatch
-RUN python3 -m pip install --no-cache-dir --upgrade hatch hatch-vcs
+FROM apnpucky/ubuntu-apt as hatch
+RUN python3 -m pip install --no-cache-dir --upgrade --break-system-packages hatch hatch-vcs
 
 FROM apnpucky/ubuntu-hatch as hatch-latexmk
 RUN apt-get update -y -qq && apt-get install -y -qq latexmk texlive-full texlive-latex-extra texlive-formats-extra texlive-fonts-extra texlive-science aspell aspell-en aspell-de texlive-bibtex-extra biber texlive-latex-extra python3-pygments && apt-get clean
