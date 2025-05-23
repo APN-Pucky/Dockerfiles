@@ -7,6 +7,8 @@ RUN echo $TZ > /etc/timezone
 FROM apnpucky/ubuntu-base as dev
 RUN apt-get update -y -qq && apt-get install -y -qq libffi-dev libboost-all-dev libgsl-dev lcov wget build-essential sudo git rsync pandoc curl python3 python3-pip python3-venv cmake python3-tk graphviz && apt-get clean
 RUN update-alternatives --install /usr/bin/python python /usr/bin/python3 1
+RUN apt-get update -y -qq && apt-get install -y -qq pipx && apt-get clean
+RUN pipx ensurepath
 
 FROM apnpucky/ubuntu-base as apt
 RUN apt-get update -y -qq && apt-get install -y -qq python3-tqdm python3-pandas python3-sphinx python3-sympy python3-matplotlib libffi-dev python3-scipy python3-numpy python3-pytest  python3-pytest-cov  python3-setuptools python3-wheel python3 python3-pip git rsync pandoc python3-venv sudo && apt-get clean
@@ -14,8 +16,11 @@ RUN apt-get update -y -qq && apt-get install -y -qq python3-tqdm python3-pandas 
 FROM apnpucky/ubuntu-dev as pip
 RUN python3 -m  pip install --no-cache-dir --upgrade --break-system-packages setuptools pytest pytest-cov pytest-profiling sympy  scipy numpy tqdm  ipython  uncertainties  pandas build matplotlib sphinx-math-dollar jupyterlab numpydoc sphinx nbsphinx sphinx-rtd-theme ipywidgets jupyter_sphinx sphinx-autoapi sphinxcontrib-napoleon
 
+
+FROM apnpucky/ubuntu-pip as poetry
+RUN pipx install poetry
+
 FROM apnpucky/ubuntu-apt as hatch
-RUN apt-get update -y -qq && apt-get install -y -qq pipx && apt-get clean
 RUN pipx install hatch
 
 FROM apnpucky/ubuntu-hatch as hatch-latexmk
@@ -23,9 +28,6 @@ RUN apt-get update -y -qq && apt-get install -y -qq latexmk texlive-full texlive
 RUN apt-get update -y -qq && apt-get install -y -qq libmagickwand-dev && apt-get clean
 RUN sed -i 's/<policy domain="coder" rights="none" pattern="PDF" \/>/<policy domain="coder" rights="read|write" pattern="PDF" \/>/g' /etc/ImageMagick-**/policy.xml
 
-FROM apnpucky/ubuntu-pip as poetry
-RUN apt-get update -y -qq && apt-get install -y -qq pipx && apt-get clean
-RUN pipx install poetry
 
 FROM apnpucky/ubuntu-poetry as python
 RUN python3 -m pip install --no-cache-dir --upgrade pipenv
