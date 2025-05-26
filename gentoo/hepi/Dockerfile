@@ -32,5 +32,7 @@ RUN emerge app-eselect/eselect-repository
 RUN eselect repository enable science && emaint -r science sync
 RUN eselect repository enable hep-forge && emaint -r hep-forge sync
 
+
+RUN echo ">=sci-physics/lhapdf-sets-0 lhapdf_sets_ct14lo lhapdf_sets_ct14nlo lhapdf_sets_cteq66 lhapdf_sets_cteq6l1 lhapdf_sets_ct10nnlo lhapdf_sets_pdf4lhc15_nnlo_100" >> /etc/portage/package.use/zz-autouse
 RUN echo 'dev-python/uncertainties ~*' >> /etc/portage/package.accept_keywords/zz-autoaccept
-RUN emerge -q --autounmask=y --autounmask-write --autounmask-continue --autounmask-use=y hatch resummino nll-fast nnll-fast softsusy spheno  && rm -rf /var/cache/distfiles/* # ~hepi-$HEPI_VERSION
+RUN emerge -q --autounmask=y --autounmask-write --autounmask-continue --autounmask-use=y sci-physics/lhapdf-sets dev-python/pip hatch lhapdf resummino nll-fast nnll-fast softsusy spheno  && rm -rf /var/cache/distfiles/* # ~hepi-$HEPI_VERSION
