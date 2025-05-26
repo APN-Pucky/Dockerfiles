@@ -1,4 +1,4 @@
-FROM apnpucky/gentoo-dev as gentoo-hep-forge
+FROM apnpucky/gentoo-dev AS gentoo-hep-forge
 # USE="X" for mesa for opengl for fastjet
 RUN echo 'USE="X -qt5"' >> /etc/portage/make.conf
 RUN mkdir -p /var/db/repos/hep-forge && printf "[hep-forge]\nlocation = /var/db/repos/hep-forge\nsync-type = git\nsync-uri = https://gitlab.com/APN-Pucky/gentoo-hep-forge.git" > /etc/portage/repos.conf/hep-forge.conf

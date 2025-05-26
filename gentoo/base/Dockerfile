@@ -1,5 +1,5 @@
-FROM gentoo/portage:latest as portage-base
-FROM gentoo/stage3:latest as gentoo-base
+FROM gentoo/portage:latest AS portage-base
+FROM gentoo/stage3:latest AS gentoo-base
 LABEL maintainer="APN-Pucky"
 ARG NICENESS=14
 COPY --from=portage-base /var/db/repos/gentoo /var/db/repos/gentoo
