@@ -1,4 +1,4 @@
-FROM apnpucky/gentoo-hep-forge as gentoo-resummino
+FROM apnpucky/gentoo-hep-forge AS gentoo-resummino
 LABEL maintainer="APN-Pucky"
 #ARG NNLLFAST_VERSION=1.1
 #ARG NLLFAST_VERSION=3.1
