@@ -1,4 +1,5 @@
 FROM apnpucky/gentoo-base AS gentoo-repo
+LABEL maintainer="APN-Pucky"
 RUN emerge -q eix dev-vcs/git && rm -rf /var/cache/distfiles/*
 RUN rm -rf /var/db/repos/gentoo && mkdir -p /var/db/repos/gentoo && printf "[DEFAULT]\nmain-repo = gentoo\n\n[gentoo]\nlocation = /var/db/repos/gentoo\nsync-type = git\nsync-uri = https://github.com/gentoo-mirror/gentoo.git\nauto-sync = yes\nsync-git-verify-commit-signature = yes\nsync-openpgp-key-path = /usr/share/openpgp-keys/gentoo-release.asc" > /etc/portage/repos.conf/gentoo.conf && emerge --sync 
 RUN eix-update
