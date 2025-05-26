@@ -1,4 +1,4 @@
-FROM apnpucky/gentoo-hepi as gentoo-hepi
+FROM apnpucky/gentoo-hep-forge as gentoo-hepi
 LABEL maintainer="APN-Pucky"
 #ARG NNLLFAST_VERSION=1.1
 #ARG NLLFAST_VERSION=3.1
