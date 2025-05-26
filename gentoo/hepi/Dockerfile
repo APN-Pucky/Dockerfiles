@@ -1,5 +1,5 @@
 FROM gentoo/portage:latest AS portage-base
-FROM gentoo/stage3:latest AS gentoo-base
+FROM gentoo/stage3:latest AS gentoo-hepi
 LABEL maintainer="APN-Pucky"
 
 #ARG NNLLFAST_VERSION=1.1
