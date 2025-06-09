@@ -22,6 +22,7 @@ ENV PATH="/root/.local/bin:$PATH"
 RUN pipx install poetry
 
 FROM apnpucky/ubuntu-apt as hatch
+RUN apt-get update -y -qq && apt-get install -y -qq pipx && apt-get clean && pipx ensurepath
 # Ensure pipx is on PATH
 ENV PATH="/root/.local/bin:$PATH"
 RUN pipx install hatch
