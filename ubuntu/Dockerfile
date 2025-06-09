@@ -17,9 +17,13 @@ RUN python3 -m  pip install --no-cache-dir --upgrade --break-system-packages set
 
 FROM apnpucky/ubuntu-pip as poetry
 RUN apt-get update -y -qq && apt-get install -y -qq pipx && apt-get clean && pipx ensurepath
+# Ensure pipx is on PATH
+ENV PATH="/root/.local/bin:$PATH"
 RUN pipx install poetry
 
 FROM apnpucky/ubuntu-apt as hatch
+# Ensure pipx is on PATH
+ENV PATH="/root/.local/bin:$PATH"
 RUN pipx install hatch
 
 FROM apnpucky/ubuntu-hatch as hatch-latexmk
