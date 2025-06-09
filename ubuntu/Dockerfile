@@ -35,7 +35,8 @@ RUN sed -i 's/<policy domain="coder" rights="none" pattern="PDF" \/>/<policy dom
 
 FROM apnpucky/ubuntu-poetry as python
 RUN apt-get update -y -qq && apt-get install -y -qq pipx && apt-get clean && pipx ensurepath
-RUN pipx pipenv
+ENV PATH="/root/.local/bin:$PATH"
+RUN pipx install pipenv
 
 FROM apnpucky/ubuntu-python as python-lhapdf
 ARG LHAPDF_VERSION=6.5.4
