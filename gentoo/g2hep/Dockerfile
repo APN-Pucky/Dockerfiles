@@ -26,7 +26,7 @@ RUN eselect repository enable science
 RUN eselect repository enable hep-forge
 RUN emerge --sync
 
-RUN echo ">=sci-physics/lhapdf-sets-0 lhapdf_sets_ct14lo lhapdf_sets_ct14nlo lhapdf_sets_cteq66 lhapdf_sets_cteq6l1 lhapdf_sets_ct10nnlo lhapdf_sets_pdf4lhc15_nnlo_100" >> /etc/portage/package.use/zz-autouse
+RUN echo ">=sci-physics/lhapdf-sets-0 lhapdf_sets_*" >> /etc/portage/package.use/zz-autouse
 RUN echo "sci-physics/evtgen pythia herwig"                                                                          >> /etc/portage/package.use/zz-autouse
 RUN echo "sci-physics/thepeg lhapdf hepmc3 fastjet rivet"                                                            >> /etc/portage/package.use/zz-autouse
 RUN echo ">=sci-physics/oneloop-3.7.2 qpkind16 -qpkind"                                                              >> /etc/portage/package.use/zz-autouse
