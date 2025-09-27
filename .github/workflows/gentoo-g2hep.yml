@@ -1,6 +1,7 @@
 name: gentoo-g2hep Docker Image CI
 
 on:
+  workflow_dispatch:
   push:
     branches: [ "master" ]
     paths:
