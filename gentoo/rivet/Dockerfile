@@ -23,5 +23,4 @@ RUN install -m 0750 -o portage -g portage -d /etc/portage/env /etc/portage/packa
 
 
 RUN emaint -r gentoo sync
-RUN echo 'sci-physics/rivet ~* **' >> /etc/portage/package.accept_keywords/zz-autoaccept
-RUN USE="python" emerge -q ~sci-physics/rivet-${RIVET_VERSION}::gentoo && rm -rf /var/cache/distfiles/*
+RUN USE="python hepmc3 -hepmc2 lhapdf -root" emerge --autounmask=y --autounmask-write --autounmask-continue --autounmask-use=y ~sci-physics/rivet-${RIVET_VERSION}::gentoo && rm -rf /var/cache/distfiles/*
