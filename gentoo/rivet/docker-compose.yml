@@ -1,0 +1,7 @@
+version: '3.4'
+services:
+  yoda:
+    build:
+      context: .
+      target: gentoo-rivet
+    image: apnpucky/gentoo-rivet:${TAG:-latest}
