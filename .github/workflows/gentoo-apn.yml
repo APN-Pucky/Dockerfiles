@@ -9,7 +9,7 @@ on:
       - gentoo/apn/Dockerfile
       - .github/workflows/gentoo-apn.yml
   schedule:
-    - cron: 0 6 15 * *
+    - cron: 0 6 16 * *
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
