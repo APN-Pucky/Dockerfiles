@@ -16,4 +16,4 @@ RUN echo 'ACCEPT_LICENSE="* -@EULA"' >> /etc/portage/make.conf
 RUN echo 'sys-apps/util-linux caps' > /etc/portage/package.use/util-linux
 RUN USE="-network-cron" emerge pfl
 RUN pfl
-RUN emerge --depclean
+#RUN emerge --depclean
