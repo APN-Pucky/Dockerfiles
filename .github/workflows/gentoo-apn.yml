@@ -2,6 +2,7 @@ name: gentoo-apn Docker Image CI
 
 
 on:
+  workflow_dispatch:
   push:
     branches: [ "master" ]
     paths:
