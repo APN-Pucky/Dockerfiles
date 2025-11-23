@@ -1,5 +1,4 @@
-FROM apnpucky/gentoo-test AS gentoo-dev
-#FROM apnpucky/gentoo-doc AS gentoo-dev
+FROM apnpucky/gentoo-doc AS gentoo-dev
 # Config
 ENV PKGDIR="/var/cache/binpkgs"
 ENV CCACHE_DIR="/var/cache/ccache"
@@ -16,4 +15,4 @@ RUN echo 'ACCEPT_LICENSE="* -@EULA"' >> /etc/portage/make.conf
 RUN echo 'sys-apps/util-linux caps' > /etc/portage/package.use/util-linux
 RUN USE="-network-cron" emerge pfl
 RUN pfl
-#RUN emerge --depclean
+RUN emerge --depclean
