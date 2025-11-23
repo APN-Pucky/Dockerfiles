@@ -2,6 +2,7 @@ name: gentoo-dev Docker Image CI
 
 
 on:
+  workflow_dispatch:
   push:
     branches: [ "master" ]
     paths:
@@ -30,7 +31,8 @@ jobs:
                "dev",
                 ]
         platforms: [
-          "linux/amd64,linux/arm/v7,linux/arm64,linux/riscv64" 
+          "linux/amd64" 
+          #"linux/amd64,linux/arm/v7,linux/arm64,linux/riscv64" 
           #,linux/ppc64le, #,linux/s390x,
         ]
     steps:

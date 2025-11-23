@@ -1,4 +1,4 @@
-FROM apnpucky/gentoo-doc as gentoo-dev
+FROM apnpucky/gentoo-doc AS gentoo-dev
 # Config
 ENV PKGDIR="/var/cache/binpkgs"
 ENV CCACHE_DIR="/var/cache/ccache"
