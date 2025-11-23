@@ -8,7 +8,7 @@ on:
       - gentoo/doc/Dockerfile
       - .github/workflows/gentoo-doc.yml
   schedule:
-    - cron: 0 6 12 * *
+    - cron: 0 6 13 * *
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
