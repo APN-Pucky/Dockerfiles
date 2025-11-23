@@ -68,82 +68,45 @@ RUN eselect repository enable guru
 RUN emerge --sync
 RUN ACCEPT_KEYWORDS="* ~*" emerge -q '>=app-portage/pkg-testing-tools-0.2.1' && rm -rf /var/cache/distfiles/*
 
-FROM apnpucky/gentoo-test as gentoo-doc
-# Documentation
-RUN echo 'media-libs/harfbuzz icu -introspection' > /etc/portage/package.use/harfbuzz
-RUN emerge -q virtual/latex-base && rm -rf /var/cache/distfiles/*
-RUN emerge -q imagemagick ghostscript-gpl && rm -rf /var/cache/distfiles/*
-RUN emerge -q --changed-use --deep --keep-going @world && rm -rf /var/cache/distfiles/*
-RUN USE="lapack" emerge -q --autounmask=y --autounmask-write --autounmask-continue --autounmask-use=y dev-python/{matplotlib,numpy} && rm -rf /var/cache/distfiles/*
-RUN emerge -q dev-python/pip && rm -rf /var/cache/distfiles/*
-
-FROM apnpucky/gentoo-doc as gentoo-dev
-# Config
-ENV PKGDIR="/var/cache/binpkgs"
-ENV CCACHE_DIR="/var/cache/ccache"
-ENV CCACHE_SIZE="1G"
-RUN install -m 0750 -o portage -g portage -d /etc/portage/env /etc/portage/package.{accept_keywords,env,unmask,use}
-RUN install -m 0750 -o portage -g portage -d "${PKGDIR}" 
-RUN install -m 0750 -o portage -g portage -d "${CCACHE_DIR}" 
-RUN install -m 0775 -o portage -g portage -d "${CCACHE_DIR}"/{0,1,2,3,4,5,6,7,8,9,a,b,c,d,e,f}
-RUN install -m 0775 -o portage -g portage -d "${CCACHE_DIR}"/{0,1,2,3,4,5,6,7,8,9,a,b,c,d,e,f}/{0,1,2,3,4,5,6,7,8,9,a,b,c,d,e,f}
-# test.conf from https://wiki.gentoo.org/wiki/Package_testing
-RUN printf 'COMMON_FLAGS="-O2 -pipe -frecord-gcc-switches"\nCFLAGS="${COMMON_FLAGS}"\nCXXFLAGS="${COMMON_FLAGS}"\nFCFLAGS="${COMMON_FLAGS}"\nFFLAGS="${COMMON_FLAGS}"\nLDFLAGS="${LDFLAGS} -Wl,--defsym=__gentoo_check_ldflags__=0"\nFEATURES="collision-protect ipc-sandbox network-sandbox sandbox split-log split-elog strict test userfetch userpriv usersandbox"\nFEATURES="${FEATURES} -parallel-install"\nPORTAGE_ELOG_CLASSES="log warn error qa"\nPORTAGE_ELOG_SYSTEM="echo save"\nDISTUTILS_STRICT_ENTRY_POINTS=1\nALLOW_TEST="network"\nIWDT_ALL=y\nQA_CMP=y\nQA_CMP_ARGS="-xS"\nQA_SED=y\nQA_VDB=y' > /etc/portage/env/test.conf
-RUN echo 'ACCEPT_LICENSE="* -@EULA"' >> /etc/portage/make.conf
-# Feed portagefilelist.org
-RUN echo 'sys-apps/util-linux caps' > /etc/portage/package.use/util-linux
-RUN USE="-network-cron" emerge pfl
-RUN pfl
-RUN emerge --depclean
-
-# gentoo-apn
-FROM apnpucky/gentoo-dev as gentoo-apn
-RUN mkdir -p /var/db/repos/apn && printf "[apn]\nlocation = /var/db/repos/apn\nsync-type = git\nsync-uri = https://gitlab.com/APN-Pucky/gentoo-apn.git" > /etc/portage/repos.conf/apn.conf && emaint -r apn sync
-RUN echo '*/*::apn * ~*' > /etc/portage/package.accept_keywords/apn
-RUN echo '*/*::guru * ~*' > /etc/portage/package.accept_keywords/guru
-RUN emerge app-eselect/eselect-repository
-RUN eselect repository enable guru
-RUN emerge --sync
-
-# gentoo-hep-forge
-FROM apnpucky/gentoo-dev as gentoo-hep-forge
-# USE="X" for mesa for opengl for fastjet
-RUN echo 'USE="X -qt5"' >> /etc/portage/make.conf
-RUN mkdir -p /var/db/repos/hep-forge && printf "[hep-forge]\nlocation = /var/db/repos/hep-forge\nsync-type = git\nsync-uri = https://gitlab.com/APN-Pucky/gentoo-hep-forge.git" > /etc/portage/repos.conf/hep-forge.conf
-RUN echo '*/*::hep-forge * ~*' > /etc/portage/package.accept_keywords/hepforge
-RUN echo '*/*::science * ~*' > /etc/portage/package.accept_keywords/science
-RUN emerge app-eselect/eselect-repository
-RUN eselect repository enable science
-RUN emerge --sync
-#TODO better use --autounmask=y --autounmask-write --autounmask-continue --autounmask-use=y
-RUN echo '~sci-physics/root-6.28.08 **' > /etc/portage/package.accept_keywords/root 
-RUN echo '~sci-physics/root-6.28.08 -X -qt5 -asimage -opengl -jupyter' > /etc/portage/package.use/root 
-RUN echo 'sci-physics/hepmc gev' >> /etc/portage/package.use/zz-autoaccept
-RUN echo 'sci-physics/siscone ~*' >> /etc/portage/package.accept_keywords/zz-autoaccept
-RUN echo 'dev-python/keyrings-alt ~*' >> /etc/portage/package.accept_keywords/zz-autoaccept
-RUN echo 'dev-python/jaraco-classes ~*' >> /etc/portage/package.accept_keywords/zz-autoaccept
-RUN emerge -q sci-physics/root  --autounmask=y --autounmask-write --autounmask-continue --autounmask-use=y && rm -rf /var/cache/distfiles/*
-RUN emerge -q dev-python/scipy  --autounmask=y --autounmask-write --autounmask-continue --autounmask-use=y && rm -rf /var/cache/distfiles/*
-
-FROM apnpucky/gentoo-hep-forge as gentoo-hep-forge-unstable
-RUN echo 'ACCEPT_KEYWORDS="~"' >> /etc/portage/make.conf
-RUN emerge -e @world && emerge -e @preserved-rebuild && rm -rf /var/cache/distfiles/* && emerge --depclean
-
-FROM apnpucky/gentoo-hep-forge as gentoo-hep-forge-live
-RUN echo 'ACCEPT_KEYWORDS="~ **"' >> /etc/portage/make.conf
-RUN emerge -e @world && emerge -e @preserved-rebuild && rm -rf /var/cache/distfiles/* && emerge --depclean
-
-FROM apnpucky/gentoo-apn as gentoo-apn-unstable
-RUN echo 'ACCEPT_KEYWORDS="~"' >> /etc/portage/make.conf
-RUN emerge -e @world && emerge -e @preserved-rebuild && rm -rf /var/cache/distfiles/* && emerge --depclean
-
-FROM apnpucky/gentoo-apn as gentoo-apn-live
-RUN echo 'ACCEPT_KEYWORDS="~ **"' >> /etc/portage/make.conf
-RUN emerge -e @world && emerge -e @preserved-rebuild && rm -rf /var/cache/distfiles/* && emerge --depclean
-
-# gentoo-latex
-FROM apnpucky/gentoo-base as gentoo-latex
-LABEL maintainer="APN-Pucky"
-RUN echo '>=media-libs/harfbuzz-4.3.0 icu -introspection' > /etc/portage/package.use/harfbuzz
-RUN emerge -q latexmk biber app-text/texlive dev-texlive/texlive-latex dev-python/pygments && rm -rf /var/cache/distfiles/*
+## gentoo-hep-forge
+#FROM apnpucky/gentoo-dev as gentoo-hep-forge
+## USE="X" for mesa for opengl for fastjet
+#RUN echo 'USE="X -qt5"' >> /etc/portage/make.conf
+#RUN mkdir -p /var/db/repos/hep-forge && printf "[hep-forge]\nlocation = /var/db/repos/hep-forge\nsync-type = git\nsync-uri = https://gitlab.com/APN-Pucky/gentoo-hep-forge.git" > /etc/portage/repos.conf/hep-forge.conf
+#RUN echo '*/*::hep-forge * ~*' > /etc/portage/package.accept_keywords/hepforge
+#RUN echo '*/*::science * ~*' > /etc/portage/package.accept_keywords/science
+#RUN emerge app-eselect/eselect-repository
+#RUN eselect repository enable science
+#RUN emerge --sync
+##TODO better use --autounmask=y --autounmask-write --autounmask-continue --autounmask-use=y
+#RUN echo '~sci-physics/root-6.28.08 **' > /etc/portage/package.accept_keywords/root 
+#RUN echo '~sci-physics/root-6.28.08 -X -qt5 -asimage -opengl -jupyter' > /etc/portage/package.use/root 
+#RUN echo 'sci-physics/hepmc gev' >> /etc/portage/package.use/zz-autoaccept
+#RUN echo 'sci-physics/siscone ~*' >> /etc/portage/package.accept_keywords/zz-autoaccept
+#RUN echo 'dev-python/keyrings-alt ~*' >> /etc/portage/package.accept_keywords/zz-autoaccept
+#RUN echo 'dev-python/jaraco-classes ~*' >> /etc/portage/package.accept_keywords/zz-autoaccept
+#RUN emerge -q sci-physics/root  --autounmask=y --autounmask-write --autounmask-continue --autounmask-use=y && rm -rf /var/cache/distfiles/*
+#RUN emerge -q dev-python/scipy  --autounmask=y --autounmask-write --autounmask-continue --autounmask-use=y && rm -rf /var/cache/distfiles/*
+#
+#FROM apnpucky/gentoo-hep-forge as gentoo-hep-forge-unstable
+#RUN echo 'ACCEPT_KEYWORDS="~"' >> /etc/portage/make.conf
+#RUN emerge -e @world && emerge -e @preserved-rebuild && rm -rf /var/cache/distfiles/* && emerge --depclean
+#
+#FROM apnpucky/gentoo-hep-forge as gentoo-hep-forge-live
+#RUN echo 'ACCEPT_KEYWORDS="~ **"' >> /etc/portage/make.conf
+#RUN emerge -e @world && emerge -e @preserved-rebuild && rm -rf /var/cache/distfiles/* && emerge --depclean
+#
+#FROM apnpucky/gentoo-apn as gentoo-apn-unstable
+#RUN echo 'ACCEPT_KEYWORDS="~"' >> /etc/portage/make.conf
+#RUN emerge -e @world && emerge -e @preserved-rebuild && rm -rf /var/cache/distfiles/* && emerge --depclean
+#
+#FROM apnpucky/gentoo-apn as gentoo-apn-live
+#RUN echo 'ACCEPT_KEYWORDS="~ **"' >> /etc/portage/make.conf
+#RUN emerge -e @world && emerge -e @preserved-rebuild && rm -rf /var/cache/distfiles/* && emerge --depclean
+#
+## gentoo-latex
+#FROM apnpucky/gentoo-base as gentoo-latex
+#LABEL maintainer="APN-Pucky"
+#RUN echo '>=media-libs/harfbuzz-4.3.0 icu -introspection' > /etc/portage/package.use/harfbuzz
+#RUN emerge -q latexmk biber app-text/texlive dev-texlive/texlive-latex dev-python/pygments && rm -rf /var/cache/distfiles/*
 

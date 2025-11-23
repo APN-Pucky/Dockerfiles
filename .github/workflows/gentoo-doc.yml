@@ -1,14 +1,14 @@
-name: Gentoo Docker Image CI
+name: gentoo-doc Docker Image CI
 
 
 on:
   push:
     branches: [ "master" ]
     paths:
-      - gentoo/Dockerfile
-      - .github/workflows/gentoo.yml
+      - gentoo/doc/Dockerfile
+      - .github/workflows/gentoo-doc.yml
   schedule:
-    - cron: 0 6 1 * *
+    - cron: 0 6 12 * *
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
@@ -27,27 +27,7 @@ jobs:
         user: ["apnpucky"]
         base: ["gentoo"]
         image: [
-               "base",
-               "repo",
-               "ebuild-ci",
-               "rust",
-               "c",
-               "c-tools",
-               "llvm",
-               "boost",
-               "python",
-               "lua",
-               "perl",
-               "test",
-#               "doc",
-#               "dev",
-#               "apn",
-#               "hep-forge",
-#               "ansible",
-#               "latex",
-#               "apn-unstable",
-#               "hep-forge-unstable",
-#               "prefix",
+               "doc",
                 ]
         platforms: [
           "linux/amd64" 
@@ -82,7 +62,7 @@ jobs:
         name: ${{ matrix.base }}-${{ matrix.image }}
         uses: docker/build-push-action@v3
         with:
-          file: gentoo/Dockerfile
+          file: gentoo/doc/Dockerfile
           platforms: ${{ matrix.platforms }}
           push: true
           target: ${{ matrix.base }}-${{ matrix.image }}
