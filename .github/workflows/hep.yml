@@ -26,7 +26,7 @@ jobs:
         user: ["apnpucky"]
         base: [ "gentoo" ]
         image: [ 
-          "rivet4-pythia8",
+          "lhapdf-rivet4-pythia8",
           ]
         platforms: [
           "linux/amd64", 
@@ -34,12 +34,14 @@ jobs:
         ]
         rivet4: [ "4.1.2" ]
         pythia8: [ "8.3.16" ]
+        lhapdf: [ "6.5.5" ]
     steps:
       - 
         name: Set up version
         id: version
         run: |
           VERSION=${{ matrix.image }}
+          VERSION=${VERSION//lhapdf/${{ matrix.lhapdf }}}
           VERSION=${VERSION//rivet4/${{ matrix.rivet4 }}}
           VERSION=${VERSION//pythia8/${{ matrix.pythia8 }}}
           echo "VERSION=$VERSION" >> "$GITHUB_OUTPUT"
@@ -87,6 +89,7 @@ jobs:
           push: true
           target: ${{ matrix.base }}-${{ matrix.image }}
           build-args: |
+            LHAPDF_VERSION=${{ matrix.lhapdf }}
             RIVET4_VERSION=${{ matrix.rivet4 }}
             PYTHIA8_VERSION=${{ matrix.pythia8 }}
           tags: |
