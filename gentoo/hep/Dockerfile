@@ -17,4 +17,5 @@ RUN echo 'sci-physics/hepmc gev' >> /etc/portage/package.use/zz-autoaccept
 RUN echo 'sci-physics/siscone ~*' >> /etc/portage/package.accept_keywords/zz-autoaccept
 RUN echo 'dev-python/keyrings-alt ~*' >> /etc/portage/package.accept_keywords/zz-autoaccept
 RUN echo 'dev-python/jaraco-classes ~*' >> /etc/portage/package.accept_keywords/zz-autoaccept
-RUN USE="rivet" emerge -q ~sci-physics/lhapdf-${LHAPDF_VERSION} ~sci-physics/rivet-${RIVET4_VERSION}:4 ~sci-physics/pythia-${PYTHIA8_VERSION}:8  --autounmask=y --autounmask-write --autounmask-continue --autounmask-use=y && rm -rf /var/cache/distfiles/*
+RUN echo ">=sci-physics/lhapdf-sets-0 lhapdf_sets_*" >> /etc/portage/package.use/zz-autouse
+RUN USE="rivet" emerge -q sci-physics/lhapdf-sets ~sci-physics/lhapdf-${LHAPDF_VERSION} ~sci-physics/rivet-${RIVET4_VERSION}:4 ~sci-physics/pythia-${PYTHIA8_VERSION}:8  --autounmask=y --autounmask-write --autounmask-continue --autounmask-use=y && rm -rf /var/cache/distfiles/*
