@@ -1,4 +1,6 @@
 FROM apnpucky/gentoo-dev AS gentoo-rivet4-pythia8
+ARG RIVET4_VERSION=4.1.1
+ARG PYTHIA8_VERSION=8.3.16
 # USE="X" for mesa for opengl for fastjet
 RUN echo 'USE="X -qt5"' >> /etc/portage/make.conf
 RUN mkdir -p /var/db/repos/hep-forge && printf "[hep-forge]\nlocation = /var/db/repos/hep-forge\nsync-type = git\nsync-uri = https://gitlab.com/APN-Pucky/gentoo-hep-forge.git" > /etc/portage/repos.conf/hep-forge.conf
@@ -14,4 +16,4 @@ RUN echo 'sci-physics/hepmc gev' >> /etc/portage/package.use/zz-autoaccept
 RUN echo 'sci-physics/siscone ~*' >> /etc/portage/package.accept_keywords/zz-autoaccept
 RUN echo 'dev-python/keyrings-alt ~*' >> /etc/portage/package.accept_keywords/zz-autoaccept
 RUN echo 'dev-python/jaraco-classes ~*' >> /etc/portage/package.accept_keywords/zz-autoaccept
-RUN USE="rivet" emerge -q sci-physics/rivet-${RIVET_VERSION}:4 sci-physics/pythia-${PYTHIA_VERSION}:8  --autounmask=y --autounmask-write --autounmask-continue --autounmask-use=y && rm -rf /var/cache/distfiles/*
+RUN USE="rivet" emerge -q sci-physics/rivet-${RIVET4_VERSION}:4 sci-physics/pythia-${PYTHIA8_VERSION}:8  --autounmask=y --autounmask-write --autounmask-continue --autounmask-use=y && rm -rf /var/cache/distfiles/*
