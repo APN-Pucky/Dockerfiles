@@ -26,7 +26,7 @@ jobs:
         user: ["apnpucky"]
         base: [ "gentoo" ]
         image: [ 
-          "rivet-pythia",
+          "rivet4-pythia8",
           ]
         platforms: [
           "linux/amd64", 
